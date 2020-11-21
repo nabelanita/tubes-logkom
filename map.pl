@@ -5,13 +5,10 @@
 /* Dynamic variable */
 :- dynamic(mapHeight/1).
 :- dynamic(mapWidth/1). 
-:- dynamic(playerPos/2).
 
 /* New map */
 newMap :- X is 20, Y is 10, asserta(mapWidth(X)), asserta(mapHeight(Y)), initPlayerPos.
 
-/* initialize player position */
-initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)). 
 
 /* Map edges */
 edgeUpper(_,Y) :- Y=:=0, !.

@@ -1,5 +1,5 @@
 /* includes */
-:- include('map.pl').
+:- include('player.pl').
 
 /* move commands */
 w :- up, !.

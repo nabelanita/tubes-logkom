@@ -1,4 +1,5 @@
 /* Dynamic variables */
+:- dynamic(playerPos/2).
 
 /*
 welcomePlayer(1) :-
@@ -9,6 +10,10 @@ welcomePlayer(2) :-
 
 welcomePlayer(3) :-
     write('You have chosen Mobile Developer, let\'s explore the world of programming!').*/
+
+/* initialize player position */
+/* mending ini digabung sama inisialisasi lain sih */
+initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)). 
 
 /* Buat inisiasi player, belom kepikiran gimana implementasinya 
 initPlayer :- 
