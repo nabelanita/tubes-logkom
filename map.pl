@@ -5,9 +5,18 @@
 /* Dynamic variable */
 :- dynamic(mapHeight/1).
 :- dynamic(mapWidth/1). 
+:- dynamic(questPos/2).
+:- dynamic(storePos/2).
 
 /* New map */
-newMap :- X is 20, Y is 10, asserta(mapWidth(X)), asserta(mapHeight(Y)), initPlayerPos.
+/* ukuran mapnya hardcoded idk */
+newMap :- X is 20, 
+		Y is 10, 
+		asserta(mapWidth(X)), 
+		asserta(mapHeight(Y)), 
+		initPlayerPos, 
+		initQuest, 
+		initStore.
 
 
 /* Map edges */
@@ -16,8 +25,19 @@ edgeLower(_,Y) :- Y1 is Y - 1, mapHeight(Y1), !.
 edgeLeft(X,_) :- X=:=0, !.
 edgeRight(X,_) :- X1 is X - 1, mapWidth(X1), !.
 
+/* Randomize quest and store position*/
+initQuest :-random(1,20,X1), 
+			random(1,9,Y1), 
+			asserta(questPos(X1,Y1)).
+initStore :-random(1,20,X1), 
+			random(1,9,Y1), 
+			asserta(storePos(X1,Y1)).
+
+
 /* Objects on map */
 printPlayer(X,Y) :- playerPos(X,Y), !.
+printQuest(X,Y) :- questPos(X,Y), !.
+printStore(X,Y) :- storePos(X,Y), !.
 
 
 /* Print map */
@@ -26,7 +46,7 @@ printMap(8,3) :- write('#'), !.
 printMap(9,3) :- write('#'), !.
 printMap(8,4) :- write('#'), !.
 printMap(8,5) :- write('#'), !.
-printMap(18,9) :- write('B'), !.
+printMap(20,10) :- write('B'), !.
 printMap(X,Y) :- edgeUpper(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- edgeUpper(X,Y), write('#'), !.
 printMap(X,Y) :- edgeLower(X,Y), write('#'), !.
@@ -34,6 +54,8 @@ printMap(X,Y) :- edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- edgeLeft(X,Y), write('#'), !.
 printMap(X,Y) :- edgeLower(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- printPlayer(X,Y), !, write('P').
+printMap(X,Y) :- printQuest(X,Y), !, write('Q').
+printMap(X,Y) :- printStore(X,Y), !, write('S').
 printMap(_,_) :- write('-'), !.
 
 

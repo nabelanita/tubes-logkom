@@ -24,7 +24,7 @@ startGame :-
     write('3. Mobile Developer\n'),
     read(Job),
     welcomePlayer(Job),
-    newMap.
+    newMap,
     initPlayer(Job).
 
 

@@ -28,6 +28,6 @@ right :- retract(playerPos(X,Y)), X < 20, X1 is X+1, nl, asserta(playerPos(X1,Y)
 
 left :- playerPos(X,_), X =:= 1, nl, write('You just hit a wall!'), nl,!.
 left :- playerPos(10,3), nl, write('You just hit a wall!\n'), nl, !.
-left :- playerPos(9,4), X =:= 8, Y =:= 3, nl, write('You just hit a wall!\n'), nl, !.
-left :- playerPos(9,5), X =:= 8, Y =:= 4, nl, write('You just hit a wall!\n'), nl, !.
+left :- playerPos(9,4), nl, write('You just hit a wall!\n'), nl, !.
+left :- playerPos(9,5), nl, write('You just hit a wall!\n'), nl, !.
 left :- retract(playerPos(X,Y)), X > 1, X1 is X-1, nl, asserta(playerPos(X1,Y)), write('You moved left!'), !.
