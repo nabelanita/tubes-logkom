@@ -1,4 +1,5 @@
 :- include('player.pl').
+:- include('inventory.pl').
 
 openGame :-
     write('Let\'s play and be a programmer\n'),
@@ -22,7 +23,8 @@ startGame :-
     write('3. Mobile Developer\n'),
     read(Job),
     welcomePlayer(Job),
-    initPlayer(Job).
+    initPlayer(Job),
+    initInventory(Job).
 
 /*MAP
 Disimpan dalam bentuk list of lists.

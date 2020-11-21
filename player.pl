@@ -14,15 +14,15 @@ welcomePlayer(3) :-
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
-    asserta(player(X, 1, 0, 10, 10, 15, 15, 3, 500)),!.
+    asserta(player(X, 1, 0, 15, 10, 65, 65, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 2,
-    asserta(player(X, 1, 0, 15, 10, 10, 10, 3, 500)),!.
+    asserta(player(X, 1, 0, 20, 10, 50, 50, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 3,
-    asserta(player(X, 1, 0, 10, 15, 10, 10, 3, 500)),!.
+    asserta(player(X, 1, 0, 15, 15, 50, 50, 3, 500)),!.
 
 checkLevelUp :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
@@ -37,7 +37,7 @@ levelUp :-
     NewLvl is Lvl + 1,
     NewAttack is Attack + NewLvl,
     NewDefense is Defense + NewLvl,
-    NewMaxHP is MaxHP + 2*NewLvl,
+    NewMaxHP is MaxHP + 2*10*NewLvl,
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
 
 levelUp :-
@@ -48,7 +48,7 @@ levelUp :-
     NewLvl is Lvl + 1,
     NewAttack is Attack + 2*NewLvl,
     NewDefense is Defense + NewLvl,
-    NewMaxHP is MaxHP + NewLvl,
+    NewMaxHP is MaxHP + 10*NewLvl,
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
 
 levelUp :-
@@ -59,7 +59,7 @@ levelUp :-
     NewLvl is Lvl + 1,
     NewAttack is Attack + NewLvl,
     NewDefense is Defense + 2*NewLvl,
-    NewMaxHP is MaxHP + NewLvl,
+    NewMaxHP is MaxHP + 10*NewLvl,
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
     
 addExp :-
