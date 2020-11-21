@@ -19,3 +19,17 @@ shop.
 
 shopMenu(3) :-
 /* Fungsi untuk keluar dari shop */
+
+/* Fakta tentang equipment potion dan harganya */
+
+/* Rule untuk membeli equipment dan potion */
+
+
+/* Rule untuk random Gacha
+
+randomGacha(namaEquipment) :-
+
+*/
+
+
+
