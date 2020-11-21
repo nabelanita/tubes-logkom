@@ -31,3 +31,8 @@ status :-
     write(Exp),
     write('\nGold: '),
     write(Gold). */
+
+
+/* Rule buat:
+Nanti si player bisa menggunakan equipment/potion yang udah dia beli.
+kalo ngegunain sesuatu, delete item tsb dari inventory */
