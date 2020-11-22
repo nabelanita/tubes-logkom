@@ -1,8 +1,10 @@
-/* PS. KALO ADA YG PERLU DIUBAH, UBAH AJA : D */
-
+/* udh connect ke database, tp blm fix  */
 /* includes */
 
 :- include('player.pl').
+:- include('inventory.pl').
+
+player(1, 1, 0, 15, 10, 65, 65, 3, 300).
 
 /* Dynamic variables */
 /* Kayaknya barang2 mau disatuin aja */
@@ -79,41 +81,86 @@ shop :-
     read(X),
     shopMenu(X).
 
+/* Kondisi duit cukup */
 shopMenu(1) :-
-write('How many potion do you want to buy? \n'),
-    read(X),
     /* Ambil data money dari database terus dikurang 100*X kalo cukup, kalo engga dikasih notif pembelian gagal, */
+    %checkGold(100),
+    subGold(100),
+    write('Your gold'),nl,
+    %write(NewGold),
+    nl,
     write('Daftar potion yang tersedia:\n1. Kalguksu\n2. Korean BBQ\n3. Kimchi\n4. Coffee\n5. Samyang\n6. Bibimbap\n7. Gimbap\n8. Galbi\n9. Japchae\n10. Corndog\n'),
-    shop.
+    /* Pengennya nge retract  GOldnya aja 
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)), */
+    read(IdPotion),
+    buyPotion(IdPotion).
+
+shopMenu(1) :-
+    \+ subGold(100),
+    transactionFailed.
 
 shopMenu(2) :-
-write('How many gacha do you want to do? \n'),
-    read(X),
-    player(_, _, _, _, _, _, _, _, Uang),
+    %write('How many gacha do you want to do? \n'),
+    % read(X),
     /* Ambil data money dari database terus dikurang 1000*X kalo cukup, kalo engga dikasih notif pembelian gagal,*/
     /* gimana ya ambil data uang */
-    %hargaGacha is (X*1000),
-    write(Uang),
+    
     %((hargaGacha =< Gold) -> (Gold-hargaGacha) ; transactionFailed),   
     /* if -> then ; else 
     ((hargaGacha <= dataUang ) -> %kurangin duit dan masukin ke inventory ; transactionFailed.),
     randomGacha(),Fungsi buat ngerandom item yang didapat*/
-    randomGacha,
-    shop.
+    subGold(1000),
+    randomEq.
+
+shopMenu(2) :-
+    \+ subGold(1000),
+    transactionFailed.
 
 shopMenu(3) :- exitShop.
 
-randomGacha :- 
+randomEq :- 
     random(1,16,HasilGacha),
     equipment(HasilGacha,_,NamaEq,_,_),
-    write('You got:\n'),
-    write(HasilGacha),
-    write('\n'),
+    write('You get:\n'),nl,
+    % write(HasilGacha),
     write(NamaEq).
-    /* setelah itu nambahin ke inventory
-    addItem(NamaEq) */
+    % addItem(NamaEq).  /* setelah itu nambahin ke inventory addItem(NamaEq) tapi  belum bisa*/
 
-transactionFailed :- write('Transaction failed.\n').
+buyPotion(IdPotion) :-
+    potion(IdPotion,NamaPotion,_,_),
+    write('You buy: \n'),
+    write(NamaPotion).
+    % addItem(NamaEq).  /* setelah itu nambahin ke inventory addItem(NamaEq) tapi  belum bisa*/
+
+/*
+checkGold(Price) :-
+    initPlayer(2), % ni nanti diedit gt.
+    player(_, _, _, _, _, _, _, _, Gold),
+    % teruss ini tuh belom nyambung ke database hrsnya nanti pake retract gitu
+    NewGold is Gold-Price,
+    compareGold(NewGold,Price). */
+
+/* Fungsi untuk ngecek apakah uangnya cukup atau engga */
+compareGold(Gold,Price) :- Gold >= Price.
+
+/*
+subGold(Price) :- 
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    compareGold(Gold,Price) -> (
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    NewGold is Gold - Price,
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)) ;
+    write('Duitmu gakcukup')).*/
+
+subGold(Price) :- 
+        player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+        compareGold(Gold,Price),
+        retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+        NewGold is Gold - Price,
+        asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)).
+
+transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.').
 
 exitShop :- write('Thanks for coming.\n').
 
