@@ -12,20 +12,20 @@ potion(corndog,20,10).
 
 /* SHOP */
 shop :-
-write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (1000 Gold)\n3. Exit'),
+write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (1000 Gold)\n3. Exit\n'),
 read(X),
 shopMenu(X).
 
 shopMenu(1) :-
-write('How many potion do you want to buy? '),
+write('How many potion do you want to buy? \n'),
 read(X),
-/* Ambil data money dari database terus dikurang 100*X kalo cukup, kalo engga dikasih notif pembelian gagal */,
+/* Ambil data money dari database terus dikurang 100*X kalo cukup, kalo engga dikasih notif pembelian gagal, */
 shop.
 
 shopMenu(2) :-
-write('How many gacha do you want to do? '),
+write('How many gacha do you want to do? \n'),
 read(X),
-/* Ambil data money dari database terus dikurang 1000*X kalo cukup, kalo engga dikasih notif pembelian gagal*/,
+/* Ambil data money dari database terus dikurang 1000*X kalo cukup, kalo engga dikasih notif pembelian gagal,*/
 /* gimana ya ambil data uang */
 hargaGacha is (X*1000),
 /* if -> then ; fail 
@@ -48,7 +48,7 @@ randomGacha(namaEquipment) :-
 
 */
 
-transactionFailed :- write('Transaction failed.').
-exitShop :- write('Thanks for coming.').
+transactionFailed :- write('Transaction failed.\n').
+exitShop :- write('Thanks for coming.\n').
 
 
