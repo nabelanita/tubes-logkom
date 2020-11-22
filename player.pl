@@ -21,15 +21,15 @@ initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)).
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
-    asserta(player(X, 1, 0, 15, 10, 65, 65, 3, 500)),!.
+    asserta(player('Web Developer', 1, 0, 20, 10, 100, 100, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 2,
-    asserta(player(X, 1, 0, 20, 10, 50, 50, 3, 500)),!.
+    asserta(player('ML Engineer', 1, 0, 30, 10, 75, 75, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 3,
-    asserta(player(X, 1, 0, 15, 15, 50, 50, 3, 500)),!.
+    asserta(player('Mobile Developer', 1, 0, 20, 15, 75, 75, 3, 500)),!.
 
 checkLevelUp :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
