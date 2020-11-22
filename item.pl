@@ -38,5 +38,5 @@ accessory(figma, 100, 50, 25).
 accessory(framework, 150, 75, 50).
 accessory(simulator, 100, 50, 25).
 accessory(phone, 150, 75, 50).
-accessory(voice_recog, 100, 25).
-accessory(robot, 150, 50).
+accessory(voice_recog, 100, 50, 25).
+accessory(robot, 150, 75, 50).
