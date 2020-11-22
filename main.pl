@@ -1,10 +1,12 @@
+/* Includes */
+:- include('map.pl').
+:- include('movement.pl').
 :- include('player.pl').
 :- include('inventory.pl').
 
 openGame :-
-    write('Let\'s play and be a programmer\n'),
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
-    write('%                              ~Genshin Asik~                                  %\n'),
+    write('%                            ~Welcome to Samsan Tech~                          %\n'),
     write('% 1. start  : untuk memulai petualanganmu                                      %\n'),
     write('% 2. map    : menampilkan peta                                                 %\n'),
     write('% 3. status : menampilkan kondisimu terkini                                    %\n'),
@@ -25,16 +27,9 @@ startGame :-
     welcomePlayer(Job),
     initPlayer(Job),
     initInventory(Job).
+    newMap,
+    initPlayer(Job).
 
-/*MAP
-Disimpan dalam bentuk list of lists.
-Diprint secara rekursif -> Basisnya ketika tail kosong.
-*/
-/*
-map :-
-    printMap(FileMap).
-
-printMap(FileMap). *//*Fungsi rekursif*/
 
 /* INVENTORY */
 /* Disimpan dalam bentuk list */
@@ -42,26 +37,6 @@ printMap(FileMap). *//*Fungsi rekursif*/
 inventory :-
     gatau tapi ngambil data dari database,
     writeInvetory(DataInventory).
+/*Fungsi rekursif, Basis ketika Tail = 0*/
+writeInvetory.
 
-writeInvetory. /*Fungsi rekursif, Basis ketika Tail = 0*/
-
-
-/* EXPLORATION */
-/* generateEnemy adalah fungsi yang menentukan apakah akan ada enemy yang muncul atau tidak ketika player pindah tempat */
-/*
-w :-
-Y = Y - 1,
-generateEnemy().
-
-a :-
-X = X - 1,
-generateEnemy().
-
-s :-
- Y = Y + 1,
-generateEnemy().
-
-d :-
- X = X + 1,
-generateEnemy().
-*/

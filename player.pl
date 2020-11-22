@@ -1,15 +1,22 @@
 /* Dynamic variables */
+:- dynamic(playerPos/2).
+:- dynamic(player/9).
 
 
 welcomePlayer(1) :-
-    write('You have chosen Web Developer, let\'s explore the world of programming!').
+    write('You have chosen Web Developer, let\'s explore the world of programming!\n').
 
 welcomePlayer(2) :-
-    write('You have chosen Machine Learning Engineer, let\'s explore the world of programming!').
+    write('You have chosen Machine Learning Engineer, let\'s explore the world of programming!\n').
 
 welcomePlayer(3) :-
-    write('You have chosen Mobile Developer, let\'s explore the world of programming!').
+    write('You have chosen Mobile Developer, let\'s explore the world of programming!\n').
 
+/* initialize player position */
+/* mending ini digabung sama inisialisasi lain sih */
+initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)). 
+
+    
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
