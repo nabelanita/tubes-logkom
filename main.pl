@@ -18,7 +18,7 @@ openGame :-
     write('% 8. help   : menampilkan segala bantuan                                       %\n'),
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%').
 
-startGame :-
+start :-
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
     write('2. ML Engineer\n'),
