@@ -1,3 +1,5 @@
+:- dynamic(playerInventory/1).
+
 splitList([Head|Tail], Head, Tail) :- !.
 
 concatenate([],[],[]) :- !.
@@ -9,34 +11,51 @@ concatenate(FList, SList, RList) :-
     splitList(RList, Head, PrevList), !.
 
 initInventory :-
-    asserta(inventory([])),!.
+    asserta(playerInventory([])),!.
+
+countLength([], 0) :- !.
+
+countLength([Head|Tail], Ans) :-
+    countLength(Tail, Ans1), Ans is Ans1 + 1, !.
 
 addItem(X) :-
-    inventory(ListItem),
-    retract(inventory(ListItem)),
-    splitList(NewList, X, ListItem),
-    asserta(inventory(NewList)),!.
+    playerInventory(ListItem), countLength(ListItem, Length), Length =:= 100, write('Inventory penuh.'), !.
 
-deleteItem(X, List, NewList) :-
-    splitList(List, Head, Tail),
-    Head =:= X,
-    NewList = Tail, !.
+addItem(X) :-
+    playerInventory(ListItem),
+    countLength(ListItem, Length),
+    Length < 100,
+    retract(playerInventory(ListItem)),
+    asserta(playerInventory([X|ListItem])),!.
 
-deleteItem(X, List, NewList) :-
-    splitList(List, Head, Tail),
+/* deleteItem masih error */
+deleteItem(X, [Head|Tail], Tail) :-
+    Head =:= X, !.
+
+deleteItem(X, [Head|Tail], NewList) :-
     deleteItem(X, Tail, PrevList),
-    splitList(NewList, Head, PrevList), !.
+    NewList = [Head|PrevList], !.
 
-searchItem(X, List, 1) :-
-    splitList(List, Head, Tail),
+delete(X) :-
+    playerInventory(ListItem), 
+    deleteItem(X, ListItem, NewList),
+    retract(playerInventory(ListItem)),
+    asserta(playerInventory(NewList)), !.
+
+searchItem(X, [Head|Tail], 1) :-
     Head =:= X, !.
 
 searchItem(_, List, 0) :-
     List = [], !.
 
-searchItem(X, List, Found) :-
-    splitList(List, Head, Tail),
+searchItem(X, [Head|Tail], Found) :-
     searchItem(X, Tail, Found), !.
 
+writeInventory([]) :- !.
 
+writeInventory([Head|Tail]) :-
+    format('~w\n', [Head]), writeInventory(Tail), !.
+
+inventory :-
+    playerInventory(ListInventory), writeInventory(ListInventory), !.
 
