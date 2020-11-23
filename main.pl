@@ -19,7 +19,7 @@ openGame :-
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%').
 
 startGame :-
-    write('Welcome to Genshin Asik. Choose your job\n'),
+    write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
     write('2. ML Engineer\n'),
     write('3. Mobile Developer\n'),
