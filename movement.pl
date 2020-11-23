@@ -2,6 +2,7 @@
 :- include('player.pl').
 :- include('map.pl').
 :- include('shop.pl').
+:- include('enemy.pl').
 
 /* move commands */
 w :- up, !.
@@ -43,6 +44,11 @@ up :-
     write('Do you want to check quests? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+up :-
+    randomEnemy, !,
+    Y > 1, 
+    Y1 is Y-1, nl, 
+    asserta(playerPos(X,Y1)).
 up :- 
     retract(playerPos(X,Y)), 
     Y > 1, 
@@ -81,6 +87,12 @@ down :-
     read(A),
     enterQuest(A), !.
 down :- 
+    randomEnemy, !,
+    retract(playerPos(X,Y)), 
+    Y < 10, 
+    Y1 is Y+1, nl, 
+    asserta(playerPos(X,Y1)).
+down :- 
     retract(playerPos(X,Y)), 
     Y < 10, 
     Y1 is Y+1, nl, 
@@ -118,6 +130,12 @@ right :-
     read(A),
     enterQuest(A), !.
 right :- 
+    randomEnemy, !,
+    retract(playerPos(X,Y)), 
+    X < 20, 
+    X1 is X+1, nl, 
+    asserta(playerPos(X1,Y)).
+right :- 
     retract(playerPos(X,Y)), 
     X < 20, 
     X1 is X+1, nl, 
@@ -154,6 +172,11 @@ left :-
     write('Do you want to check quests? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+left :- 
+    randomEnemy, !, 
+    retract(playerPos(X,Y)), 
+    X > 1, X1 is X-1, nl, 
+    asserta(playerPos(X1,Y)).
 left :- 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
