@@ -26,7 +26,7 @@ start :-
     read(Job),
     welcomePlayer(Job),
     initPlayer(Job),
-    initInventory(Job).
+    initInventory(Job),
     newMap,
     initPlayer(Job).
 
