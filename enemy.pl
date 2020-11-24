@@ -180,3 +180,6 @@ initEnemy(15) :-
 randomEnemy :-
     random(0,20,X),
     initEnemy(X), !.
+
+/*pas attack, kalo HP enemynya udah 0, berarti bisa dikalahkan.
+kalo udah kalah, quest - 1, update tuple quest*/

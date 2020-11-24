@@ -3,6 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('enemy.pl').
+:- inclaude('quest.pl').
 
 /* move commands */
 w :- up, !.
@@ -41,7 +42,7 @@ up :-
     questPos(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 + 1,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 up :-
@@ -83,7 +84,7 @@ down :-
     questPos(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 - 1,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 down :- 
@@ -126,7 +127,7 @@ right :-
     questPos(X2,Y2), 
     X1 is X2 - 1, 
     Y1 is Y2,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 right :- 
@@ -169,7 +170,7 @@ left :-
     questPos(X2,Y2), 
     X1 is X2 + 1, 
     Y1 is Y2,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 left :- 
@@ -188,6 +189,6 @@ enterShop(yes) :- shop, !.
 enterShop(no) :- !.
 enterShop(_):- write('That is not a valid answer, but okay.'), !.
 
-enterQuest(yes) :- write('You checked quest!'), !. % Masuk ke menu quest disini %
+enterQuest(yes) :- write('You checked task!'), queststart, !. % Masuk ke menu task disini %
 enterQuest(no) :- !.
 enterQuest(_):- write('That is not a valid answer, but okay.'), !.
