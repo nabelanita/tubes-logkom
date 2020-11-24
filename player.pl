@@ -4,16 +4,19 @@
 
 
 welcomePlayer(1) :-
-    write('You have chosen Web Developer, let\'s explore the world of programming!\n').
+    write('You have chosen Web Developer, let\'s explore the world of programming!\n'),
+    initPlayer(1).
 
 welcomePlayer(2) :-
-    write('You have chosen Machine Learning Engineer, let\'s explore the world of programming!\n').
+    write('You have chosen Machine Learning Engineer, let\'s explore the world of programming!\n'),
+    initPlayer(2).
 
 welcomePlayer(3) :-
-    write('You have chosen Mobile Developer, let\'s explore the world of programming!\n').
+    write('You have chosen Mobile Developer, let\'s explore the world of programming!\n'),
+    initPlayer(3).
 welcomePlayer(_) :-
-    write('Sorry, we\'re not hiring that position right now. Choose something else. \n\n'),
-    start, !.
+    write('Sorry, we\'re not hiring that position right now. Choose something else. \n\n'), 
+    !, start.
 
 /* initialize player position */
 /* mending ini digabung sama inisialisasi lain sih */
@@ -24,15 +27,15 @@ initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)).
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
-    asserta(player('Web Developer', 1, 0, 20, 10, 100, 100, 3, 500)),!.
+    asserta(player(1, 1, 0, 20, 10, 100, 100, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 2,
-    asserta(player('ML Engineer', 1, 0, 30, 10, 75, 75, 3, 500)),!.
+    asserta(player(2, 1, 0, 30, 10, 75, 75, 3, 500)),!.
 
 initPlayer(X) :- 
     X =:= 3,
-    asserta(player('Mobile Developer', 1, 0, 20, 15, 75, 75, 3, 500)),!.
+    asserta(player(3, 1, 0, 20, 15, 75, 75, 3, 500)),!.
 
 checkLevelUp :-
     player(_, Lvl, Exp, _, _, _, _, _, _),

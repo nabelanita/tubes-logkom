@@ -6,10 +6,50 @@
 :- inclaude('quest.pl').
 
 /* move commands */
-w :- up, !.
-a :- left, !.
-s :- down, !.
-d :- right, !.
+w :- 
+    opened(_),
+    started(_),
+    up, !.
+w :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+w :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.
+a :- 
+    opened(_),
+    started(_),
+    left, !.
+a :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+a :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.
+s :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+s :- 
+    opened(_),
+    started(_),
+    down, !.
+s :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.
+d :- 
+    opened(_),
+    started(_),
+    right, !.
+d :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+d :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.
 
 /* change player position */
 /* UP */
@@ -55,7 +95,7 @@ up :-
     Y > 1, 
     Y1 is Y-1, nl, 
     asserta(playerPos(X,Y1)), 
-    write('You moved upwards!'), !.
+    write('You moved north!'), !.
 
 /* DOWN */
 down :- 
@@ -98,7 +138,7 @@ down :-
     Y < 10, 
     Y1 is Y+1, nl, 
     asserta(playerPos(X,Y1)), 
-    write('You moved downwards!'), !.
+    write('You moved south!'), !.
 
 /* RIGHT */
 right :- 
@@ -141,7 +181,7 @@ right :-
     X < 20, 
     X1 is X+1, nl, 
     asserta(playerPos(X1,Y)), 
-    write('You moved right!'), !.
+    write('You moved east!'), !.
 
 /* LEFT */
 left :- 
@@ -182,7 +222,7 @@ left :-
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
     asserta(playerPos(X1,Y)), 
-    write('You moved left!'), !.
+    write('You moved west!'), !.
 
 /* Enter shop or quest */
 enterShop(yes) :- shop, !.
