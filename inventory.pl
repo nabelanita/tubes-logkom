@@ -28,9 +28,7 @@ addItem(X) :-
     retract(playerInventory(ListItem)),
     asserta(playerInventory([X|ListItem])),!.
 
-/* deleteItem masih error */
-deleteItem(X, [Head|Tail], Tail) :-
-    Head =:= X, !.
+deleteItem(X, [X|Tail], Tail) :- !.
 
 deleteItem(X, [Head|Tail], NewList) :-
     deleteItem(X, Tail, PrevList),
