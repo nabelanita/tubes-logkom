@@ -53,6 +53,7 @@ openGame :-
 start :-
     opened(_),
     asserta(started(1)),
+    asserta(inBattle(0)),
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
     write('2. ML Engineer\n'),
