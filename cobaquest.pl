@@ -1,4 +1,5 @@
 :- include('player.pl').
+:- include('enemy.pl').
 :- dynamic(quest/3).
 
 %initPlayer(1). 
@@ -73,14 +74,55 @@ printQuest :-
 
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)
 player(_, Level, _, _, _, _, _, _, _)*/
-addGaji(X) :-
+addGold(X) :-
     player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold),
     NewGold is Gold + X,
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, NewHP, Hearts, NewGold)), !.
+    retract(player(Role, Lvl, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)),
+    asserta(player(Role, Lvl, Exp, Attack, Defense, HP, MaxHP, Hearts, NewGold)), !.
 
 addEXP(X) :-
     player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold),
     NewEXP is Exp + X,
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, Lvl, NewEXP, Attack, Defense, MaxHP, NewHP, Hearts, Gold)), !.
+    retract(player(Role, Lvl, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)),
+    asserta(player(Role, Lvl, NewEXP, Attack, Defense, HP, MaxHP, Hearts, Gold)), !.
+
+/* Quest telah selesai, tambah gold dan exp */
+reward(Type) :-
+    /*if enemy kalah*/
+    enemy(Type, _, HPEnemy, _, _),
+    HPEnemy < 2,
+    /* equal to string belom jalan */
+    Type is 'Milestone',
+    addGold(10),
+    addEXP(10).
+
+reward(Type) :-
+    /*if enemy kalah*/
+    enemy(Type, _, HPEnemy, _, _),
+    HPEnemy =:= 0,
+    /* equal to string belom jalan */
+    Type is 'Maintenance',
+    addGold(30),
+    addEXP(20).
+
+reward(Type) :-
+    /*if enemy kalah*/
+    enemy(Type, _, HPEnemy, _, _),
+    HPEnemy =:= 0,
+    /* equal to string belom jalan */
+    Type is 'Data Breach',
+    addGold(50),
+    addEXP(50).
+
+/* test di GNU */
+/*
+initPlayer(1).
+initQuest.
+queststart.
+quest(X,Y,Z).
+initEnemy(5).
+enemy(A,B,C,D,E).
+enemyDamaged(49).
+enemy(A,B,C,D,E).
+player(A,B,C,D,E,F,G,H,I).
+reward('Milestone'). */
