@@ -11,6 +11,9 @@ welcomePlayer(2) :-
 
 welcomePlayer(3) :-
     write('You have chosen Mobile Developer, let\'s explore the world of programming!\n').
+welcomePlayer(_) :-
+    write('Sorry, we\'re not hiring that position right now. Choose something else. \n\n'),
+    start, !.
 
 /* initialize player position */
 /* mending ini digabung sama inisialisasi lain sih */
