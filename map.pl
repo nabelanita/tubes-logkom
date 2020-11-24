@@ -61,11 +61,28 @@ printMap(_,_) :- write('-'), !.
 
 
 /* kalo mau cek map pas in-game pakenya ini */
-map :- 	mapWidth(X),mapHeight(Y),
-		XMin is 0, XMax is X+1,
-		YMin is 0, YMax is Y+1, 
-		forall(between(YMin,YMax,B),(
-			forall(between(XMin,XMax,A),(printMap(A,B))))),nl,nl,
-        write('Legend: P - Player\n'),
-        write('        B - Boss\n'),
-        write('        # - Fence (Cannot walk through)\n').
+map :- 	
+	opened(_), started(_),
+	write('%%%%%%%%%%%%%%%%%%%%%%\n'),
+    write('%        M A P       %\n'),
+    write('%%%%%%%%%%%%%%%%%%%%%%\n'), nl,
+	mapWidth(X),mapHeight(Y),
+	XMin is 0, XMax is X+1,
+	YMin is 0, YMax is Y+1, 
+	forall(between(YMin,YMax,B),(
+		write('     '),
+		forall(between(XMin,XMax,A),(printMap(A,B))))),nl,nl,
+	write('Legend: P - Player\n'),
+	write('        B - Boss\n'),
+	write('        S - Shop\n'),
+	write('        Q - Quest board\n'),
+	write('        # - Wall (Cannot walk through)\n'), !.
+
+map :-
+	opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+
+map :-
+	write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n').
