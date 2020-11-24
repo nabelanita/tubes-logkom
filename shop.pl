@@ -87,7 +87,8 @@ shop :-
     write('██████╔╝██║░░██║╚█████╔╝██║░░░░░'),nl,
     write('╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░'),nl,
     write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (1000 Gold)\n3. Exit\n'),
-    read(X),
+    write('Your choice: '),
+    read(X),nl,
     shopMenu(X),!.
 
 /* Kondisi jika uang cukup */
@@ -97,8 +98,8 @@ shopMenu(1) :-
     write('Your money: '),
     write(Money),nl,
     write('Available potions:\n1. Kalguksu\n2. Korean BBQ\n3. Kimchi\n4. Coffee\n5. Samyang\n6. Bibimbap\n7. Gimbap\n8. Galbi\n9. Japchae\n10. Corndog\n'),
-    read(IdPotion),
-    %potion(IdPotion,NamaPotion,_,_),
+    write('Your choice: '),
+    read(IdPotion),nl,
     buyPotion(IdPotion),shop,!.
 
 /* Kondisi jika uang tidak cukup */
@@ -129,18 +130,19 @@ randomEq :-
     equipment(HasilGacha,_,NamaEq,_,_),
     write('You get:\n'),nl,
     write(NamaEq),
-    addItem(NamaEq),!. /* nambahin hasil gacha ke inventory */
+    addItem(NamaEq),!. /* nambahin hasil gacha equipment ke inventory */
     
 
 buyPotion(IdPotion) :-
     potion(IdPotion,NamaPotion,_,_),
-    write('You buy: \n'),
+    write('You buy: '),
     write(NamaPotion),nl,
     addItem(NamaPotion),!. /* nambahin pembelian potion ke inventory */
 
-/* Fungsi untuk ngecek apakah uangnya cukup atau engga */
+/* Rule untuk ngecek apakah uangnya cukup atau engga */
 compareGold(Gold,Price) :- Gold >= Price.
 
+/* Rule untuk mengurangi uang */
 subGold(Price) :- 
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     compareGold(Gold,Price),
@@ -159,10 +161,11 @@ usePotion(NamaPotion) :-
     potion(_,NamaPotion,AttackPotion,DefensePotion),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     write('Your potion has been activated successfully.'),nl,
+    /*
     write('Attackmu bertambah sebanyak: '),
     write(AttackPotion),nl,
     write('Defensemu bertambah sebanyak: '),
-    write(DefensePotion),nl,
+    write(DefensePotion),nl, */
     NewAttack is Attack + AttackPotion,
     NewDefense is Defense + DefensePotion,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
@@ -176,10 +179,11 @@ useEq(NamaEq) :-
     equipment(_,_,_,AttackEq,DefenseEq),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     write('Your equipment has been activated successfully.'),nl,
+    /*
     write('Attackmu bertambah sebanyak: '),
     write(AttackPotion),nl,
     write('Defensemu bertambah sebanyak: '),
-    write(DefensePotion),nl,
+    write(DefensePotion),nl, */
     NewAttack is Attack + AttackEq,
     NewDefense is Defense + DefenseEq,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
