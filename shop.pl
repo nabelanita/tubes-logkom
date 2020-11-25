@@ -3,14 +3,13 @@
 
 :- include('player.pl').
 :- include('inventory.pl').
+:- include('save.pl').
 
 /* Inisialisasi */
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
-player(1, 1, 0, 15, 10, 65, 65, 3, 300).
+player(1, 1, 0, 15, 10, 65, 65, 3, 300). /*
 /* initInventory di terminal gatau kenapa gabisa disini */
 
-/* Dynamic variables */
-/* Kayaknya barang2 mau disatuin aja */
 /* equipment(idEq,jenisEq,namaEq,attack,defense) */
 /* WEAPON */
 equipment(1,weapon, keyboard, 50, 0).

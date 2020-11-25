@@ -81,3 +81,4 @@ logo:-
     write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
 
 
+quit :- halt. /* ini buat keluar dari gprolog */
