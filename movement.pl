@@ -28,14 +28,14 @@ a :-
 a :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
-s :-
-    opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
 s :- 
     opened(_),
     started(_),
     down, !.
+s :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
 s :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
@@ -89,7 +89,7 @@ up :-
     randomEnemy, !,
     Y > 1, 
     Y1 is Y-1, nl, 
-    asserta(playerPos(X,Y1)).
+    asserta(playerPos(X,Y1)),!.
 up :- 
     retract(playerPos(X,Y)), 
     Y > 1, 
@@ -132,7 +132,7 @@ down :-
     retract(playerPos(X,Y)), 
     Y < 10, 
     Y1 is Y+1, nl, 
-    asserta(playerPos(X,Y1)).
+    asserta(playerPos(X,Y1)), !.
 down :- 
     retract(playerPos(X,Y)), 
     Y < 10, 
@@ -175,7 +175,7 @@ right :-
     retract(playerPos(X,Y)), 
     X < 20, 
     X1 is X+1, nl, 
-    asserta(playerPos(X1,Y)).
+    asserta(playerPos(X1,Y)), !.
 right :- 
     retract(playerPos(X,Y)), 
     X < 20, 
@@ -217,7 +217,7 @@ left :-
     randomEnemy, !, 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
-    asserta(playerPos(X1,Y)).
+    asserta(playerPos(X1,Y)), !.
 left :- 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
@@ -226,9 +226,7 @@ left :-
 
 /* Enter shop or quest */
 enterShop(yes) :- shop, !.
-enterShop(no) :- !.
-enterShop(_):- write('That is not a valid answer, but okay.'), !.
+enterShop(_) :- !.
 
 enterQuest(yes) :- write('You checked task!'), queststart, !. % Masuk ke menu task disini %
-enterQuest(no) :- !.
-enterQuest(_):- write('That is not a valid answer, but okay.'), !.
+enterQuest(_) :- !.

@@ -4,6 +4,7 @@
 :- dynamic(enemy/5). 
 :- dynamic(enemySpecialAttack/1). 
 :- dynamic(specialAttackCount/1). 
+:- dynamic(meetEnemy/1).
 
 
 /* enemy(enemyId, levelEnemy, hpEnemy, attackEnemy, defenseEnemy) */
@@ -290,7 +291,7 @@ initEnemy(15) :-
     retract(inBattle(0)),
     asserta(inBattle(1)), !.
 
-initEnemy(X) :- X \= 5, X \= 10, X \= 15, !.
+/* initEnemy(X) :- X \= 5, X \= 10, X \= 15, !. */
 
 randomEnemy :-
     random(0,20,X),
