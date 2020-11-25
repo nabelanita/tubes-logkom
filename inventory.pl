@@ -28,9 +28,7 @@ addItem(X) :-
     retract(playerInventory(ListItem)),
     asserta(playerInventory([X|ListItem])),!.
 
-/* deleteItem masih error */
-deleteItem(X, [Head|Tail], Tail) :-
-    Head =:= X, !.
+deleteItem(X, [X|Tail], Tail) :- !.
 
 deleteItem(X, [Head|Tail], NewList) :-
     deleteItem(X, Tail, PrevList),
@@ -39,6 +37,15 @@ deleteItem(X, [Head|Tail], NewList) :-
 delete(X) :-
     playerInventory(ListItem), 
     deleteItem(X, ListItem, NewList),
+    retract(playerInventory(ListItem)),
+    asserta(playerInventory(NewList)), !.
+
+/* coba bikin delItem */
+delItem(X, [Head|Tail],Tail).
+delItem(X, [Head|Tail], [Head|Tail1]) :- delete(X,Tail,Tail1), !.
+del(X) :-
+    playerInventory(ListItem), 
+    delItem(X, ListItem, NewList),
     retract(playerInventory(ListItem)),
     asserta(playerInventory(NewList)), !.
 

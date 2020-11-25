@@ -8,15 +8,27 @@
 :- dynamic(questPos/2).
 :- dynamic(shopPos/2).
 
+/* Randomize quest and store position*/
+initQuest :-
+	random(1,5,X1), 
+	random(6,10,Y1), 
+	asserta(questPos(X1,Y1)).
+
+initShop :-
+	random(6,10,X1), 
+	random(1,5,Y1), 
+	asserta(shopPos(X1,Y1)).
+
 /* New map */
 /* ukuran mapnya hardcoded idk */
-newMap :- X is 10, 
-		Y is 10, 
-		asserta(mapWidth(X)), 
-		asserta(mapHeight(Y)), 
-		initPlayerPos, 
-		initQuest, 
-		initShop.
+newMap :- 
+	X is 10, 
+	Y is 10, 
+	asserta(mapWidth(X)), 
+	asserta(mapHeight(Y)), 
+	initPlayerPos, 
+	initQuest, 
+	initShop.
 
 
 /* Map edges */
@@ -25,14 +37,6 @@ edgeLower(_,Y) :- Y1 is Y - 1, mapHeight(Y1), !.
 edgeLeft(X,_) :- X=:=0, !.
 edgeRight(X,_) :- X1 is X - 1, mapWidth(X1), !.
 
-/* Randomize quest and store position*/
-initQuest :-random(1,5,X1), 
-			random(6,10,Y1), 
-			asserta(questPos(X1,Y1)).
-
-initShop :-random(6,10,X1), 
-			random(1,5,Y1), 
-			asserta(shopPos(X1,Y1)).
 
 
 /* Objects on map */
@@ -55,7 +59,7 @@ printMap(X,Y) :- edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- edgeLeft(X,Y), write('#'), !.
 printMap(X,Y) :- edgeLower(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- printPlayer(X,Y), !, write('P').
-printMap(X,Y) :- printQuest(X,Y), !, write('Q').
+printMap(X,Y) :- printQuest(X,Y), !, write('T').
 printMap(X,Y) :- printShop(X,Y), !, write('S').
 printMap(_,_) :- write('-'), !.
 
@@ -78,7 +82,7 @@ map :-
 	write('Legend: P - Player\n'),
 	write('        B - Boss\n'),
 	write('        S - Shop\n'),
-	write('        Q - Quest board\n'),
+	write('        T - Task board\n'),
 	write('        # - Wall (Cannot walk through)\n'), !.
 
 map :-
