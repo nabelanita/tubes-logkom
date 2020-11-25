@@ -3,13 +3,13 @@
 
 :- include('player.pl').
 :- include('inventory.pl').
+:- include('save.pl').
 
 /* Inisialisasi */
-player(1, 1, 0, 15, 10, 65, 65, 3, 300).
+/*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
+player(1, 1, 0, 15, 10, 65, 65, 3, 300). /*
 /* initInventory di terminal gatau kenapa gabisa disini */
 
-/* Dynamic variables */
-/* Kayaknya barang2 mau disatuin aja */
 /* equipment(idEq,jenisEq,namaEq,attack,defense) */
 /* WEAPON */
 equipment(1,weapon, keyboard, 50, 0).
@@ -30,38 +30,14 @@ equipment(13,accessory,simulator, 50, 25).
 equipment(14,accessory,phone, 75, 50).
 equipment(15,accessory,voice_recog, 50, 25).
 equipment(16,accessory,robot, 75, 50).
-/* Weapons */
-/* weapon(ID, name, damage) 
-weapon(1,keyboard, 50).
-weapon(2,code_editor, 75).
-weapon(3,laptop, 100).
-weapon(4,pc, 150).
-weapon(5,super_computer, 200).*/
-/* Armor */
-/* armor(ID, name, defense). -> ini bisa digacha 
-armor(6,headphones,25).
-armor(7,wifi, 50).
-armor(8,database, 75).
-armor(9,server,125).
-armor(10,ai, 175).*/
-/* Accessory */
+
 /* Accessory target job */
 accWebdev(figma).
 accWebdev(framework).
-
 accMobDev(simulator).
 accMobDev(phone).
-
 accML(voice_recog).
 accML(robot).
-
-/* acc(ID, name, damage+, defense+) -> ini bisa digacha 
-accessory(11,figma, 50, 25).
-accessory(12,framework, 75, 50).
-accessory(13,simulator, 50, 25).
-accessory(14,phone, 75, 50).
-accessory(15,voice_recog, 50, 25).
-accessory(16,robot, 75, 50). */
 
 /* potion(idPotion,namaPotion,attack,defense). potion bisa nambah status attack dan defense pemain */
 potion(1,kalguksu,75,25).
@@ -75,9 +51,9 @@ potion(8,galbi,50,25).
 potion(9,japchae,25,50).
 potion(10,corndog,20,10).
 
-
 /* Menu shop */
 shop :-
+    nl,
     write('░██████╗██╗░░██╗░█████╗░██████╗░'),nl,
     write('██╔════╝██║░░██║██╔══██╗██╔══██╗'),nl,
     write('╚█████╗░███████║██║░░██║██████╔╝'),nl,
@@ -85,18 +61,19 @@ shop :-
     write('██████╔╝██║░░██║╚█████╔╝██║░░░░░'),nl,
     write('╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░'),nl,
     write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (1000 Gold)\n3. Exit\n'),
-    read(X),
+    write('Your choice: '),
+    read(X),nl,
     shopMenu(X),!.
 
 /* Kondisi jika uang cukup */
 shopMenu(1) :-
     subGold(100),
-    %player(_, _, _, _, _, _, _, _, Money),
-    %write('Your money:'),nl,
-    %write(Money),nl,
-    write('Daftar potion yang tersedia:\n1. Kalguksu\n2. Korean BBQ\n3. Kimchi\n4. Coffee\n5. Samyang\n6. Bibimbap\n7. Gimbap\n8. Galbi\n9. Japchae\n10. Corndog\n'),
-    read(IdPotion),
-    %potion(IdPotion,NamaPotion,_,_),
+    player(_, _, _, _, _, _, _, _, Money),
+    write('Your money: '),
+    write(Money),nl,
+    write('Available potions:\n1. Kalguksu\n2. Korean BBQ\n3. Kimchi\n4. Coffee\n5. Samyang\n6. Bibimbap\n7. Gimbap\n8. Galbi\n9. Japchae\n10. Corndog\n'),
+    write('Your choice: '),
+    read(IdPotion),nl,
     buyPotion(IdPotion),shop,!.
 
 /* Kondisi jika uang tidak cukup */
@@ -108,6 +85,9 @@ shopMenu(1) :-
 /* Kondisi jika uang cukup */
 shopMenu(2) :-
     subGold(1000),
+    player(_, _, _, _, _, _, _, _, Money),
+    write('Your money: '),
+    write(Money),nl,
     randomEq,
     shop,!.
 
@@ -124,20 +104,19 @@ randomEq :-
     equipment(HasilGacha,_,NamaEq,_,_),
     write('You get:\n'),nl,
     write(NamaEq),
-    addItem(NamaEq),!.
-    /* nambahin hasil gacha ke inventory */
+    addItem(NamaEq),!. /* nambahin hasil gacha equipment ke inventory */
     
 
 buyPotion(IdPotion) :-
     potion(IdPotion,NamaPotion,_,_),
-    write('You buy: \n'),
+    write('You buy: '),
     write(NamaPotion),nl,
-    addItem(NamaPotion),!.
-/* nambahin pembelian potion ke inventory */
+    addItem(NamaPotion),!. /* nambahin pembelian potion ke inventory */
 
-/* Fungsi untuk ngecek apakah uangnya cukup atau engga */
+/* Rule untuk ngecek apakah uangnya cukup atau engga */
 compareGold(Gold,Price) :- Gold >= Price.
 
+/* Rule untuk mengurangi uang */
 subGold(Price) :- 
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     compareGold(Gold,Price),
@@ -147,7 +126,32 @@ subGold(Price) :-
 
 transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n').
 
-exitShop :- write('Thanks for coming.\n').
+exitShop :- write('Thanks for coming.\n'). /* nanti harusnya kembali ke menu awal/map gitu*/
 
+usePotion(NamaPotion) :-
+    % searchItem(NamaPotion,playerInventory,Found), 
+    /* harusnya usePotion tuh potion yg dia punya doang, jadi harus dicek di listnya ada apa engga */
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    potion(_,NamaPotion,AttackPotion,DefensePotion),
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    write('Your potion has been activated successfully.'),nl,
+    NewAttack is Attack + AttackPotion,
+    NewDefense is Defense + DefensePotion,
+    asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
+    del(NamaPotion),!.
+
+/* use Eq gatau sih perlu atau engga */
+useEq(NamaEq) :-
+    % searchItem(NamaEq,playerInventory,Found), 
+    /* harusnya useEq tuh potion yg dia punya doang, jadi harus dicek di listnya ada apa engga */
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    equipment(_,_,_,AttackEq,DefenseEq),
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    write('Your equipment has been activated successfully.'),nl,
+    NewAttack is Attack + AttackEq,
+    NewDefense is Defense + DefenseEq,
+    asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
+    del(NamaEq),!.
 
 % ['shop.pl'].
+% initInventory.

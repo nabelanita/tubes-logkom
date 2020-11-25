@@ -3,6 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('enemy.pl').
+:- inclaude('quest.pl').
 
 /* move commands */
 w :- 
@@ -27,14 +28,14 @@ a :-
 a :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
-s :-
-    opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
 s :- 
     opened(_),
     started(_),
     down, !.
+s :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
 s :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
@@ -81,14 +82,14 @@ up :-
     questPos(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 + 1,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 up :-
     randomEnemy, !,
     Y > 1, 
     Y1 is Y-1, nl, 
-    asserta(playerPos(X,Y1)).
+    asserta(playerPos(X,Y1)),!.
 up :- 
     retract(playerPos(X,Y)), 
     Y > 1, 
@@ -123,7 +124,7 @@ down :-
     questPos(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 - 1,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 down :- 
@@ -131,7 +132,7 @@ down :-
     retract(playerPos(X,Y)), 
     Y < 10, 
     Y1 is Y+1, nl, 
-    asserta(playerPos(X,Y1)).
+    asserta(playerPos(X,Y1)), !.
 down :- 
     retract(playerPos(X,Y)), 
     Y < 10, 
@@ -166,7 +167,7 @@ right :-
     questPos(X2,Y2), 
     X1 is X2 - 1, 
     Y1 is Y2,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 right :- 
@@ -174,7 +175,7 @@ right :-
     retract(playerPos(X,Y)), 
     X < 20, 
     X1 is X+1, nl, 
-    asserta(playerPos(X1,Y)).
+    asserta(playerPos(X1,Y)), !.
 right :- 
     retract(playerPos(X,Y)), 
     X < 20, 
@@ -209,14 +210,14 @@ left :-
     questPos(X2,Y2), 
     X1 is X2 + 1, 
     Y1 is Y2,
-    write('Do you want to check quests? (yes/no)\n'),
+    write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 left :- 
     randomEnemy, !, 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
-    asserta(playerPos(X1,Y)).
+    asserta(playerPos(X1,Y)), !.
 left :- 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
@@ -225,9 +226,7 @@ left :-
 
 /* Enter shop or quest */
 enterShop(yes) :- shop, !.
-enterShop(no) :- !.
-enterShop(_):- write('That is not a valid answer, but okay.'), !.
+enterShop(_) :- !.
 
-enterQuest(yes) :- write('You checked quest!'), !. % Masuk ke menu quest disini %
-enterQuest(no) :- !.
-enterQuest(_):- write('That is not a valid answer, but okay.'), !.
+enterQuest(yes) :- write('You checked task!'), queststart, !. % Masuk ke menu task disini %
+enterQuest(_) :- !.

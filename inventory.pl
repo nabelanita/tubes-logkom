@@ -40,6 +40,15 @@ delete(X) :-
     retract(playerInventory(ListItem)),
     asserta(playerInventory(NewList)), !.
 
+/* coba bikin delItem */
+delItem(X, [Head|Tail],Tail).
+delItem(X, [Head|Tail], [Head|Tail1]) :- delete(X,Tail,Tail1), !.
+del(X) :-
+    playerInventory(ListItem), 
+    delItem(X, ListItem, NewList),
+    retract(playerInventory(ListItem)),
+    asserta(playerInventory(NewList)), !.
+
 searchItem(X, [Head|Tail], 1) :-
     Head =:= X, !.
 
