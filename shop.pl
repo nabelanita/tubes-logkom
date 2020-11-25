@@ -31,38 +31,14 @@ equipment(13,accessory,simulator, 50, 25).
 equipment(14,accessory,phone, 75, 50).
 equipment(15,accessory,voice_recog, 50, 25).
 equipment(16,accessory,robot, 75, 50).
-/* Weapons */
-/* weapon(ID, name, damage) 
-weapon(1,keyboard, 50).
-weapon(2,code_editor, 75).
-weapon(3,laptop, 100).
-weapon(4,pc, 150).
-weapon(5,super_computer, 200).*/
-/* Armor */
-/* armor(ID, name, defense). -> ini bisa digacha 
-armor(6,headphones,25).
-armor(7,wifi, 50).
-armor(8,database, 75).
-armor(9,server,125).
-armor(10,ai, 175).*/
-/* Accessory */
+
 /* Accessory target job */
 accWebdev(figma).
 accWebdev(framework).
-
 accMobDev(simulator).
 accMobDev(phone).
-
 accML(voice_recog).
 accML(robot).
-
-/* acc(ID, name, damage+, defense+) -> ini bisa digacha 
-accessory(11,figma, 50, 25).
-accessory(12,framework, 75, 50).
-accessory(13,simulator, 50, 25).
-accessory(14,phone, 75, 50).
-accessory(15,voice_recog, 50, 25).
-accessory(16,robot, 75, 50). */
 
 /* potion(idPotion,namaPotion,attack,defense). potion bisa nambah status attack dan defense pemain */
 potion(1,kalguksu,75,25).
@@ -75,7 +51,6 @@ potion(7,gimbap,25,50).
 potion(8,galbi,50,25).
 potion(9,japchae,25,50).
 potion(10,corndog,20,10).
-
 
 /* Menu shop */
 shop :-
@@ -152,7 +127,7 @@ subGold(Price) :-
 
 transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n').
 
-exitShop :- write('Thanks for coming.\n'). /* Tambahin untuk kembali ke main menu */
+exitShop :- write('Thanks for coming.\n'). /* nanti harusnya kembali ke menu awal/map gitu*/
 
 usePotion(NamaPotion) :-
     % searchItem(NamaPotion,playerInventory,Found), 
@@ -161,11 +136,6 @@ usePotion(NamaPotion) :-
     potion(_,NamaPotion,AttackPotion,DefensePotion),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     write('Your potion has been activated successfully.'),nl,
-    /*
-    write('Attackmu bertambah sebanyak: '),
-    write(AttackPotion),nl,
-    write('Defensemu bertambah sebanyak: '),
-    write(DefensePotion),nl, */
     NewAttack is Attack + AttackPotion,
     NewDefense is Defense + DefensePotion,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
@@ -179,17 +149,10 @@ useEq(NamaEq) :-
     equipment(_,_,_,AttackEq,DefenseEq),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     write('Your equipment has been activated successfully.'),nl,
-    /*
-    write('Attackmu bertambah sebanyak: '),
-    write(AttackPotion),nl,
-    write('Defensemu bertambah sebanyak: '),
-    write(DefensePotion),nl, */
     NewAttack is Attack + AttackEq,
     NewDefense is Defense + DefenseEq,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
     del(NamaEq),!.
-
-
 
 % ['shop.pl'].
 % initInventory.
