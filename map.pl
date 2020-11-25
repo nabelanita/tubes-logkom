@@ -62,15 +62,18 @@ printMap(_,_) :- write('-'), !.
 
 /* kalo mau cek map pas in-game pakenya ini */
 map :- 	
-	opened(_), started(_),
-	write('%%%%%%%%%%%%%%%%%%%%%%\n'),
-    write('%        M A P       %\n'),
-    write('%%%%%%%%%%%%%%%%%%%%%%\n'), nl,
+	opened(_), started(_),nl,nl,
+	write('███╗░░░███╗░█████╗░██████╗░\n'),
+	write('████╗░████║██╔══██╗██╔══██╗\n'),
+	write('██╔████╔██║███████║██████╔╝\n'),
+	write('██║╚██╔╝██║██╔══██║██╔═══╝░\n'),
+	write('██║░╚═╝░██║██║░░██║██║░░░░░\n'),
+	write('╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░░░░\n'), nl,nl,
 	mapWidth(X),mapHeight(Y),
 	XMin is 0, XMax is X+1,
 	YMin is 0, YMax is Y+1, 
 	forall(between(YMin,YMax,B),(
-		write('     '),
+		write('       '),
 		forall(between(XMin,XMax,A),(printMap(A,B))))),nl,nl,
 	write('Legend: P - Player\n'),
 	write('        B - Boss\n'),

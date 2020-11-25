@@ -27,14 +27,14 @@ a :-
 a :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
-s :-
-    opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
 s :- 
     opened(_),
     started(_),
     down, !.
+s :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
 s :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
@@ -225,9 +225,7 @@ left :-
 
 /* Enter shop or quest */
 enterShop(yes) :- shop, !.
-enterShop(no) :- !.
-enterShop(_):- write('That is not a valid answer, but okay.'), !.
+enterShop(_) :- !.
 
 enterQuest(yes) :- write('You checked quest!'), !. % Masuk ke menu quest disini %
-enterQuest(no) :- !.
-enterQuest(_):- write('That is not a valid answer, but okay.'), !.
+enterQuest(_) :- !.
