@@ -2,8 +2,8 @@
 :- include('player.pl').
 :- include('map.pl').
 :- include('shop.pl').
-:- include('enemy.pl').
-:- inclaude('quest.pl').
+:- include('battle.pl').
+% :- include('quest.pl').
 
 /* move commands */
 w :- 
@@ -85,17 +85,23 @@ up :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+
 up :-
-    randomEnemy, !,
-    Y > 1, 
-    Y1 is Y-1, nl, 
-    asserta(playerPos(X,Y1)),!.
-up :- 
+    inBattle(1),
+    write('You cant move during battle'), !.
+
+up :-
+    inBattle(0),
+    randomEnemy,
+    inBattle(0),
     retract(playerPos(X,Y)), 
     Y > 1, 
     Y1 is Y-1, nl, 
     asserta(playerPos(X,Y1)), 
     write('You moved north!'), !.
+
+up :-
+    inBattle(1),!.
 
 /* DOWN */
 down :- 
@@ -127,18 +133,23 @@ down :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
-down :- 
-    randomEnemy, !,
-    retract(playerPos(X,Y)), 
-    Y < 10, 
-    Y1 is Y+1, nl, 
-    asserta(playerPos(X,Y1)), !.
-down :- 
+
+down :-
+    inBattle(1),
+    write('You cant move during battle'), !.
+
+down :-
+    inBattle(0),
+    randomEnemy,
+    inBattle(0),
     retract(playerPos(X,Y)), 
     Y < 10, 
     Y1 is Y+1, nl, 
     asserta(playerPos(X,Y1)), 
     write('You moved south!'), !.
+
+down :-
+    inBattle(1),!.
 
 /* RIGHT */
 right :- 
@@ -170,18 +181,23 @@ right :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
-right :- 
-    randomEnemy, !,
-    retract(playerPos(X,Y)), 
-    X < 20, 
-    X1 is X+1, nl, 
-    asserta(playerPos(X1,Y)), !.
-right :- 
+right :-
+    inBattle(1),
+    write('You cant move during battle'), !.
+
+right :-
+    inBattle(0),
+    randomEnemy,
+    inBattle(0),
     retract(playerPos(X,Y)), 
     X < 20, 
     X1 is X+1, nl, 
     asserta(playerPos(X1,Y)), 
     write('You moved east!'), !.
+
+right :-
+    inBattle(1),!.
+    
 
 /* LEFT */
 left :- 
@@ -213,16 +229,22 @@ left :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
-left :- 
-    randomEnemy, !, 
-    retract(playerPos(X,Y)), 
-    X > 1, X1 is X-1, nl, 
-    asserta(playerPos(X1,Y)), !.
-left :- 
+left :-
+    inBattle(1),
+    write('You cant move during battle'), !.
+
+left :-
+    inBattle(0),
+    randomEnemy,
+    inBattle(0),
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
     asserta(playerPos(X1,Y)), 
     write('You moved west!'), !.
+
+left :-
+    inBattle(1),!.
+    
 
 /* Enter shop or quest */
 enterShop(yes) :- shop, !.
