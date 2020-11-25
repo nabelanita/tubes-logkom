@@ -125,14 +125,16 @@ enemyMove(2) :-
     retract(enemySpecialAttack(_)),
     asserta(enemySpecialAttack(2)), !.
 
-randomEnemyMove(X) :-
+% kayaknya ada masalah disini tapi gatau kenapa
+
+randomEnemyMove(X) :- 
     X =:= 0,
     random(1,3,Move),
-    enemyMove(Move), !.
+    enemyMove(Move),!.
 
 randomEnemyMove(X) :-
     X > 0,
-    enemyMove(1), !.
+    enemyMove(1),!.
 
 enemyDamaged(Damage) :- Damage < 1, !.
 
@@ -167,6 +169,11 @@ checkSpecialAttack :-
     X =:= 0, !.
 
 attack :-
+    inBattle(0),
+    write('You\'re currently not in a battle!'),!.
+    
+attack :-
+    inBattle(1),
     player(_, _, _, AttackPlayer, _, _, _, _, _),
     enemy(_, _, _, _, DefenseEnemy),
     A is AttackPlayer - 5, B is AttackPlayer + 6, random(A, B, Attack),
@@ -178,6 +185,7 @@ attack :-
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
 attack :-
+    inBattle(1),
     player(_, _, _, AttackPlayer, _, _, _, _, _),
     enemy(_, _, _, _, DefenseEnemy),
     A is AttackPlayer - 5, B is AttackPlayer + 6, random(A, B, Attack),
@@ -188,13 +196,18 @@ attack :-
     enemyDamaged(Damage), checkSpecialAttack, 
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
+specialattack :-
+    inBattle(0),
+    write('You\'re currently not in a battle!'),!.
 
-specialAttack :-
+specialattack :-
+    inBattle(1),
     specialAttackCount(X),
     X > 0,
     write('Special Attack not ready!'), !.
 
-specialAttack :-
+specialattack :-
+    inBattle(1),
     specialAttackCount(X),
     X =:= 0,
     player(_, _, _, AttackPlayer, _, _, _, _, _),
@@ -209,7 +222,8 @@ specialAttack :-
     asserta(specialAttackCount(2)),
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
-specialAttack :-
+specialattack :-
+    inBattle(1),
     specialAttackCount(X),
     X =:= 0,
     player(_, _, _, AttackPlayer, _, _, _, _, _),
@@ -232,7 +246,9 @@ runSucceed(1) :-
     write('You managed to run!'), 
     retractall(enemy(_,_,_,_,_)), 
     retract(inBattle(1)),
-    asserta(inBattle(0)), !.
+    asserta(inBattle(0)), 
+    retract(specialAttackCount(_)),
+    retract(enemySpecialAttack(_)), !.
 
 runSucceed(2) :- write('You failed to run!\nChoose another move!'), !.
 

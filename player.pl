@@ -23,7 +23,7 @@ welcomePlayer(_) :-
 initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)). 
 
     
-/*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
+/*player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)*/
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
