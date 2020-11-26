@@ -1,5 +1,6 @@
 /*Include dan Dynamic*/
 :- include('player.pl').
+:- include('quest.pl').
 
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
 /* enemy(Type, LevelEnemy, HpEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus) */
@@ -154,6 +155,7 @@ enemyMove(2) :-
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
     format('\n\nYou defeated ~w!\n', [Type]),
+    finishQuest(Type),
     player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewGold is Gold + GoldBonus,
     retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
