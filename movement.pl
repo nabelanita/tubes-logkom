@@ -199,7 +199,7 @@ down :-
 /* RIGHT */
 right :- 
     playerPos(X,_), 
-    X =:= 20, nl, 
+    X =:= 10, nl, 
     write('You just hit a wall!\n'),nl,!.
 /* right :- 
     playerPos(6,3), nl, 
@@ -258,7 +258,7 @@ right :-
     inBattle(0),
     write('You moved east!\n'), 
     retract(playerPos(X,Y)), 
-    X < 20, 
+    X < 10, 
     X1 is X+1, nl, 
     asserta(playerPos(X1,Y)), 
     randomEnemy,
@@ -349,7 +349,7 @@ enterGateUpper(yes) :-
     gateLower(X1,Y1),
     retract(playerPos(X,Y)),
     X2 is X1,
-    Y2 is Y1 - 1,
+    Y2 is Y1 + 1,
     asserta(playerPos(X2,Y2)),
     write('You have been teleported!\n'),!.
 enterGateUpper(_) :- !.
