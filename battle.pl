@@ -107,16 +107,16 @@ enemyMove(2) :-
  checkEnemyDefeated(0) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
     HPEnemy =< 0,
-    format('You defeated ~w!\n', [Type]),
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
+    retract(inBattle(1)), asserta(inBattle(0)), 
+    retract(specialAttackCount(_)),
+    retract(enemySpecialAttack(_)), 
+    format('You defeated ~w!\n', [Type]),
     player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewGold is Gold + GoldBonus,
     retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)),
-    addExp(ExpBonus),
-    retract(inBattle(1)), asserta(inBattle(0)), 
-    retract(specialAttackCount(_)),
-    retract(enemySpecialAttack(_)), !.
+    addExp(ExpBonus),!.
 
 randomEnemyMove(X) :- 
     checkEnemyDefeated(Status), Status =:= 0, !.
