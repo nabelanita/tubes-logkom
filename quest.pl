@@ -89,24 +89,21 @@ printQuest :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
 
-finishQuest(X) :-
-    X =:= 'Milestone',
+finishQuest('Milestone') :-
     quest(X,Y,Z),
     newX is X - 1,
     retract(quest(X,Y,Z)),
     asserta(quest(newX,Y,Z)),
     questCompleted, !.
 
-finishQuest(X) :-
-    X =:= 'Maintenance',
+finishQuest('Maintenance') :-
     quest(X,Y,Z),
     newY is Y - 1,
     retract(quest(X,Y,Z)),
     asserta(quest(X,newY,Z)),
     questCompleted, !.
 
-finishQuest(X) :-
-    X =:= 'Data Breach',
+finishQuest('Data Breach') :-
     quest(X,Y,Z),
     newZ is Z - 1,
     retract(quest(X,Y,Z)),
