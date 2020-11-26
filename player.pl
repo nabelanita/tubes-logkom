@@ -161,6 +161,15 @@ status :-
     format('  Gold:  ~d  G\n', [Gold]),!.
 
 
+status :-
+    opened(_),
+    write('You haven\'t started the game! \n'),
+    write('Type \'start\' to open the game. \n').
+
+status :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n').
+
 
 /* Rule buat:
 Nanti si player bisa menggunakan equipment/potion yang udah dia beli.

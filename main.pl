@@ -32,6 +32,9 @@ openGame :-
     write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
     asserta(opened(1)).
+openGame :-
+    openGame(_),
+    write('The game is already open!'), !.
 
 start :-
     opened(_),
@@ -46,6 +49,11 @@ start :-
     read(Job), nl,
     welcomePlayer(Job),
     initInventory, !.
+
+start :-
+    opened(_),
+    started(_),
+    write('The game has already started!\n'),!.
 
 start :-
     write('You haven\'t opened the game! \n'),
@@ -75,7 +83,6 @@ logo:-
     nl,
     write('     █▀ ▄▀█ █▀▄▀█ █▀ ▄▀█ █▄░█   ▀█▀ █▀▀ █▀▀ █░█\n'),
     write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
-
 
 quit :- 
     nl,

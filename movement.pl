@@ -79,29 +79,43 @@ up :-
     enterShop(A), !.
 up :- 
     playerPos(X1,Y1), 
-    questPos(X2,Y2), 
+    questPos(X2,Y2),
     X1 is X2, 
     Y1 is Y2 + 1,
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+up :- 
+    playerPos(X1,Y1), 
+    gateUpper(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 + 1,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateUpper(A), !.
+up :- 
+    playerPos(X1,Y1), 
+    gateLower(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 + 1,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateLower(A), !.
 
 up :-
     inBattle(1),
-    write('You cant move during battle'), !.
+    write('You cannot move during a battle!'), !.
 
 up :-
     inBattle(0),
-    randomEnemy,
-    inBattle(0),
+    write('You moved north!\n'), 
     retract(playerPos(X,Y)), 
     Y > 1, 
     Y1 is Y-1, nl, 
     asserta(playerPos(X,Y1)), 
-    write('You moved north!'), !.
+    randomEnemy,
+    !.
 
-up :-
-    inBattle(1),!.
 
 /* DOWN */
 down :- 
@@ -133,23 +147,36 @@ down :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
-
+down :- 
+    playerPos(X1,Y1), 
+    gateUpper(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 - 1,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateUpper(A), !.
+down :- 
+    playerPos(X1,Y1), 
+    gateLower(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 - 1,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateLower(A), !.
 down :-
     inBattle(1),
-    write('You cant move during battle'), !.
+    write('You cannot move during a battle!'), !.
 
 down :-
     inBattle(0),
-    randomEnemy,
-    inBattle(0),
+    write('You moved south!\n'), 
     retract(playerPos(X,Y)), 
     Y < 10, 
     Y1 is Y+1, nl, 
     asserta(playerPos(X,Y1)), 
-    write('You moved south!'), !.
+    randomEnemy,
+    !.
 
-down :-
-    inBattle(1),!.
 
 /* RIGHT */
 right :- 
@@ -181,22 +208,36 @@ right :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+right :- 
+    playerPos(X1,Y1), 
+    gateUpper(X2,Y2), 
+    X1 is X2 - 1, 
+    Y1 is Y2,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateUpper(A), !.
+right :- 
+    playerPos(X1,Y1), 
+    gateLower(X2,Y2), 
+    X1 is X2 - 1, 
+    Y1 is Y2,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateLower(A), !.
 right :-
     inBattle(1),
-    write('You cant move during battle'), !.
+    write('You cannot move during a battle!'), !.
 
 right :-
     inBattle(0),
-    randomEnemy,
-    inBattle(0),
+    write('You moved east!\n'), 
     retract(playerPos(X,Y)), 
     X < 20, 
     X1 is X+1, nl, 
     asserta(playerPos(X1,Y)), 
-    write('You moved east!'), !.
+    randomEnemy,
+    !.
 
-right :-
-    inBattle(1),!.
     
 
 /* LEFT */
@@ -229,26 +270,61 @@ left :-
     write('Do you want to check tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
+left :- 
+    playerPos(X1,Y1), 
+    gateUpper(X2,Y2), 
+    X1 is X2 + 1, 
+    Y1 is Y2,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateUpper(A), !.
+left :- 
+    playerPos(X1,Y1), 
+    gateLower(X2,Y2), 
+    X1 is X2 + 1, 
+    Y1 is Y2,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    read(A),
+    enterGateLower(A), !.
 left :-
     inBattle(1),
-    write('You cant move during battle'), !.
+    write('You cannot move during a battle!'), !.
 
 left :-
     inBattle(0),
-    randomEnemy,
-    inBattle(0),
+    write('You moved west!\n'), 
     retract(playerPos(X,Y)), 
     X > 1, X1 is X-1, nl, 
     asserta(playerPos(X1,Y)), 
-    write('You moved west!'), !.
+    randomEnemy,
+    !.
 
-left :-
-    inBattle(1),!.
     
 
-/* Enter shop or quest */
+/* Enter shop */
 enterShop(yes) :- shop, !.
 enterShop(_) :- !.
 
+/* Enter quest */
 enterQuest(yes) :- write('You checked task!'), queststart, !. % Masuk ke menu task disini %
 enterQuest(_) :- !.
+
+/* Enter gate */
+enterGateUpper(yes) :-
+    gateLower(X1,Y1),
+    retract(playerPos(X,Y)),
+    X2 is X1,
+    Y2 is Y1 - 1,
+    asserta(playerPos(X2,Y2)),
+    write('You have been teleported!\n'),!.
+enterGateUpper(_) :- !.
+
+enterGateLower(yes) :-
+    gateUpper(X1,Y1),
+    retract(playerPos(X,Y)), nl,
+    X2 is X1,
+    Y2 is Y1 - 1,
+    asserta(playerPos(X2,Y2)), nl,
+    write('You have been teleported!\n'),!.
+enterGateLower(_) :- !.
+
