@@ -80,6 +80,17 @@ shop :-
     read(X),nl,
     shopMenu(X),!.
 
+shop :-
+    shopPos(X,Y),
+    \+ playerPos(X,Y),
+	write('You are not in the shop! \n'),
+	write('You can\'t access this command outside shop.\n'), !.
+
+shop :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+
 /* Kondisi jika uang cukup */
 shopMenu(1) :-
     subGold(100),

@@ -50,7 +50,7 @@ checkLevelUp(0) :-
 
 checkLevelUp(1) :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
-    Exp =:= Lvl * 10,
+    Exp >= Lvl * 10,
     levelUp, !.
 
 levelUp :- 
@@ -62,8 +62,9 @@ levelUp :-
     NewAttack is Attack + NewLvl,
     NewDefense is Defense + NewLvl,
     NewMaxHP is MaxHP + 2*10*NewLvl,
+    NewExp is Exp - 10*Lvl,
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
+    asserta(player(Role, NewLvl, NewExp, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
 
 levelUp :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),

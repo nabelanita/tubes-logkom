@@ -68,11 +68,6 @@ openGame :-
 
 start :-
     opened(_),
-    started(_),
-    write('The game has already started!\n'),!.
-
-start :-
-    opened(_),
     logo,nl,nl,
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
@@ -85,6 +80,11 @@ start :-
     asserta(quest(0,0,0)),
     welcomePlayer(Job),
     initInventory, !.
+start :-
+    opened(_),
+    started(_),
+    write('The game has already started!\n'),!.
+
 
 start :-
     write('You haven\'t opened the game! \n'),

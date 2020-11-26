@@ -78,7 +78,7 @@ printQuest :-
     write('▀█▀ ▄▀█ █▀ █▄▀   █▄▄ █▀█ ▄▀█ █▀█ █▀▄\n'),
     write('░█░ █▀█ ▄█ █░█   █▄█ █▄█ █▀█ █▀▄ █▄▀\n'),nl,
     write('Here are the tasks that you need to do.\n'),nl,
-    format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]).
+    format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]), !.
 
 printQuest :- 
     opened(_),
