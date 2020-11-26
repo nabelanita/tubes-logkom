@@ -6,7 +6,7 @@
 :- dynamic(specialAttackCount/1). 
 :- dynamic(meetEnemy/1).
 
-
+/*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
 /* enemy(enemyId, levelEnemy, hpEnemy, attackEnemy, defenseEnemy, goldBonus, ExpBonus) */
 
 /* initEnemy */
