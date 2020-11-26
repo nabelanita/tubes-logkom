@@ -51,12 +51,21 @@ potion(10,corndog,20,10).
 
 /* Menu shop */
 
+/* Sekarang cuma bisa akses kalau lagi di S aja */
 shop :-
-	opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
+    shopPos(X,Y),
+    \+ playerPos(X,Y),
+	write('You are not in the shop! \n'),
+	write('You can\'t access this command outside shop.\n'), !.
 
 shop :-
+    \+opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+shop :-
+    opened(_),
+    shopPos(X,Y),
+    playerPos(X,Y),
     nl,
     write('░██████╗██╗░░██╗░█████╗░██████╗░'),nl,
     write('██╔════╝██║░░██║██╔══██╗██╔══██╗'),nl,
@@ -73,6 +82,7 @@ shop :-
 shopMenu(1) :-
     subGold(100),
     player(_, _, _, _, _, _, _, _, Money),
+    write('Transaction successful!'),nl,
     write('Your money: '),
     write(Money),nl,
     write('Available potions:\n1. Kalguksu\n2. Korean BBQ\n3. Kimchi\n4. Coffee\n5. Samyang\n6. Bibimbap\n7. Gimbap\n8. Galbi\n9. Japchae\n10. Corndog\n'),
@@ -90,6 +100,7 @@ shopMenu(1) :-
 shopMenu(2) :-
     subGold(1000),
     player(_, _, _, _, _, _, _, _, Money),
+    write('Transaction successful!'),nl,
     write('Your money: '),
     write(Money),nl,
     randomEq,
@@ -118,7 +129,7 @@ buyPotion(IdPotion) :-
     addItem(NamaPotion),!. /* nambahin pembelian potion ke inventory */
 
 /* Rule untuk ngecek apakah uangnya cukup atau engga */
-compareGold(Gold,Price) :- Gold >= Price.
+compareGold(Gold,Price) :- Gold >= Price,!.
 
 /* Rule untuk mengurangi uang */
 subGold(Price) :- 
@@ -126,12 +137,13 @@ subGold(Price) :-
     compareGold(Gold,Price),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     NewGold is Gold - Price,
-    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)).
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)),!.
 
-transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n').
+transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n'),!.
 
-exitShop :- write('Thanks for coming.\n'). /* nanti harusnya kembali ke menu awal/map gitu*/
+exitShop :- write('Thanks for coming.\n'), map, !. /* nanti harusnya kembali ke menu awal/map gitu*/
 
+/* Mencari apakah potion dan equipment ada di inventory */
 cariPotion(NamaPotion) :-
     playerInventory(ListItem),
     member(NamaPotion,ListItem),!.
