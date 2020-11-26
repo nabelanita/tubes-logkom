@@ -46,7 +46,7 @@ newMap :-
 	initQuest, 
 	initShop,
 	initGate,
-	initBossPos.
+	initBossPos, !.
 
 
 /* Map edges */

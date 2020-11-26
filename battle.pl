@@ -314,8 +314,8 @@ vacation :-
     runSucceed(X), !.
 
 runSucceed(1) :- 
-    enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    Type =:= 'Work Stolen',nl,
+    enemy('Work Stolen', LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
+    nl,
     write('   █▀▄ ▄▀█ █▄█   █▀█ █▀▀ █▀▀   █ █ █\n'),
     write('   █▄▀ █▀█ ░█░   █▄█ █▀░ █▀░   ▄ ▄ ▄\n\n\n'),
     retractall(boss(_,_,_,_,_)),

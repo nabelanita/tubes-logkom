@@ -53,17 +53,8 @@ potion(10,corndog,20,10).
 
 /* Sekarang cuma bisa akses kalau lagi di S aja */
 shop :-
-    shopPos(X,Y),
-    \+ playerPos(X,Y),
-	write('You are not in the shop! \n'),
-	write('You can\'t access this command outside shop.\n'), !.
-
-shop :-
-    \+opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
-shop :-
     opened(_),
+    started(_),
     shopPos(X,Y),
     playerPos(X,Y),
     nl,
@@ -77,6 +68,17 @@ shop :-
     write('Your choice: '),
     read(X),nl,
     shopMenu(X),!.
+
+shop :-
+    shopPos(X,Y),
+    \+ playerPos(X,Y),
+	write('You are not in the shop! \n'),
+	write('You can\'t access this command outside shop.\n'), !.
+
+shop :-
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
 
 /* Kondisi jika uang cukup */
 shopMenu(1) :-
