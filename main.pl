@@ -115,7 +115,6 @@ start :-
     welcomePlayer(Job),
     initPlayer(Job),
     initInventory,
-    newMap,
     initPlayer(Job), !.
 
 /* INVENTORY */
