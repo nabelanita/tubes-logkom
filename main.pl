@@ -5,6 +5,7 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
+:- include('cobaquest.pl').
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).
@@ -56,6 +57,7 @@ start :-
     write('3. Mobile Developer\n'),
     write('Enter choice: '),
     read(Job), nl,
+    asserta(quest(0,0,0)),
     welcomePlayer(Job),
     initInventory, !.
 
@@ -103,20 +105,6 @@ logo:-
     write('%   a      : move to the west                   %\n'),
     write('%   help   : open help menu                     %\n'),
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n').
-
-start :-
-    initQuest,
-    write('Welcome to Samsan Tech. Choose your job\n'),
-    write('1. Web Developer\n'),
-    write('2. ML Engineer\n'),
-    write('3. Mobile Developer\n'),
-    write('Your choice: '),
-    read(Job), nl,
-    welcomePlayer(Job),
-    initPlayer(Job),
-    initInventory,
-    newMap,
-    initPlayer(Job), !.
 
 /* INVENTORY */
 /* Disimpan dalam bentuk list */
