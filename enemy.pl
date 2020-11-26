@@ -134,6 +134,7 @@ randomEnemyMove(X) :-
     X > 0,
     enemyMove(1), !.
 
+/* Fungsi yang menandakan enemy berhasil dikalahkan */
 enemyDamaged(Damage) :- Damage < 1, !.
 
 enemyDamaged(Damage) :-
