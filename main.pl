@@ -114,8 +114,6 @@ inventory :-
     gatau tapi ngambil data dari database,
     writeInvetory(DataInventory).
 /*Fungsi rekursif, Basis ketika Tail = 0*/
-    write('     █▀ ▄▀█ █▀▄▀█ █▀ ▄▀█ █▄░█   ▀█▀ █▀▀ █▀▀ █░█\n'),
-    write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
 
 quit :- 
     nl,
