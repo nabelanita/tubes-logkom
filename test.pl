@@ -1,4 +1,4 @@
-:- include('enemy.pl').
+:- include('battle.pl').
 
 w :-
     inBattle(1),

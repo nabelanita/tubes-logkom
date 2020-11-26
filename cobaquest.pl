@@ -1,5 +1,5 @@
 :- include('player.pl').
-:- include('enemy.pl').
+:- include('battle.pl').
 :- dynamic(quest/3).
 
 %initPlayer(1). 
