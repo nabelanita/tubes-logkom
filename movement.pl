@@ -3,6 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('battle.pl').
+:- include('cobaquest.pl').
 % :- include('quest.pl').
 
 /* move commands */
@@ -340,7 +341,7 @@ enterShop(yes) :- shop, !.
 enterShop(_) :- !.
 
 /* Enter quest */
-enterQuest(yes) :- write('You checked task!'), queststart, !. % Masuk ke menu task disini %
+enterQuest(yes) :- queststart, !. % Masuk ke menu task disini %
 enterQuest(_) :- !.
 
 /* Enter gate */

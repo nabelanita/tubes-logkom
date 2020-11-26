@@ -1,54 +1,28 @@
 :- include('player.pl').
-% :- include('movement.pl').
-%:- include('main.pl').
+:- include('battle.pl').
 :- dynamic(quest/3).
-%:- dynamic
 
-/* inisialisi quest scr random, hrs menyelesaikan : 
-   W buah milestone
-   X buah maintenance
-   Y buah data breach */
-/*quest(W,X,Y).*/
+%initPlayer(1). 
+/*initPlayer HARUS DI TERMINAL!!!!!!!!!*/
 
-/*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)
-player(_, Level, _, _, _, _, _, _, _)*/
+%player('Web Developer', 1, 0, 20, 10, 100, 100, 3, 500).
 
-%initPlayer(1).
-
-%playerPos(2,1). 
-/*posisi questPos bakal random, dari abel*/
-
-/*isQZero(Bool) :-
-    \+ quest(0,0,0),
-    Bool is false,
-    quest(0,0,0),
-    Bool is true,!.*/
-
-/*( condition -> then_clause ; else_clause )*/
+/* initQuest nanti dijalanin di main*/
 initQuest :-
     asserta(quest(0,0,0)),!.
 
+isQZero :-
+    quest(0,0,0).
+
 queststart :-
-    quest(0,0,0) ->
-    player(_, Level, _, _, _, _, _, _, _),
-    questLevel(Level);
+    isQZero,
+    player(_, Lvl, _, _, _, _, _, _, _),
+    questLevel(Lvl),
+    printQuest,!.
+
+queststart :-
+    \+ isQZero,
     write('You still have tasks to be done!\n'),!.
-
-/*initQuest :-
-    isQZero(false),
-    write('You still have tasks to be done!\n'),!.
-
-initQuest :-
-    isQZero(true),
-    player(_, Level, _, _, _, _, _, _, _),
-    questLevel(Level),!.*/
-
-/*Player bisa mengakses Quest jika berada disebelah post Quest*/
-/*isInQ :-
-    playerPos(2,0); playerPos(3,1); playerPos(1,2); playerPos(2,2).
-*/
-/*initLvl :-
-    random(1,3,LvlPlayer).*/
 
 addMile(W) :-
     quest(Wawal,X,Y),
@@ -68,52 +42,67 @@ addData(Y) :-
     Yakhir is Y + Yawal,
     asserta(quest(W,X,Yakhir)),!.
 
-/*Jika player tidak berada dalam pos quest*/
 questLevel(LvlPlayer) :-
-    %\+ isInQ, 
-    LvlPlayer is 0, write('You\'re not at the post!\n'),!.
-
-questLevel(LvlPlayer) :-
-    %isInQ,
     LvlPlayer =:= 1,
-    %initQuest,
     random(1,2,W), addMile(W),
     random(1,2,X), addMaint(X),
     addData(1).
 
 questLevel(LvlPlayer) :-
-    %isInQ,
     LvlPlayer =:= 2,
-    %initQuest,
     random(1,3,W), addMile(W),
     random(1,3,X), addMaint(X),
     random(1,2,Y), addData(Y).
 
 questLevel(LvlPlayer) :-
-    %isInQ,
     LvlPlayer > 2,
-    %initQuest,
     A is LvlPlayer - 1,
     B is LvlPlayer + 3,
     random(A,B,W), addMile(W),
     random(A,B,X), addMaint(X),
     random(A,B,Y), addData(Y).
 
-isEmptyQuest :- 
-    quest(0,0,0),
+printQuest :-
+    isQZero,
     write('You don\'t have any task to solve!\n'),!.
 
+/* Menampilkan progress quest yang sedang berjalan*/
 printQuest :-
-    \+ isEmptyQuest,
+    \+ isQZero,
     quest(W,X,Y),
     write('\n[  Your task  ]\n'),
     format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]).
 
+finishQuest(X) :-
+    X =:= 'Milestone',
+    quest(X,Y,Z),
+    newX is X - 1,
+    retract(quest(X,Y,Z)),
+    asserta(quest(newX,Y,Z)),!.
 
+finishQuest(X) :-
+    X =:= 'Maintenance',
+    quest(X,Y,Z),
+    newY is Y - 1,
+    retract(quest(X,Y,Z)),
+    asserta(quest(X,newY,Z)),!.
 
-/* YANG BELOM : 
-1. Rule untuk memberi tahu user jika quest telah selesai dan menambah gaji dan EXP.
-2. Rule untuk mengecek jika player masih memiliki quest yang belum selesai. (Apabila
-   player meminta quest baru tetapi quest lama belum selesai, inisialisasi quest akan gagal).
-    //kalo quest(0,0,0)
-3. Rule untuk menampilkan progress quest yang sedang berjalan. */
+finishQuest(X) :-
+    X =:= 'Data Breach',
+    quest(X,Y,Z),
+    newZ is Z - 1,
+    retract(quest(X,Y,Z)),
+    asserta(quest(X,Y,newZ)),!.
+
+/* test di GNU */
+/*
+initPlayer(1).
+initQuest.
+queststart.
+quest(X,Y,Z).
+initEnemy(5).
+enemy(A,B,C,D,E).
+enemyDamaged(49).
+enemy(A,B,C,D,E).
+player(A,B,C,D,E,F,G,H,I).
+reward('Milestone'). */
