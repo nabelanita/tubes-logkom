@@ -126,9 +126,16 @@ transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n
 
 exitShop :- write('Thanks for coming.\n'). /* nanti harusnya kembali ke menu awal/map gitu*/
 
+cariPotion(NamaPotion) :-
+    playerInventory(ListItem),
+    member(NamaPotion,ListItem),!.
+
+cariEq(NamaEq) :-
+    playerInventory(ListItem),
+    member(NamaEq,ListItem),!.
+
 usePotion(NamaPotion) :-
-    % searchItem(NamaPotion,playerInventory,Found), 
-    /* harusnya usePotion tuh potion yg dia punya doang, jadi harus dicek di listnya ada apa engga */
+    cariPotion(NamaPotion),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     potion(_,NamaPotion,AttackPotion,DefensePotion),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
@@ -137,11 +144,15 @@ usePotion(NamaPotion) :-
     NewDefense is Defense + DefensePotion,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
     del(NamaPotion),!.
+/* Kalo ternyata gaada di inventory */
+usePotion(NamaPotion) :-
+    \+ cariPotion(NamaPotion),
+    write('You don\'t have '),
+    write(NamaPotion),
+    write(' in your inventory. Try to use another potion.'),nl,!.
 
 /* use Eq gatau sih perlu atau engga */
 useEq(NamaEq) :-
-    % searchItem(NamaEq,playerInventory,Found), 
-    /* harusnya useEq tuh potion yg dia punya doang, jadi harus dicek di listnya ada apa engga */
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     equipment(_,_,_,AttackEq,DefenseEq),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
@@ -150,6 +161,12 @@ useEq(NamaEq) :-
     NewDefense is Defense + DefenseEq,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
     del(NamaEq),!.
+/* Kalo ternyata gaada di inventory */
+usePotion(NamaEq) :-
+    \+ cariPotion(NamaEq),
+    write('You don\'t have '),
+    write(NamaEq),
+    write(' in your inventory. Try to use another equipment.'),nl,!.
 
 % ['shop.pl'].
 % initInventory.
