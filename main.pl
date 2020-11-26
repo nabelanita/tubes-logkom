@@ -5,6 +5,12 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
+:- dynamic(opened/1).
+:- dynamic(started/1).
+
+openGame :-
+    opened(_),
+    write('The game is already open!'), !.
 
 openGame :-
     nl,nl,
@@ -28,15 +34,15 @@ openGame :-
     write('  %   help   : open help menu                     %\n'),
     write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
-    asserta(opened(1)).
-openGame :-
-    openGame(_),
-    write('The game is already open!'), !.
+    asserta(opened(1)), !.
 
 start :-
     opened(_),
-    asserta(started(1)),
-    asserta(inBattle(0)),
+    started(_),
+    write('The game has already started!\n'),!.
+
+start :-
+    opened(_),
     logo,nl,nl,
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
@@ -46,11 +52,6 @@ start :-
     read(Job), nl,
     welcomePlayer(Job),
     initInventory, !.
-
-start :-
-    opened(_),
-    started(_),
-    write('The game has already started!\n'),!.
 
 start :-
     write('You haven\'t opened the game! \n'),
