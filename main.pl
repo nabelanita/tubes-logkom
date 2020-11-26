@@ -5,6 +5,7 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
+:- include('cobaquest.pl').
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).

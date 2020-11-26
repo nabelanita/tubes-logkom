@@ -17,7 +17,8 @@ isQZero :-
 queststart :-
     isQZero,
     player(_, Lvl, _, _, _, _, _, _, _),
-    questLevel(Lvl),!.
+    questLevel(Lvl),
+    printQuest,!.
 
 queststart :-
     \+ isQZero,
