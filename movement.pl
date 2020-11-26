@@ -3,7 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('battle.pl').
-:- include('cobaquest.pl').
+:- include('quest.pl').
 % :- include('quest.pl').
 
 /* move commands */
