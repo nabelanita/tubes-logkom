@@ -1,5 +1,6 @@
+/*
 :- include('player.pl').
-:- include('battle.pl').
+:- include('battle.pl').*/
 :- dynamic(quest/3).
 
 %initPlayer(1). 
@@ -63,15 +64,28 @@ questLevel(LvlPlayer) :-
     random(A,B,Y), addData(Y).
 
 printQuest :-
+    opened(_),
+    started(_),
     isQZero,
     write('You don\'t have any task to solve!\n'),!.
 
 /* Menampilkan progress quest yang sedang berjalan*/
 printQuest :-
+    opened(_),
+    started(_),
     \+ isQZero,
     quest(W,X,Y),
     write('\n[  Your task  ]\n'),
     format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]).
+
+printQuest :- 
+    opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+
+printQuest :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.
 
 finishQuest('Milestone') :-
     quest(X,Y,Z),

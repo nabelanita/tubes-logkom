@@ -6,6 +6,9 @@
 :- include('help.pl').
 :- include('battle.pl').
 :- include('quest.pl').
+:- include('shop.pl').
+:- include('save.pl').
+
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).
@@ -136,10 +139,8 @@ inventory :-
     gatau tapi ngambil data dari database,
     writeInvetory(DataInventory).
 /*Fungsi rekursif, Basis ketika Tail = 0*/
-    write('     █▀ ▄▀█ █▀▄▀█ █▀ ▄▀█ █▄░█   ▀█▀ █▀▀ █▀▀ █░█\n'),
-    write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
 
 quit :- 
     nl,
     write('Thank you for playing!\n'),
-    halt. /* ini buat keluar dari gprolog */
+    halt. /* ini buat keluar dari gprolog */ 

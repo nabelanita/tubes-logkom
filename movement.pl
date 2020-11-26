@@ -258,7 +258,7 @@ right :-
     randomEnemy,
     !.
 
-    
+
 
 /* LEFT */
 left :- 
@@ -328,7 +328,7 @@ left :-
     randomEnemy,
     !.
 
-    
+
 
 /* Enter shop */
 enterShop(yes) :- shop, !.
@@ -356,4 +356,3 @@ enterGateLower(yes) :-
     asserta(playerPos(X2,Y2)), nl,
     write('You have been teleported!\n'),!.
 enterGateLower(_) :- !.
-
