@@ -101,7 +101,14 @@ up :-
     write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
     read(A),
     enterGateLower(A), !.
-
+up :- 
+    playerPos(X1,Y1), 
+    bossPos(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 + 1,
+    write('Are you sure you want to fight the boss? (yes/no)\n'),
+    read(A),
+    initBoss(A), !.
 up :-
     inBattle(1),
     write('You cannot move during a battle!'), !.
@@ -163,6 +170,16 @@ down :-
     write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
     read(A),
     enterGateLower(A), !.
+
+down :- 
+    playerPos(X1,Y1), 
+    bossPos(X2,Y2), 
+    X1 is X2, 
+    Y1 is Y2 - 1,
+    write('Are you sure you want to fight the boss? (yes/no)\n'),
+    read(A),
+    initBoss(A), !.
+
 down :-
     inBattle(1),
     write('You cannot move during a battle!'), !.
@@ -224,6 +241,14 @@ right :-
     write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
     read(A),
     enterGateLower(A), !.
+right :- 
+    playerPos(X1,Y1), 
+    bossPos(X2,Y2), 
+    X1 is X2 - 1, 
+    Y1 is Y2,
+    write('Are you sure you want to fight the boss? (yes/no)\n'),
+    read(A),
+    initBoss(A), !.
 right :-
     inBattle(1),
     write('You cannot move during a battle!'), !.
@@ -286,6 +311,15 @@ left :-
     write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
     read(A),
     enterGateLower(A), !.
+
+left :- 
+    playerPos(X1,Y1), 
+    bossPos(X2,Y2), 
+    X1 is X2 + 1, 
+    Y1 is Y2,
+    write('Are you sure you want to fight the boss? (yes/no)\n'),
+    read(A),
+    initBoss(A), !.
 left :-
     inBattle(1),
     write('You cannot move during a battle!'), !.

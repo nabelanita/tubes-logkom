@@ -9,6 +9,7 @@
 :- dynamic(shopPos/2).
 :- dynamic(gateUpper/2).
 :- dynamic(gateLower/2).
+:- dynamic(bossPos/2).
 
 /* Randomize quest and store position*/
 initQuest :-
@@ -20,6 +21,9 @@ initShop :-
 	random(6,10,X1), 
 	random(1,5,Y1), 
 	asserta(shopPos(X1,Y1)).
+
+initBossPos :-
+	asserta(bossPos(10,10)).
 
 initGate :-
 	random(1,10,X1),
@@ -41,7 +45,8 @@ newMap :-
 	initPlayerPos, 
 	initQuest, 
 	initShop,
-	initGate.
+	initGate,
+	initBossPos.
 
 
 /* Map edges */
@@ -56,6 +61,7 @@ edgeRight(X,_) :- X1 is X - 1, mapWidth(X1), !.
 printPlayer(X,Y) :- playerPos(X,Y), !.
 printQuest(X,Y) :- questPos(X,Y), !.
 printShop(X,Y) :- shopPos(X,Y), !.
+printBoss(X,Y) :- bossPos(X,Y), !.
 printgateUpper(X,Y) :- gateUpper(X,Y), !.
 printgateLower(X,Y) :- gateLower(X,Y), !.
 
@@ -66,7 +72,6 @@ printMap(8,3) :- write('#'), !.
 printMap(9,3) :- write('#'), !.
 printMap(8,4) :- write('#'), !.
 printMap(8,5) :- write('#'), !. */
-printMap(10,10) :- write('B'), !.
 printMap(X,Y) :- edgeUpper(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- edgeUpper(X,Y), write('#'), !.
 printMap(X,Y) :- edgeLower(X,Y), write('#'), !.
@@ -76,6 +81,7 @@ printMap(X,Y) :- edgeLower(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- printPlayer(X,Y), !, write('P').
 printMap(X,Y) :- printQuest(X,Y), !, write('T').
 printMap(X,Y) :- printShop(X,Y), !, write('S').
+printMap(X,Y) :- printBoss(X,Y), !, write('B').
 printMap(X,Y) :- printgateUpper(X,Y), !, write('G').
 printMap(X,Y) :- printgateLower(X,Y), !, write('G').
 printMap(_,_) :- write('-'), !.

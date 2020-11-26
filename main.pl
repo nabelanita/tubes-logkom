@@ -7,6 +7,12 @@
 :- include('battle.pl').
 :- dynamic(opened/1).
 :- dynamic(started/1).
+:- dynamic(inBattle/1).
+:- dynamic(enemy/5). 
+:- dynamic(enemySpecialAttack/1). 
+:- dynamic(specialAttackCount/1). 
+:- dynamic(meetEnemy/1).
+:- dynamic(chancetorun/1).
 
 openGame :-
     opened(_),

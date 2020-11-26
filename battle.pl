@@ -1,21 +1,35 @@
 /*Include dan Dynamic*/
 :- include('player.pl').
-:- dynamic(inBattle/1).
-:- dynamic(enemy/5). 
-:- dynamic(enemySpecialAttack/1). 
-:- dynamic(specialAttackCount/1). 
-:- dynamic(meetEnemy/1).
 
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
-/* enemy(enemyId, levelEnemy, hpEnemy, attackEnemy, defenseEnemy, goldBonus, ExpBonus) */
+/* enemy(Type, LevelEnemy, HpEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus) */
+
+
+enemyType('Work Stolen') :-
+    write('          █░█░█ █▀█ █▀█ █▄▀   █▀ ▀█▀ █▀█ █░░ █▀▀ █▄░█\n'),
+    write('          ▀▄▀▄▀ █▄█ █▀▄ █░█   ▄█ ░█░ █▄█ █▄▄ ██▄ █░▀█\n'), !.
+
+enemyType('Data Breach') :-
+    write('          █▀▄ ▄▀█ ▀█▀ ▄▀█   █▄▄ █▀█ █▀▀ ▄▀█ █▀▀ █░█\n'),
+    write('          █▄▀ █▀█ ░█░ █▀█   █▄█ █▀▄ ██▄ █▀█ █▄▄ █▀█\n'), !.
+
+enemyType('Maintenance') :-
+    write('          █▀▄▀█ ▄▀█ █ █▄░█ ▀█▀ █▀▀ █▄░█ ▄▀█ █▄░█ █▀▀ █▀▀\n'),
+    write('          █░▀░█ █▀█ █ █░▀█ ░█░ ██▄ █░▀█ █▀█ █░▀█ █▄▄ ██▄\n'), !.
+
+enemyType('Milestone') :-
+    write('          █▀▄▀█ █ █░░ █▀▀ █▀ ▀█▀ █▀█ █▄░█ █▀▀\n'),
+    write('          █░▀░█ █ █▄▄ ██▄ ▄█ ░█░ █▄█ █░▀█ ██▄\n'), !.
+
+newTask :-
+    write('   █▄█ █▀█ █░█   █▀▀ █▀█ ▀█▀   ▄▀█   █▄░█ █▀▀ █░█░█   ▀█▀ ▄▀█ █▀ █▄▀   ▀█▀ █▀█   █▀▄ █▀█\n'),
+    write('   ░█░ █▄█ █▄█   █▄█ █▄█ ░█░   █▀█   █░▀█ ██▄ ▀▄▀▄▀   ░█░ █▀█ ▄█ █░█   ░█░ █▄█   █▄▀ █▄█\n'), !.
 
 /* initEnemy */
 enemyStatus :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
+    nl, enemyType(Type),
     nl,
-    write('            █▀▀ █▄░█ █▀▀ █▀▄▀█ █▄█\n'),
-    write('            ██▄ █░▀█ ██▄ █░▀░█ ░█░\n'),
-    nl, format('  TYPE  -  ~w\n', [Type]),
     format('  LVL. ~d', [LevelEnemy]),
     write('  HP: '),
     Y is HPEnemy // 5,
@@ -23,15 +37,13 @@ enemyStatus :-
     format(' ~d\n', [HPEnemy]),
     format('          ATK. ~d\n          DEF. ~d\n', [AttackEnemy, DefenseEnemy]), !.
 
-attackMenu :-
-    enemyStatus,
-    write('What\'s your next move?\n').
-
 %belom game over
 
  checkPlayerDefeated(1) :-
     player(_, _, _, _, _, _, HP, _, _),
-    HP > 0, !.
+    HP > 0, nl,
+    write('   █▀▀ █▀█ █▄░█ ▀█▀ █ █▄░█ █░█ █▀▀   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀\n'),
+    write('   █▄▄ █▄█ █░▀█ ░█░ █ █░▀█ █▄█ ██▄   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n'), !.
 
  checkPlayerDefeated(0) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
@@ -61,14 +73,25 @@ checkPlayerDefeated(0) :-
     format('Current hearts: ~d\n', [NewHearts]),
     write('You got fired!\n'), !.
 
-playerDamaged(Damage, 0) :- Damage < 1, !.
+playerDamaged(Damage, 0) :- Damage < 1, 
+
+    write('      █▄█ █▀█ █░█   █▀ ▀█▀ █ █░░ █░░   █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀▄\n'),
+    write('      ░█░ █▄█ █▄█   ▄█ ░█░ █ █▄▄ █▄▄   █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▄▀\n\n'),
+
+    write('   ▀█▀ █▀█   █▀▀ █▀▀ ▀█▀   █▀▀ █▄░█ █▀█ █░█ █▀▀ █░█   █▀ █░░ █▀▀ █▀▀ █▀█\n'),
+    write('   ░█░ █▄█   █▄█ ██▄ ░█░   ██▄ █░▀█ █▄█ █▄█ █▄█ █▀█   ▄█ █▄▄ ██▄ ██▄ █▀▀\n\n\n'),!.
 
 playerDamaged(Damage, Damage) :-
     Damage > 0,
+
+    write('   █▄█ █▀█ █░█ █▀█   █▀ ▀█▀ ▄▀█ █▀▄▀█ █ █▄░█ ▄▀█   █▀▄ █▀▀ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄\n'),
+    write('   ░█░ █▄█ █▄█ █▀▄   ▄█ ░█░ █▀█ █░▀░█ █ █░▀█ █▀█   █▄▀ ██▄ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀\n\n\n'), 
+
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewHP is HP - Damage,
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, NewHP, Hearts, Gold)), !.
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, NewHP, Hearts, Gold)),
+    healthstatus, !.
 
 checkEnemySpecialAttack :-
     enemySpecialAttack(X),
@@ -89,11 +112,15 @@ enemyMove(1) :-
     B is AttackEnemy + 6, random(A, B, Attack),
     C is DefensePlayer - 2,
     D is DefensePlayer + 3, random(C, D, Defense),
-    Damage is Attack - Defense,
+    Damage is Attack - Defense, nl, nl,
+    write('       █▄█ █▀█ █░█   █▀▀ █▀█ █░█ █▄░█ █▀▄\n'),
+    write('       ░█░ █▄█ █▄█   █▀░ █▄█ █▄█ █░▀█ █▄▀\n\n'),
+
+    write('   ▄▀█   █▀▄▀█ █ █▄░█ █▀█ █▀█   █▄▄ █░█ █▀▀ █\n'),
+    write('   █▀█   █░▀░█ █ █░▀█ █▄█ █▀▄   █▄█ █▄█ █▄█ ▄\n\n\n'),
     playerDamaged(Damage, ActualDamage),
     checkEnemySpecialAttack,
-    format('~w performed attack\n', [Type]),
-    format('~w deal ~d damage\n', [Type, ActualDamage]), checkPlayerDefeated(X), !.
+    checkPlayerDefeated(X), !.
 
 /* special attack */
 enemyMove(2) :-
@@ -101,16 +128,23 @@ enemyMove(2) :-
     enemy(Type, _, _, AttackEnemy, _, _, _),
     A is 2 * AttackEnemy - 5, B is 2 * AttackEnemy + 6, random(A, B, Attack),
     C is DefensePlayer - 2, D is DefensePlayer + 3, random(C, D, Defense),
-    Damage is Attack - Defense,
+    Damage is Attack - Defense, nl,nl,
+    write('   █▄█ █▀█ █░█ █▀█   █▄▄ █▀█ █▀ █▀   ▄▀█ █▀ █▄▀ █▀▀ █▀▄   █▄█ █▀█ █░█\n'),
+    write('   ░█░ █▄█ █▄█ █▀▄   █▄█ █▄█ ▄█ ▄█   █▀█ ▄█ █░█ ██▄ █▄▀   ░█░ █▄█ █▄█\n\n'),
+
+    write('    ▀█▀ █▀█   █▀█ █▀▀ █▀▄ █▀█   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀\n'),
+    write('    ░█░ █▄█   █▀▄ ██▄ █▄▀ █▄█   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n\n'),
     playerDamaged(Damage, ActualDamage),
-    format('~w performed special attack\n', [Type]),
-    format('~w deal ~d damage\n', [Type, ActualDamage]), 
     retract(enemySpecialAttack(_)),
     asserta(enemySpecialAttack(2)), checkPlayerDefeated(X),!.
 
  checkEnemyDefeated(1) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    HPEnemy > 0, !.
+    HPEnemy > 0,!.
+
+ checkEnemyDefeated(0) :-
+    enemy('Work Stolen', LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
+    HPEnemy =< 0, !. %menang!
 
  checkEnemyDefeated(0) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
@@ -119,7 +153,7 @@ enemyMove(2) :-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    format('You defeated ~w!\n', [Type]),
+    format('\n\nYou defeated ~w!\n', [Type]),
     player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewGold is Gold + GoldBonus,
     retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
@@ -127,12 +161,14 @@ enemyMove(2) :-
     addExp(ExpBonus),!.
 
 randomEnemyMove(X) :- 
-    checkEnemyDefeated(Status), Status =:= 0, !.
+    checkEnemyDefeated(Status), 
+    Status =:= 0, !.
 
 randomEnemyMove(X) :- 
     X =:= 0,
     checkEnemyDefeated(Status),
     Status =:= 1,
+    enemyStatus,
     random(1,3,Move),
     enemyMove(Move),!.
 
@@ -140,13 +176,16 @@ randomEnemyMove(X) :-
     X > 0,
     checkEnemyDefeated(Status),
     Status =:= 1,
+    enemyStatus,
     enemyMove(1),!.
 
-enemyDamaged(Damage, ActualDamage) :- Damage < 1, ActualDamage is 0, !.
+enemyDamaged(Damage) :- 
+    Damage < 1, 
+    write('   You wrote 0 lines of code\n\n'), !.
 
-enemyDamaged(Damage, ActualDamage) :-
+enemyDamaged(Damage) :-
     Damage > 0,
-    ActualDamage is Damage,
+    format('   You wrote ~d lines of code\n\n', [Damage]),
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
     NewHP is HPEnemy - Damage,
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
@@ -163,61 +202,71 @@ checkSpecialAttack :-
     specialAttackCount(X),
     X =:= 0, !.
 
-attack :-
+code :-
     inBattle(0),
     write('You\'re currently not in a battle!'),!.
     
-attack :-
+code :-
     inBattle(1),
+    nl, nl,
+    write('   █▀▀ █▀█ █▀▄ █▀▀ █\n'),
+    write('   █▄▄ █▄█ █▄▀ ██▄ ▄\n\n'),
     player(_, _, _, AttackPlayer, _, _, _, _, _),
     enemy(_, _, _, _, DefenseEnemy, _, _),
     A is AttackPlayer - 5, B is AttackPlayer + 6, random(A, B, Attack),
     C is DefenseEnemy - 2, D is DefenseEnemy + 3, random(C, D, Defense),
     Damage is Attack - Defense, 
-    enemyDamaged(Damage, ActualDamage), 
-    format('You deal ~d damage\n', [ActualDamage]), 
+    enemyDamaged(Damage),  
     retract(chancetorun(_)), 
     asserta(chancetorun(0)),
     checkSpecialAttack,
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
-specialattack :-
+stackoverflow :-
     inBattle(0),
-    write('You\'re currently not in a battle!'),!.
+    write('   You\'re currently not in a battle!'),!.
 
-specialattack :-
+stackoverflow :-
     inBattle(1),
     specialAttackCount(X),
-    X > 0,
-    write('Special Attack not ready!'), !.
+    X > 0, nl, nl,
+    write('   █▄█ █▀█ █░█ █▀█   █ █▄░█ ▀█▀ █▀▀ █▀█ █▄░█ █▀▀ ▀█▀   █ █▀   █▀▄ █▀█ █░█░█ █▄░█   ▀ ▄▀\n'),
+    write('   ░█░ █▄█ █▄█ █▀▄   █ █░▀█ ░█░ ██▄ █▀▄ █░▀█ ██▄ ░█░   █ ▄█   █▄▀ █▄█ ▀▄▀▄▀ █░▀█   ▄ ▀▄\n\n\n'),!.
 
-specialattack :-
+stackoverflow :-
     inBattle(1),
-    specialAttackCount(0),
+    specialAttackCount(0), nl, nl,
+    write('   █▀ ▀█▀ ▄▀█ █▀▀ █▄▀   █▀█ █░█ █▀▀ █▀█ █▀▀ █░░ █▀█ █░█░█ █\n'),
+    write('   ▄█ ░█░ █▀█ █▄▄ █░█   █▄█ ▀▄▀ ██▄ █▀▄ █▀░ █▄▄ █▄█ ▀▄▀▄▀ ▄\n\n\n'),
     player(_, _, _, AttackPlayer, _, _, _, _, _),
     enemy(_, _, _, _, DefenseEnemy, _, _),
     A is 2 * AttackPlayer - 5, B is 2 * AttackPlayer + 6, random(A, B, Attack),
     C is DefenseEnemy - 2, D is DefenseEnemy + 3, random(C, D, Defense),
     Damage is Attack - Defense,
-    enemyDamaged(Damage, ActualDamage),
-    format('You deal ~d damage\n', [ActualDamage]), 
+    enemyDamaged(Damage),
     retract(specialAttackCount(_)),
     asserta(specialAttackCount(2)),
     retract(chancetorun(_)), 
     asserta(chancetorun(1)),
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
-run :-
+vacation :-
     chancetorun(0),
-    write('You failed to run!\nChoose another move!'), !.
+    write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
+    write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'),  !.
 
-run :-
+vacation :-
     chancetorun(1),
     random(1,3,X),
     runSucceed(X), !.
 
 runSucceed(1) :- 
-    write('You managed to run!'), 
+    enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
+    Type =:= 'Work Stolen',
+    write('   █▀▄ ▄▀█ █▄█   █▀█ █▀▀ █▀▀   █ █ █\n'),
+    write('   █▄▀ █▀█ ░█░   █▄█ █▀░ █▀░   ▄ ▄ ▄\n\n\n'),
+    retractall(boss(_,_,_,_,_)),
+    asserta(boss(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy)),
     retractall(enemy(_,_,_,_,_,_,_)), 
     retract(chancetorun(_)),
     retract(inBattle(1)),
@@ -225,8 +274,23 @@ runSucceed(1) :-
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)),!.
 
+runSucceed(1) :- 
+    enemy(Type,_,_,_,_,_,_),
+    Type \= 'Work Stolen',
+    write('   █▀▄ ▄▀█ █▄█   █▀█ █▀▀ █▀▀   █ █ █\n'),
+    write('   █▄▀ █▀█ ░█░   █▄█ █▀░ █▀░   ▄ ▄ ▄\n\n\n'),
+    retractall(enemy(_,_,_,_,_,_,_)), 
+    retract(chancetorun(_)),
+    retract(inBattle(1)),
+    asserta(inBattle(0)), 
+    retract(specialAttackCount(_)),
+    retract(enemySpecialAttack(_)),!.
+
+
+
 runSucceed(2) :- 
-    write('You failed to run!\nChoose another move!'), 
+    write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
+    write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'), 
     retract(chancetorun(_)), 
     asserta(chancetorun(0)),!.
 
@@ -246,7 +310,7 @@ randomLevel(LvlPlayer, LevelEnemy) :-
 
 /* enemy(JenisEnemy, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy)*/
 initEnemy(3) :-
-    write('Your boss gave you a milestone to finish!'),
+    newTask,
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
     HPEnemy is (LevelEnemy - 1) * 15 + 60,
@@ -259,10 +323,11 @@ initEnemy(3) :-
     asserta(enemySpecialAttack(0)), 
     asserta(chancetorun(1)),
     retract(inBattle(0)),
-    asserta(inBattle(1)), !.
+    asserta(inBattle(1)),
+    enemyStatus, !.
 
 initEnemy(6) :-
-    write('There is a maintenance you need to do!'), 
+    newTask, 
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
     HPEnemy is (LevelEnemy - 1) * 10 + 60,
@@ -275,10 +340,11 @@ initEnemy(6) :-
     asserta(specialAttackCount(0)),
     asserta(chancetorun(1)),
     retract(inBattle(0)),
-    asserta(inBattle(1)), !.
+    asserta(inBattle(1)),
+    enemyStatus, !.
 
 initEnemy(9) :-
-    write('A data breach has happened!'),
+    newTask,
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
     HPEnemy is (LevelEnemy - 1) * 10 + 60,
@@ -291,13 +357,38 @@ initEnemy(9) :-
     asserta(specialAttackCount(0)),
     asserta(chancetorun(1)),
     retract(inBattle(0)),
-    asserta(inBattle(1)), !.
+    asserta(inBattle(1)), 
+    enemyStatus, !.
 
 initEnemy(X) :- X \= 3, X \= 6, X \= 9, !.
 
 randomEnemy :-
     random(0,10,X),
     initEnemy(X), !.
+
+initBoss(yes) :-
+
+    write('░██╗░░░░░░░██╗░█████╗░██████╗░██╗░░██╗  ░██████╗████████╗░█████╗░██╗░░░░░███████╗███╗░░██╗\n'),
+    write('░██║░░██╗░░██║██╔══██╗██╔══██╗██║░██╔╝  ██╔════╝╚══██╔══╝██╔══██╗██║░░░░░██╔════╝████╗░██║\n'),
+    write('░╚██╗████╗██╔╝██║░░██║██████╔╝█████═╝░  ╚█████╗░░░░██║░░░██║░░██║██║░░░░░█████╗░░██╔██╗██║\n'),
+    write('░░████╔═████║░██║░░██║██╔══██╗██╔═██╗░  ░╚═══██╗░░░██║░░░██║░░██║██║░░░░░██╔══╝░░██║╚████║\n'),
+    write('░░╚██╔╝░╚██╔╝░╚█████╔╝██║░░██║██║░╚██╗  ██████╔╝░░░██║░░░╚█████╔╝███████╗███████╗██║░╚███║\n'),
+    write('░░░╚═╝░░░╚═╝░░░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝  ╚═════╝░░░░╚═╝░░░░╚════╝░╚══════╝╚══════╝╚═╝░░╚══╝\n\n'),
+
+    write('\n\n'),
+    write('  █▀▄▀█ ▄▀█ █▄▀ █▀▀   ▄▀█ █▄░█ █▀█ ▀█▀ █░█ █▀▀ █▀█   █ █▄░█ █▀█ █░█ ▄▀█ ▀█▀ █ █▀█ █▄░█ █\n'),
+    write('  █░▀░█ █▀█ █░█ ██▄   █▀█ █░▀█ █▄█ ░█░ █▀█ ██▄ █▀▄   █ █░▀█ █▄█ ▀▄▀ █▀█ ░█░ █ █▄█ █░▀█ ▄\n\n'),
+
+    boss(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy),
+    asserta(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, 0, 0)),
+    asserta(enemySpecialAttack(0)),
+    asserta(specialAttackCount(0)),
+    asserta(chancetorun(1)),
+    retract(inBattle(0)),
+    asserta(inBattle(1)), 
+    enemyStatus, !.
+
+initBoss(_) :- !.
 
 /*pas attack, kalo HP enemynya udah 0, berarti bisa dikalahkan.
 kalo udah kalah, quest - 1, date tuple quest*/

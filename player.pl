@@ -53,10 +53,10 @@ checkLevelUp(1) :-
     Exp =:= Lvl * 10,
     levelUp, !.
 
-levelUp :-
-    write('You\'ve leveled up!\n'),   
+levelUp :- 
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     Role =:= 1,
+    write('You\'ve leveled up!\n'),  
     NewLvl is Lvl + 1,
     format('Current level: ~w\n', [NewLvl]),
     NewAttack is Attack + NewLvl,
@@ -66,9 +66,9 @@ levelUp :-
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
 
 levelUp :-
-    write('You\'ve leveled up!'),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     Role =:= 2,
+    write('You\'ve leveled up!\n'),
     NewLvl is Lvl + 1,
     format('Current level: ~w\n', [NewLvl]),
     NewAttack is Attack + 2*NewLvl,
@@ -78,9 +78,9 @@ levelUp :-
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
 
 levelUp :-
-    write('You\'ve leveled up!'),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     Role =:= 3,
+    write('You\'ve leveled up!\n'),
     NewLvl is Lvl + 1,
     format('Current level: ~w\n', [NewLvl]),
     NewAttack is Attack + NewLvl,
@@ -107,6 +107,24 @@ printHearts(H):-
     X is H - 1,
     printHearts(X).
 
+healthstatus :-
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    nl,
+    write('            █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
+    write('            ▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'),
+    nl, write('  HEARTS  -  '),
+    printHearts(Hearts),
+    format('  LVL. ~d', [Lvl]),
+    write('  EXP: '),
+    X is round((Exp / (Lvl*10))*20),
+    printExp(X),
+    format(' ~d/~d\n', [Exp, Lvl*10]),
+    write('          Stamina: '),
+    Y is round((HP / (MaxHP))*20),
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d/~d\n', [HP, MaxHP]),
+    format('          ATK. ~d\n          DEF. ~d\n', [Attack, Defense]), !.
+
 status :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     Role =:= 1, nl,
@@ -119,7 +137,7 @@ status :-
     X is round((Exp / (Lvl*10))*20),
     printExp(X),
     format(' ~d/~d\n', [Exp, Lvl*10]),
-    write('          HP: '),
+    write('          Stamina: '),
     Y is round((HP / (MaxHP))*20),
     forall(between(0,Y,B),(write('▒'))), 
     format(' ~d/~d\n', [HP, MaxHP]),
@@ -139,7 +157,7 @@ status :-
     X is round((Exp / (Lvl*10))*20),
     printExp(X),
     format(' ~d/~d\n', [Exp, Lvl*10]),
-    write('          HP: '),
+    write('          Stamina: '),
      Y is round((HP / (MaxHP))*20),
     forall(between(0,Y,B),(write('▒'))), 
     format(' ~d/~d\n', [HP, MaxHP]),
@@ -159,7 +177,7 @@ status :-
     X is round((Exp / (Lvl*10))*20),
     printExp(X),
     format(' ~d/~d\n', [Exp, Lvl*10]),
-    write('          HP: '),
+    write('          Stamina: '),
      Y is round((HP / (MaxHP))*20),
     forall(between(0,Y,B),(write('▒'))), 
     format(' ~d/~d\n', [HP, MaxHP]),
