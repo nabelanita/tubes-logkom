@@ -106,8 +106,6 @@ logo:-
     write('%   help   : open help menu                     %\n'),
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n').
 
-<<<<<<< HEAD
-=======
 start :-
     initQuest,
     write('Welcome to Samsan Tech. Choose your job\n'),
@@ -121,7 +119,6 @@ start :-
     initInventory,
     initPlayer(Job), !.
 
->>>>>>> 4fae99720e928bd11f4e62e80b72870504f44c6d
 /* INVENTORY */
 /* Disimpan dalam bentuk list */
 /*
