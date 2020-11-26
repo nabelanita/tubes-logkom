@@ -23,7 +23,7 @@ welcomePlayer(_) :-
 initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)). 
 
     
-/*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
+/*player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)*/
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
@@ -45,40 +45,40 @@ checkLevelUp :-
 levelUp :-
     write('You\'ve leveled up!'),   
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     Role =:= 1,
     NewLvl is Lvl + 1,
     NewAttack is Attack + NewLvl,
     NewDefense is Defense + NewLvl,
     NewMaxHP is MaxHP + 2*10*NewLvl,
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
 
 levelUp :-
     write('You\'ve leveled up!'),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     Role =:= 2,
     NewLvl is Lvl + 1,
     NewAttack is Attack + 2*NewLvl,
     NewDefense is Defense + NewLvl,
     NewMaxHP is MaxHP + 10*NewLvl,
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
 
 levelUp :-
     write('You\'ve leveled up!'),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     Role =:= 3,
     NewLvl is Lvl + 1,
     NewAttack is Attack + NewLvl,
     NewDefense is Defense + 2*NewLvl,
     NewMaxHP is MaxHP + 10*NewLvl,
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
     
-addExp :-
+addExp(X) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    NewExp is Exp + 1,
+    NewExp is Exp + X,
     asserta(player(Role, Lvl, NewExp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     checkLevelUp,!.
 

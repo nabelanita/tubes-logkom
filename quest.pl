@@ -1,5 +1,5 @@
 :- include('player.pl').
-:- include('movement.pl').
+% :- include('movement.pl').
 %:- include('main.pl').
 :- dynamic(quest/3).
 %:- dynamic
