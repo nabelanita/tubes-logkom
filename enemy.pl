@@ -1,5 +1,5 @@
 /*Include dan Dynamic*/
-:- include('player.pl').
+/*:- include('player.pl').*/
 :- dynamic(inBattle/1).
 :- dynamic(enemy/5). 
 :- dynamic(enemySpecialAttack/1). 

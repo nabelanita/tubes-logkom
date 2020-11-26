@@ -5,7 +5,10 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
-:- include('cobaquest.pl').
+:- include('quest.pl').
+:- include('shop.pl').
+:- include('save.pl').
+
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).

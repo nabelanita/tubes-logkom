@@ -1,6 +1,6 @@
-/*Include dan Dynamic*/
+/*Include dan Dynamic
 :- include('player.pl').
-:- include('quest.pl').
+:- include('quest.pl'). */
 
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
 /* enemy(Type, LevelEnemy, HpEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus) */
@@ -165,7 +165,7 @@ goalState :-
     write('                            ░░░██║░░░███████║█████╗░░  ██║░░██╗░███████║██╔████╔██║█████╗░░\n'),
     write('                            ░░░██║░░░██╔══██║██╔══╝░░  ██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░\n'),
     write('                            ░░░██║░░░██║░░██║███████╗  ╚██████╔╝██║░░██║██║░╚═╝░██║███████╗\n'),
-    write('                            ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝\n\n'),
+    write('                            ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝\n\n').
 
 /* special attack */
 enemyMove(2) :-
