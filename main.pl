@@ -37,7 +37,6 @@ start :-
     opened(_),
     asserta(started(1)),
     asserta(inBattle(0)),
-    asserta(enemyDefeated(0)),
     logo,nl,nl,
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),

@@ -58,11 +58,20 @@ searchItem(_, List, 0) :-
 searchItem(X, [Head|Tail], Found) :-
     searchItem(X, Tail, Found), !.
 
-writeInventory([]) :- !.
+writeInventory(1, []) :- 
+    write('Your inventory is empty!\n'),!.
 
-writeInventory([Head|Tail]) :-
-    format('~w\n', [Head]), writeInventory(Tail), !.
+writeInventory(0, []) :- !.
+
+writeInventory(1, [Head|Tail]) :-
+    format('~w\n', [Head]), writeInventory(0, Tail), !.
+
+writeInventory(0, [Head|Tail]) :-
+    format('~w\n', [Head]), writeInventory(0, Tail), !.
 
 inventory :-
-    playerInventory(ListInventory), writeInventory(ListInventory), !.
+    playerInventory(ListInventory), nl,
+    write('█ █▄░█ █░█ █▀▀ █▄░█ ▀█▀ █▀█ █▀█ █▄█\n'),
+    write('█ █░▀█ ▀▄▀ ██▄ █░▀█ ░█░ █▄█ █▀▄ ░█░\n'), nl,
+    writeInventory(1, ListInventory), !.
 
