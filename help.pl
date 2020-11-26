@@ -2,6 +2,7 @@
 
 /* commands */
 help:-
+    opened(_),
     nl,
     write('██╗░░██╗███████╗██╗░░░░░██████╗░\n'),
     write('██║░░██║██╔════╝██║░░░░░██╔══██╗\n'),
@@ -10,6 +11,10 @@ help:-
     write('██║░░██║███████╗███████╗██║░░░░░\n'),
     write('╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░\n'),
     helpChoice, !.
+
+help:-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n').
 
 helpChoice:-
     nl,

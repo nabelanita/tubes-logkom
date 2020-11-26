@@ -45,7 +45,7 @@ start :-
     write('1. Web Developer\n'),
     write('2. ML Engineer\n'),
     write('3. Mobile Developer\n'),
-    write('Your choice: '),
+    write('Enter choice: '),
     read(Job), nl,
     welcomePlayer(Job),
     initInventory,
