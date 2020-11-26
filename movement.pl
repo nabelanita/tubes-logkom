@@ -3,6 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('battle.pl').
+:- include('cobaquest.pl').
 % :- include('quest.pl').
 
 /* move commands */
@@ -348,7 +349,7 @@ enterGateUpper(yes) :-
     gateLower(X1,Y1),
     retract(playerPos(X,Y)),
     X2 is X1,
-    Y2 is Y1 - 1,
+    Y2 is Y1 + 1,
     asserta(playerPos(X2,Y2)),
     write('You have been teleported!\n'),!.
 enterGateUpper(_) :- !.
