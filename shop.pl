@@ -163,7 +163,17 @@ usePotion(NamaPotion) :-
     NewAttack is Attack + AttackPotion,
     NewDefense is Defense + DefensePotion,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
-    del(NamaPotion),!.
+    delete(NamaPotion),!.
+
+/* Hee mager bikin menunya lagi 
+usepotion :- 
+    write('Your potions:'),nl,
+    playerInventory(ListInventory), nl,
+    writeInventory(1, ListInventory),
+    write('Your choice: '),
+    read(NamaPotion),nl,
+    usePotion(NamaPotion),!.
+*/ 
 /* Kalo ternyata gaada di inventory */
 usePotion(NamaPotion) :-
     \+ cariPotion(NamaPotion),
@@ -180,7 +190,7 @@ useEq(NamaEq) :-
     NewAttack is Attack + AttackEq,
     NewDefense is Defense + DefenseEq,
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
-    del(NamaEq),!.
+    delete(NamaEq),!.
 /* Kalo ternyata gaada di inventory */
 usePotion(NamaEq) :-
     \+ cariPotion(NamaEq),
