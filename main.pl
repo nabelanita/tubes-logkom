@@ -57,6 +57,7 @@ start :-
     write('3. Mobile Developer\n'),
     write('Enter choice: '),
     read(Job), nl,
+    asserta(boss('Work Stolen', 10, 400, 100, 80)),
     asserta(quest(0,0,0)),
     welcomePlayer(Job),
     initInventory, !.
