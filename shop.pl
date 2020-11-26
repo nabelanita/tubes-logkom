@@ -52,20 +52,22 @@ potion(10,corndog,20,10).
 /* Menu shop */
 
 /* Sekarang cuma bisa akses kalau lagi di S aja */
+/*
 shop :-
-    shopPos(X,Y),
-    \+ playerPos(X,Y),
+    playerPos(X1,Y1), 
+    \+shopPos(X2,Y2), 
+    X1 is X2-1, 
+    Y1 is Y2,
 	write('You are not in the shop! \n'),
-	write('You can\'t access this command outside shop.\n'), !.
+	write('You can\'t access this command outside shop.\n'), !. */
 
 shop :-
     \+opened(_),
 	write('You haven\'t started the game! \n'),
 	write('Type \'start\' to start the game. \n'), !.
+
 shop :-
     opened(_),
-    shopPos(X,Y),
-    playerPos(X,Y),
     nl,
     write('░██████╗██╗░░██╗░█████╗░██████╗░'),nl,
     write('██╔════╝██║░░██║██╔══██╗██╔══██╗'),nl,
