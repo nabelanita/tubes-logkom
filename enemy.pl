@@ -1,9 +1,4 @@
 /*Include dan Dynamic*/
-:- include('player.pl').
-:- dynamic(inBattle/1).
-:- dynamic(enemy/5). 
-:- dynamic(enemySpecialAttack/1). 
-:- dynamic(specialAttackCount/1). 
 
 
 /* enemy(enemyId, levelEnemy, hpEnemy, attackEnemy, defenseEnemy) */

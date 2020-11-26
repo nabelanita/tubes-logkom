@@ -5,7 +5,7 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
-:- include('cobaquest.pl').
+:- include('quest.pl').
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).
@@ -14,6 +14,27 @@
 :- dynamic(specialAttackCount/1). 
 :- dynamic(meetEnemy/1).
 :- dynamic(chancetorun/1).
+:- dynamic(boss/5).
+
+/*
+retractstuff :-
+    retractall(opened(_)),
+    retractall(started(_)),
+    retractall(inBattle(_)),
+    retractall(enemySpecialAttack(_)),
+    retractall(specialAttackCount(_)),
+    retractall(meetEnemy(_)),
+    retractall(chancetorun(_)),
+    retractall(mapHeight(_)),
+    retractall(mapWidth(_)),
+    retractall(questPos(_,_)),
+    retractall(shopPos(_,_)),
+    retractall(gateUpper(_,_)),
+    retractall(gateLower(_,_)),
+    retractall(bossPos(_,_)),
+    retractall(enemy(_,_,_,_,_)),
+    retractall(boss(_,_,_,_,_)), !.
+*/
 
 openGame :-
     opened(_),
@@ -57,7 +78,8 @@ start :-
     write('3. Mobile Developer\n'),
     write('Enter choice: '),
     read(Job), nl,
-    asserta(boss('Work Stolen', 10, 400, 100, 80)),
+    retractall(boss(_,_,_,_,_)),
+    asserta(boss('Work Stolen', 10, 10, 100, 80)),
     asserta(quest(0,0,0)),
     welcomePlayer(Job),
     initInventory, !.
