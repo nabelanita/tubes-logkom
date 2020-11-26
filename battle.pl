@@ -249,14 +249,10 @@ checkSpecialAttack :-
     X =:= 0, !.
 
 code :-
-    opened(_),
-    started(_),
     inBattle(0),
     write('You\'re currently not in a battle!'),!.
     
 code :-
-    opened(_),
-    started(_),
     inBattle(1),
     nl, nl,
     write('   █▀▀ █▀█ █▀▄ █▀▀ █\n'),
@@ -272,24 +268,11 @@ code :-
     checkSpecialAttack,
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
-code:-
-    opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
-
-code :-
-    write('You haven\'t opened the game! \n'),
-    write('Type \'openGame\' to open the game. \n'), !.
-
 stackoverflow :-
-    opened(_),
-    started(_),
     inBattle(0),
     write('   You\'re currently not in a battle!'),!.
 
 stackoverflow :-
-    opened(_),
-    started(_),
     inBattle(1),
     specialAttackCount(X),
     X > 0, nl, nl,
@@ -297,8 +280,6 @@ stackoverflow :-
     write('   ░█░ █▄█ █▄█ █▀▄   █ █░▀█ ░█░ ██▄ █▀▄ █░▀█ ██▄ ░█░   █ ▄█   █▄▀ █▄█ ▀▄▀▄▀ █░▀█   ▄ ▀▄\n\n\n'),!.
 
 stackoverflow :-
-    opened(_),
-    started(_),
     inBattle(1),
     specialAttackCount(0), nl, nl,
     write('   █▀ ▀█▀ ▄▀█ █▀▀ █▄▀   █▀█ █░█ █▀▀ █▀█ █▀▀ █░░ █▀█ █░█░█ █\n'),
@@ -315,32 +296,15 @@ stackoverflow :-
     asserta(chancetorun(1)),
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
-stackoverflow :-
-    write('You haven\'t opened the game! \n'),
-    write('Type \'openGame\' to open the game. \n'), !.
-
 vacation :-
-    opened(_),
-    started(_),
     chancetorun(0),
     write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
     write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'),  !.
 
 vacation :-
-    opened(_),
-    started(_),
     chancetorun(1),
     random(1,3,X),
     runSucceed(X), !.
-
-vacation :-
-    opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
-
-vacation :-
-    write('You haven\'t opened the game! \n'),  
-    write('Type \'openGame\' to open the game. \n'), !.
 
 runSucceed(1) :- 
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
