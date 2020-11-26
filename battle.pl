@@ -121,7 +121,10 @@ checkPlayerDefeated(0) :-
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
     format('Current hearts: ~d\n', [NewHearts]),
-    write('You got fired!\n'), !.
+    write('You got fired!\n'),
+    retractstuff,
+    read(X),
+    openGame, !.
 
 playerDamaged(Damage, 0) :- Damage < 1, 
 
