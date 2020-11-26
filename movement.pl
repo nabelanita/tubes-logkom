@@ -154,7 +154,7 @@ down :-
 /* RIGHT */
 right :- 
     playerPos(X,_), 
-    X =:= 20, nl, 
+    X =:= 10, nl, 
     write('You just hit a wall!\n'),nl,!.
 /* right :- 
     playerPos(6,3), nl, 
@@ -190,7 +190,7 @@ right :-
     randomEnemy,
     inBattle(0),
     retract(playerPos(X,Y)), 
-    X < 20, 
+    X < 10, 
     X1 is X+1, nl, 
     asserta(playerPos(X1,Y)), 
     write('You moved east!'), !.
