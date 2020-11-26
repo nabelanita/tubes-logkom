@@ -108,12 +108,14 @@ enemyMove(2) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
     HPEnemy =< 0,
     format('You defeated ~w!\n', [Type]),
+    X is ExpBonus,
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
+    % retract(enemy(_, _, _, _, _, _, _)),
     player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewGold is Gold + GoldBonus,
     retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)),
-    addExp(ExpBonus),
+    asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)), 
+    addExp(X),
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), !.
@@ -292,4 +294,4 @@ randomEnemy :-
     initEnemy(X), !.
 
 /*pas attack, kalo HP enemynya udah 0, berarti bisa dikalahkan.
-kalo udah kalah, quest - 1, update tuple quest*/
+kalo udah kalah, quest - 1, date tuple quest*/
