@@ -7,21 +7,18 @@ welcomePlayer(1) :-
     write('You have chosen Web Developer, let\'s explore the world of programming!\n'),
     asserta(started(1)),
     asserta(inBattle(0)),
-    newMap,
     initPlayer(1).
 
 welcomePlayer(2) :-
     write('You have chosen Machine Learning Engineer, let\'s explore the world of programming!\n'),
     asserta(started(1)),
     asserta(inBattle(0)),
-    newMap,
     initPlayer(2).
 
 welcomePlayer(3) :-
     write('You have chosen Mobile Developer, let\'s explore the world of programming!\n'),
     asserta(started(1)),
     asserta(inBattle(0)),
-    newMap,
     initPlayer(3).
 
 welcomePlayer(_) :-
