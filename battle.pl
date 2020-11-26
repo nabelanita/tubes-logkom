@@ -281,7 +281,7 @@ stackoverflow :-
     enemySpecialAttack(X), randomEnemyMove(X), !.
 
 vacation :-
-    chancetorun(0),
+    chancetorun(0),nl,
     write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
     write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'),  !.
 
@@ -292,7 +292,7 @@ vacation :-
 
 runSucceed(1) :- 
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    Type =:= 'Work Stolen',
+    Type =:= 'Work Stolen',nl,
     write('   █▀▄ ▄▀█ █▄█   █▀█ █▀▀ █▀▀   █ █ █\n'),
     write('   █▄▀ █▀█ ░█░   █▄█ █▀░ █▀░   ▄ ▄ ▄\n\n\n'),
     retractall(boss(_,_,_,_,_)),
@@ -306,7 +306,7 @@ runSucceed(1) :-
 
 runSucceed(1) :- 
     enemy(Type,_,_,_,_,_,_),
-    Type \= 'Work Stolen',
+    Type \= 'Work Stolen',nl,
     write('   █▀▄ ▄▀█ █▄█   █▀█ █▀▀ █▀▀   █ █ █\n'),
     write('   █▄▀ █▀█ ░█░   █▄█ █▀░ █▀░   ▄ ▄ ▄\n\n\n'),
     retractall(enemy(_,_,_,_,_,_,_)), 
@@ -319,6 +319,7 @@ runSucceed(1) :-
 
 
 runSucceed(2) :- 
+    nl,
     write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
     write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'), 
     retract(chancetorun(_)), 

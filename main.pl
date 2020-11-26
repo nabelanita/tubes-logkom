@@ -120,9 +120,8 @@ logo:-
     write('  ▒▒▒ ▒  ▒ ▒   ▒ ▒▒▒ ▒  ▒ ▒  ▒    ▒  ▒▒▒ ▒▒▒ ▒ ▒\n'), % mohon maaf gw iseng WKWK %
     nl,nl,nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
-    write('%               S T A R T  M E N U              %\n'),
+    write('%                C O M M A N D S                %\n'),
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
-    write('%   start  : start your adventure!              %\n'),
     write('%   map    : shows the map                      %\n'),
     write('%   status : shows your current status          %\n'),
     write('%   w      : move to the north                  %\n'),

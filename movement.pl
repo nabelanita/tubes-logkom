@@ -49,6 +49,7 @@ d :-
 /* change player position */
 /* UP */
 up :- 
+    inBattle(0),
     playerPos(_,Y), 
     Y =:= 1, nl, 
     write('You just hit a wall!\n'), nl, !.
@@ -65,6 +66,7 @@ up :-
     nl, 
     write('You just hit a wall!\n'), nl, !. */
 up :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     shopPos(X2,Y2), 
     X1 is X2, 
@@ -73,6 +75,7 @@ up :-
     read(A),
     enterShop(A), !.
 up :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     questPos(X2,Y2),
     X1 is X2, 
@@ -81,6 +84,7 @@ up :-
     read(A),
     enterQuest(A), !.
 up :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateUpper(X2,Y2), 
     X1 is X2, 
@@ -89,6 +93,7 @@ up :-
     read(A),
     enterGateUpper(A), !.
 up :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateLower(X2,Y2), 
     X1 is X2, 
@@ -97,6 +102,7 @@ up :-
     read(A),
     enterGateLower(A), !.
 up :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     bossPos(X2,Y2), 
     X1 is X2, 
@@ -121,6 +127,7 @@ up :-
 
 /* DOWN */
 down :- 
+    inBattle(0),
     playerPos(_,Y), 
     Y =:= 10, nl, 
     write('You just hit a wall!\n'), nl, !.
@@ -134,6 +141,7 @@ down :-
     playerPos(9,2), nl, 
     write('You just hit a wall!\n'), nl, !. */
 down :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     shopPos(X2,Y2), 
     X1 is X2, 
@@ -142,6 +150,7 @@ down :-
     read(A),
     enterShop(A), !.
 down :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     questPos(X2,Y2), 
     X1 is X2, 
@@ -150,6 +159,7 @@ down :-
     read(A),
     enterQuest(A), !.
 down :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateUpper(X2,Y2), 
     X1 is X2, 
@@ -158,6 +168,7 @@ down :-
     read(A),
     enterGateUpper(A), !.
 down :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateLower(X2,Y2), 
     X1 is X2, 
@@ -167,6 +178,7 @@ down :-
     enterGateLower(A), !.
 
 down :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     bossPos(X2,Y2), 
     X1 is X2, 
@@ -192,6 +204,7 @@ down :-
 
 /* RIGHT */
 right :- 
+    inBattle(0),
     playerPos(X,_), 
     X =:= 10, nl, 
     write('You just hit a wall!\n'),nl,!.
@@ -205,6 +218,7 @@ right :-
     playerPos(7,5), nl, 
     write('You just hit a wall!\n'), nl, !. */
 right :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     shopPos(X2,Y2), 
     X1 is X2 - 1, 
@@ -213,6 +227,7 @@ right :-
     read(A),
     enterShop(A), !.
 right :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     questPos(X2,Y2), 
     X1 is X2 - 1, 
@@ -221,6 +236,7 @@ right :-
     read(A),
     enterQuest(A), !.
 right :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateUpper(X2,Y2), 
     X1 is X2 - 1, 
@@ -229,6 +245,7 @@ right :-
     read(A),
     enterGateUpper(A), !.
 right :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateLower(X2,Y2), 
     X1 is X2 - 1, 
@@ -237,6 +254,7 @@ right :-
     read(A),
     enterGateLower(A), !.
 right :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     bossPos(X2,Y2), 
     X1 is X2 - 1, 
@@ -262,6 +280,7 @@ right :-
 
 /* LEFT */
 left :- 
+    inBattle(0),
     playerPos(X,_), 
     X =:= 1, nl, 
     write('You just hit a wall!'), nl,!.
@@ -275,6 +294,7 @@ left :-
     playerPos(9,5), nl, 
     write('You just hit a wall!\n'), nl, !. */
 left :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     shopPos(X2,Y2), 
     X1 is X2 + 1, 
@@ -283,6 +303,7 @@ left :-
     read(A),
     enterShop(A), !.
 left :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     questPos(X2,Y2), 
     X1 is X2 + 1, 
@@ -291,6 +312,7 @@ left :-
     read(A),
     enterQuest(A), !.
 left :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateUpper(X2,Y2), 
     X1 is X2 + 1, 
@@ -299,6 +321,7 @@ left :-
     read(A),
     enterGateUpper(A), !.
 left :- 
+    inBattle(0),
     playerPos(X1,Y1), 
     gateLower(X2,Y2), 
     X1 is X2 + 1, 
@@ -307,7 +330,8 @@ left :-
     read(A),
     enterGateLower(A), !.
 
-left :- 
+left :-     
+    inBattle(0),
     playerPos(X1,Y1), 
     bossPos(X2,Y2), 
     X1 is X2 + 1, 
