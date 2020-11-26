@@ -1,13 +1,11 @@
-/* udh connect ke database, tp blm fix  */
-/* includes */
-
+/* Includes */
 :- include('player.pl').
 :- include('inventory.pl').
 :- include('save.pl').
 
 /* Inisialisasi */
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
-player(1, 1, 0, 15, 10, 65, 65, 3, 300). /*
+player(1, 1, 0, 15, 10, 65, 65, 3, 300). /* nanti pas digabungin jangan lupa dihapus */
 /* initInventory di terminal gatau kenapa gabisa disini */
 
 /* equipment(idEq,jenisEq,namaEq,attack,defense) */

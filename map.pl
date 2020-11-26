@@ -7,6 +7,9 @@
 :- dynamic(mapWidth/1). 
 :- dynamic(questPos/2).
 :- dynamic(shopPos/2).
+:- dynamic(gateUpper/2).
+:- dynamic(gateLower/2).
+:- dynamic(bossPos/2).
 
 /* Randomize quest and store position*/
 initQuest :-
@@ -19,6 +22,19 @@ initShop :-
 	random(1,5,Y1), 
 	asserta(shopPos(X1,Y1)).
 
+initBossPos :-
+	asserta(bossPos(10,10)).
+
+initGate :-
+	random(1,10,X1),
+	random(1,3,Y1),
+	asserta(gateUpper(X1,Y1)),
+	random(1,10,X2),
+	random(8,10,Y2),
+	asserta(gateLower(X2,Y2)).
+
+
+
 /* New map */
 /* ukuran mapnya hardcoded idk */
 newMap :- 
@@ -28,7 +44,9 @@ newMap :-
 	asserta(mapHeight(Y)), 
 	initPlayerPos, 
 	initQuest, 
-	initShop.
+	initShop,
+	initGate,
+	initBossPos.
 
 
 /* Map edges */
@@ -43,6 +61,9 @@ edgeRight(X,_) :- X1 is X - 1, mapWidth(X1), !.
 printPlayer(X,Y) :- playerPos(X,Y), !.
 printQuest(X,Y) :- questPos(X,Y), !.
 printShop(X,Y) :- shopPos(X,Y), !.
+printBoss(X,Y) :- bossPos(X,Y), !.
+printgateUpper(X,Y) :- gateUpper(X,Y), !.
+printgateLower(X,Y) :- gateLower(X,Y), !.
 
 
 /* Print map */
@@ -51,7 +72,6 @@ printMap(8,3) :- write('#'), !.
 printMap(9,3) :- write('#'), !.
 printMap(8,4) :- write('#'), !.
 printMap(8,5) :- write('#'), !. */
-printMap(10,10) :- write('B'), !.
 printMap(X,Y) :- edgeUpper(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- edgeUpper(X,Y), write('#'), !.
 printMap(X,Y) :- edgeLower(X,Y), write('#'), !.
@@ -61,6 +81,9 @@ printMap(X,Y) :- edgeLower(X,Y), edgeRight(X,Y), write('#\n'), !.
 printMap(X,Y) :- printPlayer(X,Y), !, write('P').
 printMap(X,Y) :- printQuest(X,Y), !, write('T').
 printMap(X,Y) :- printShop(X,Y), !, write('S').
+printMap(X,Y) :- printBoss(X,Y), !, write('B').
+printMap(X,Y) :- printgateUpper(X,Y), !, write('G').
+printMap(X,Y) :- printgateLower(X,Y), !, write('G').
 printMap(_,_) :- write('-'), !.
 
 
@@ -83,6 +106,7 @@ map :-
 	write('        B - Boss\n'),
 	write('        S - Shop\n'),
 	write('        T - Task board\n'),
+	write('        G - Teleport gate\n'),
 	write('        # - Wall (Cannot walk through)\n'), !.
 
 map :-

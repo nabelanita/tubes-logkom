@@ -5,6 +5,18 @@
 :- include('inventory.pl').
 :- include('help.pl').
 :- include('battle.pl').
+:- dynamic(opened/1).
+:- dynamic(started/1).
+:- dynamic(inBattle/1).
+:- dynamic(enemy/5). 
+:- dynamic(enemySpecialAttack/1). 
+:- dynamic(specialAttackCount/1). 
+:- dynamic(meetEnemy/1).
+:- dynamic(chancetorun/1).
+
+openGame :-
+    opened(_),
+    write('The game is already open!'), !.
 
 openGame :-
     nl,nl,
@@ -28,12 +40,15 @@ openGame :-
     write('  %   help   : open help menu                     %\n'),
     write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
-    asserta(opened(1)).
+    asserta(opened(1)), !.
 
 start :-
     opened(_),
-    asserta(started(1)),
-    asserta(inBattle(0)),
+    started(_),
+    write('The game has already started!\n'),!.
+
+start :-
+    opened(_),
     logo,nl,nl,
     write('Welcome to Samsan Tech. Choose your job\n'),
     write('1. Web Developer\n'),
@@ -112,7 +127,6 @@ inventory :-
 /*Fungsi rekursif, Basis ketika Tail = 0*/
     write('     █▀ ▄▀█ █▀▄▀█ █▀ ▄▀█ █▄░█   ▀█▀ █▀▀ █▀▀ █░█\n'),
     write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
-
 
 quit :- 
     nl,
