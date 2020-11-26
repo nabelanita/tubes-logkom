@@ -27,15 +27,15 @@ initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)).
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
-    asserta(player(1, 1, 0, 20, 10, 100, 100, 3, 500)),!.
+    asserta(player(1, 1, 0, 20, 10, 100, 100, 3, 500)), newMap, !.
 
 initPlayer(X) :- 
     X =:= 2,
-    asserta(player(2, 1, 0, 30, 10, 75, 75, 3, 500)),!.
+    asserta(player(2, 1, 0, 30, 10, 75, 75, 3, 500)), newMap, !.
 
 initPlayer(X) :- 
     X =:= 3,
-    asserta(player(3, 1, 0, 20, 15, 75, 75, 3, 500)),!.
+    asserta(player(3, 1, 0, 20, 15, 75, 75, 3, 500)), newMap, !.
 
 checkLevelUp :-
     player(_, Lvl, Exp, _, _, _, _, _, _),

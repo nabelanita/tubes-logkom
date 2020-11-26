@@ -46,8 +46,7 @@ start :-
     write('Enter choice: '),
     read(Job), nl,
     welcomePlayer(Job),
-    initInventory,
-    newMap, !.
+    initInventory, !.
 
 start :-
     write('You haven\'t opened the game! \n'),
