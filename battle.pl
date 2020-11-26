@@ -12,8 +12,16 @@
 /* initEnemy */
 enemyStatus :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    write('Enemy Status:\n'),
-    format('Type: ~w\nLevel: ~d\nHealth: ~d\nAttack: ~d\nDefense: ~d\n', [Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy]),  !.
+    nl,
+    write('            █▀▀ █▄░█ █▀▀ █▀▄▀█ █▄█\n'),
+    write('            ██▄ █░▀█ ██▄ █░▀░█ ░█░\n'),
+    nl, format('  TYPE  -  ~w\n', [Type]),
+    format('  LVL. ~d', [LevelEnemy]),
+    write('  HP: '),
+    Y is HPEnemy // 5,
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d\n', [HPEnemy]),
+    format('          ATK. ~d\n          DEF. ~d\n', [AttackEnemy, DefenseEnemy]), !.
 
 attackMenu :-
     enemyStatus,
@@ -107,6 +115,7 @@ enemyMove(2) :-
  checkEnemyDefeated(0) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
     HPEnemy =< 0,
+<<<<<<< HEAD
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
@@ -117,6 +126,20 @@ enemyMove(2) :-
     retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)),
     addExp(ExpBonus),!.
+=======
+    format('You defeated ~w!\n', [Type]),
+    X is ExpBonus,
+    retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
+    % retract(enemy(_, _, _, _, _, _, _)),
+    player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    NewGold is Gold + GoldBonus,
+    retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NewGold)), 
+    addExp(X),
+    retract(inBattle(1)), asserta(inBattle(0)), 
+    retract(specialAttackCount(_)),
+    retract(enemySpecialAttack(_)), !.
+>>>>>>> aa340f9fc4272bb1225c2ae1763ff4f04d5c391b
 
 randomEnemyMove(X) :- 
     checkEnemyDefeated(Status), Status =:= 0, !.
@@ -292,4 +315,4 @@ randomEnemy :-
     initEnemy(X), !.
 
 /*pas attack, kalo HP enemynya udah 0, berarti bisa dikalahkan.
-kalo udah kalah, quest - 1, update tuple quest*/
+kalo udah kalah, quest - 1, date tuple quest*/

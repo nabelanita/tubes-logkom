@@ -27,15 +27,15 @@ initPlayerPos:- X is 2, Y is 1, asserta(playerPos(X,Y)).
 /*player(_, _, _, _, _, _, _, _, _)*/
 initPlayer(X) :- 
     X =:= 1,
-    asserta(player(1, 1, 0, 20, 10, 100, 100, 3, 500)),!.
+    asserta(player(1, 1, 0, 20, 10, 100, 100, 3, 500)), newMap, !.
 
 initPlayer(X) :- 
     X =:= 2,
-    asserta(player(2, 1, 0, 30, 10, 75, 75, 3, 500)),!.
+    asserta(player(2, 1, 0, 30, 10, 75, 75, 3, 500)), newMap, !.
 
 initPlayer(X) :- 
     X =:= 3,
-    asserta(player(3, 1, 0, 20, 15, 75, 75, 3, 500)),!.
+    asserta(player(3, 1, 0, 20, 15, 75, 75, 3, 500)), newMap, !.
 
 checkLevelUp(0) :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
@@ -43,8 +43,15 @@ checkLevelUp(0) :-
 
 checkLevelUp(1) :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
+<<<<<<< HEAD
     Exp =:= Lvl * 10,
     levelUp, !.
+=======
+    Exp >= Lvl * 10, !,
+    levelUp,!.
+
+checkLevelUp :- !.
+>>>>>>> aa340f9fc4272bb1225c2ae1763ff4f04d5c391b
 
 levelUp :-
     write('You\'ve leveled up!\n'),   
@@ -56,7 +63,7 @@ levelUp :-
     NewDefense is Defense + NewLvl,
     NewMaxHP is MaxHP + 2*10*NewLvl,
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
+    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
 
 levelUp :-
     write('You\'ve leveled up!'),
@@ -68,7 +75,7 @@ levelUp :-
     NewDefense is Defense + NewLvl,
     NewMaxHP is MaxHP + 10*NewLvl,
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
+    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
 
 levelUp :-
     write('You\'ve leveled up!'),
@@ -80,32 +87,85 @@ levelUp :-
     NewDefense is Defense + 2*NewLvl,
     NewMaxHP is MaxHP + 10*NewLvl,
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)).
+    asserta(player(Role, NewLvl, 0, NewAttack, NewDefense, NewMaxHP, NewMaxHP, Hearts, Gold)), !.
     
 addExp(X) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     NewExp is Exp + X,
-    asserta(player(Role, Lvl, NewExp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    checkLevelUp(_),!.
+    asserta(player(Role, Lvl, NewExp, Attack, Defense, MaxHP, HP, Hearts, Gold)),checkLevelUp(_),!.
+
+printExp(0):- !.
+printExp(A):-
+    write('▒'),
+    X is A - 1,
+    printExp(X).
+    
+printHearts(0):- nl, !.
+printHearts(H):-
+    write('♥ '),
+    X is H - 1,
+    printHearts(X).
 
 status :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    Role =:= 1,
-    write('Your status:\n'),
-    format('Job: ~w\nLevel: ~d\nHealth: ~d/~d\nAttack: ~d\nDefense: ~d\nExp: ~d\nGold: ~d\nHearts:~d', ['Web Developer', Lvl, HP, MaxHP, Attack, Defense, Exp, Gold, Hearts]),!.
+    Role =:= 1, nl,
+    write('            █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
+    write('            ▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'),
+    nl, write('  HEARTS  -  '),
+    printHearts(Hearts),
+    format('  LVL. ~d', [Lvl]),
+    write('  EXP: '),
+    X is round((Exp / (Lvl*10))*20),
+    printExp(X),
+    format(' ~d/~d\n', [Exp, Lvl*10]),
+    write('          HP: '),
+    Y is round((HP / (MaxHP))*20),
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d/~d\n', [HP, MaxHP]),
+    format('          ATK. ~d\n          DEF. ~d\n', [Attack, Defense]),
+    write('  You are a Web Developer!\n'),
+    format('  Gold:  ~d  G\n', [Gold]),!.
 
 status :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    Role =:= 2,
-    write('\nYour status:\n'),
-    format('Job: ~w\nLevel: ~d\nHealth: ~d/~d\nAttack: ~d\nDefense: ~d\nExp: ~d\nGold: ~d\nHearts:~d', ['ML Engineer', Lvl, HP, MaxHP, Attack, Defense, Exp, Gold, Hearts]),!.
+    Role =:= 2, nl,
+    write('            █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
+    write('            ▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'),
+    nl, write('  HEARTS  -  '),
+    printHearts(Hearts),
+    format('  LVL. ~d', [Lvl]),
+    write('  EXP: '),
+    X is round((Exp / (Lvl*10))*20),
+    printExp(X),
+    format(' ~d/~d\n', [Exp, Lvl*10]),
+    write('          HP: '),
+     Y is round((HP / (MaxHP))*20),
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d/~d\n', [HP, MaxHP]),
+    format('          ATK. ~d\n          DEF. ~d\n', [Attack, Defense]),
+    write('You are a Machine Learning Engineer!\n'),
+    format('Gold:  ~d  G\n', [Gold]),!.
 
 status :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    Role =:= 3,
-    write('Your status:\n'),
-    format('Job: ~w\nLevel: ~d\nHealth: ~d/~d\nAttack: ~d\nDefense: ~d\nExp: ~d\nGold: ~d\nHearts:~d', ['Mobile Developer', Lvl, HP, MaxHP, Attack, Defense, Exp, Gold, Hearts]),!.
+    Role =:= 3, nl,
+    write('            █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
+    write('            ▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'),
+    nl, write('  HEARTS  -  '),
+    printHearts(Hearts),
+    format('  LVL. ~d', [Lvl]),
+    write('  EXP: '),
+    X is round((Exp / (Lvl*10))*20),
+    printExp(X),
+    format(' ~d/~d\n', [Exp, Lvl*10]),
+    write('          HP: '),
+     Y is round((HP / (MaxHP))*20),
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d/~d\n', [HP, MaxHP]),
+    format('          ATK. ~d\n          DEF. ~d\n', [Attack, Defense]),
+    write('  You are a Mobile Developer!\n'),
+    format('  Gold:  ~d  G\n', [Gold]),!.
 
 
 

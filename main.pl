@@ -27,13 +27,9 @@ openGame :-
     write('  %               S T A R T  M E N U              %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
     write('  %   start  : start your adventure!              %\n'),
-    write('  %   map    : shows the map of the office        %\n'),
-    write('  %   status : shows your current status          %\n'),
-    write('  %   w      : move to the north                  %\n'),
-    write('  %   s      : move to the south                  %\n'),
-    write('  %   d      : move to the east                   %\n'),
-    write('  %   a      : move to the west                   %\n'),
+    write('  %   load   : load saved game                    %\n'),
     write('  %   help   : open help menu                     %\n'),
+    write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
     asserta(opened(1)).
 
@@ -46,11 +42,10 @@ start :-
     write('1. Web Developer\n'),
     write('2. ML Engineer\n'),
     write('3. Mobile Developer\n'),
-    write('Your choice: '),
+    write('Enter choice: '),
     read(Job), nl,
     welcomePlayer(Job),
-    initInventory,
-    newMap, !.
+    initInventory, !.
 
 start :-
     write('You haven\'t opened the game! \n'),
@@ -82,4 +77,7 @@ logo:-
     write('     ▄█ █▀█ █░▀░█ ▄█ █▀█ █░▀█   ░█░ ██▄ █▄▄ █▀█\n').
 
 
-quit :- halt. /* ini buat keluar dari gprolog */
+quit :- 
+    nl,
+    write('Thank you for playing!\n'),
+    halt. /* ini buat keluar dari gprolog */

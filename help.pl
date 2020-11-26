@@ -2,6 +2,7 @@
 
 /* commands */
 help:-
+    opened(_),
     nl,
     write('██╗░░██╗███████╗██╗░░░░░██████╗░\n'),
     write('██║░░██║██╔════╝██║░░░░░██╔══██╗\n'),
@@ -11,13 +12,18 @@ help:-
     write('╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░\n'),
     helpChoice, !.
 
+help:-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n').
+
 helpChoice:-
     nl,
     write('Welcome to the help menu!\n'),
     write('1. How to play\n'),
-    write('2. Story\n'),
-    write('3. Credits\n'),
-    write('4. Exit\n'),
+    write('2. Commands\n'),
+    write('3. Story\n'),
+    write('4. Credits\n'),
+    write('5. Exit\n'),
     write('Enter your choice: '),
     read(X), nl,
     helpMenu(X), !.
@@ -47,6 +53,27 @@ helpMenu(1):-
 
 helpMenu(2):-
     nl,
+    write('█▀▀ █▀█ █▀▄▀█ █▀▄▀█ ▄▀█ █▄░█ █▀▄ █▀\n'),
+    write('█▄▄ █▄█ █░▀░█ █░▀░█ █▀█ █░▀█ █▄▀ ▄█\n'),
+    nl,
+    write('   map    : view map\n'),
+    write('   status : view current status\n'),
+    write('   w      : move north\n'),
+    write('   s      : move south\n'),
+    write('   d      : move east\n'),
+    write('   a      : move west\n'),
+    write('   attack : perform attack (in-battle only\n'),
+    write('   specialattack : perform special attack\n'),
+    write('                   (in-battle only)\n'),
+    write('   run     : run from a battle (in-battle\n'),
+    write('             only)\n'),nl,nl,
+    write('1. Back\n0. Exit\n'),
+    write('Enter your choice: '),
+    read(X),
+    helpBack(X), !.
+
+helpMenu(3):-
+    nl,
     write('█▀ ▀█▀ █▀█ █▀█ █▄█\n'),
     write('▄█ ░█░ █▄█ █▀▄ ░█░\n'),
     nl,
@@ -63,7 +90,7 @@ helpMenu(2):-
     read(X),
     helpBack(X), !.
 
-helpMenu(3):-
+helpMenu(4):-
     nl,
     write('█▀▀ █▀█ █▀▀ █▀▄ █ ▀█▀ █▀\n'),
     write('█▄▄ █▀▄ ██▄ █▄▀ █ ░█░ ▄█\n'),
@@ -88,5 +115,4 @@ helpMenu(_):- !.
 
 helpBack(1) :-
     helpChoice, !.
-helpBack(_) :- 
-    !.
+helpBack(_) :- !.
