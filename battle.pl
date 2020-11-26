@@ -366,8 +366,8 @@ initEnemy(3) :-
     newTask,
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
-    HPEnemy is (LevelEnemy - 1) * 15 + 60,
-    AttackEnemy is (LevelEnemy - 1) * 2 + 10,
+    HPEnemy is (LevelEnemy - 1) * 15 + 80,
+    AttackEnemy is (LevelEnemy - 1) * 2 + 15,
     DefenseEnemy is (LevelEnemy - 1) * 2 + 10,
     GoldBonus is LevelEnemy * 15,
     ExpBonus is LevelEnemy * 5,
@@ -383,8 +383,8 @@ initEnemy(6) :-
     newTask, 
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
-    HPEnemy is (LevelEnemy - 1) * 10 + 60,
-    AttackEnemy is (LevelEnemy - 1) * 4 + 10,
+    HPEnemy is (LevelEnemy - 1) * 10 + 65,
+    AttackEnemy is (LevelEnemy - 1) * 4 + 20,
     DefenseEnemy is (LevelEnemy - 1) * 2 + 10,
     GoldBonus is LevelEnemy * 15,
     ExpBonus is LevelEnemy * 5,
@@ -400,9 +400,9 @@ initEnemy(9) :-
     newTask,
     player(_, Level, _, _, _, _, _, _, _),
     randomLevel(Level, LevelEnemy),
-    HPEnemy is (LevelEnemy - 1) * 10 + 60,
-    AttackEnemy is (LevelEnemy - 1) * 2 + 10,
-    DefenseEnemy is (LevelEnemy - 1) * 4 + 10,
+    HPEnemy is (LevelEnemy - 1) * 10 + 65,
+    AttackEnemy is (LevelEnemy - 1) * 2 + 15,
+    DefenseEnemy is (LevelEnemy - 1) * 4 + 12,
     GoldBonus is LevelEnemy * 15,
     ExpBonus is LevelEnemy * 5,
     asserta(enemy('Data Breach', LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
@@ -417,20 +417,20 @@ initEnemy(X) :- X \= 3, X \= 6, X \= 9, !.
 
 randomEnemy :-
     playerPos(X,Y),
-    random(1,4,Move),
     X =< 4, Y =< 10,
+    random(1,4,Move),
     initEnemy(Move), !.
 
 randomEnemy :-
     playerPos(X,Y),
-    random(5,8,Move),
     X > 4, X =< 7, Y =< 10,
+    random(5,8,Move),
     initEnemy(Move), !.
 
 randomEnemy :-
     playerPos(X,Y),
-    random(7,10,Move),
     X > 7, X =< 10, Y =< 10,
+    random(7,10,Move),
     initEnemy(Move), !.
 
 initBoss(yes) :-
