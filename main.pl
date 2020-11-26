@@ -63,6 +63,7 @@ openGame :-
     write('  %   help   : open help menu                     %\n'),
     write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
+    retractstuff,
     asserta(opened(1)), !.
 
 start :-

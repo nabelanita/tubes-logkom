@@ -367,7 +367,7 @@ enterGateUpper(yes) :-
     gateLower(X1,Y1),
     retract(playerPos(X,Y)),
     X2 is X1,
-    Y2 is Y1 + 1,
+    Y2 is Y1 - 1,
     asserta(playerPos(X2,Y2)),
     write('You have been teleported!\n'),!.
 enterGateUpper(_) :- !.
@@ -376,7 +376,7 @@ enterGateLower(yes) :-
     gateUpper(X1,Y1),
     retract(playerPos(X,Y)), nl,
     X2 is X1,
-    Y2 is Y1 - 1,
+    Y2 is Y1 + 1,
     asserta(playerPos(X2,Y2)), nl,
     write('You have been teleported!\n'),!.
 enterGateLower(_) :- !.

@@ -103,7 +103,8 @@ enemyStatus :-
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
     format('Current hearts: ~d\n', [NewHearts]),
-    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)), !.
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
+    retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
 
 %game over
 %keknya nanti bikin fungsi game over aja buat ngeretract smua database
