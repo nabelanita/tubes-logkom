@@ -50,6 +50,12 @@ potion(9,japchae,25,50).
 potion(10,corndog,20,10).
 
 /* Menu shop */
+
+shop :-
+	opened(_),
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'), !.
+
 shop :-
     nl,
     write('░██████╗██╗░░██╗░█████╗░██████╗░'),nl,
