@@ -19,7 +19,6 @@
 :- dynamic(chancetorun/1).
 :- dynamic(boss/5).
 
-/*
 retractstuff :-
     retractall(opened(_)),
     retractall(started(_)),
@@ -37,7 +36,6 @@ retractstuff :-
     retractall(bossPos(_,_)),
     retractall(enemy(_,_,_,_,_)),
     retractall(boss(_,_,_,_,_)), !.
-*/
 
 openGame :-
     opened(_),
@@ -82,7 +80,7 @@ start :-
     write('Enter choice: '),
     read(Job), nl,
     retractall(boss(_,_,_,_,_)),
-    asserta(boss('Work Stolen', 10, 10, 100, 80)),
+    asserta(boss('Work Stolen', 10, 10, 10, 10)),
     asserta(quest(0,0,0)),
     welcomePlayer(Job),
     initInventory, !.

@@ -108,7 +108,12 @@ printHearts(H):-
     printHearts(X).
 
 healthstatus :-
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold), 
+    HP =< 0, !.
+
+healthstatus :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    HP > 0,
     nl,
     write('            █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
     write('            ▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'),
