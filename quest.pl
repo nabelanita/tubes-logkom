@@ -75,7 +75,9 @@ printQuest :-
     started(_),
     \+ isQZero,
     quest(W,X,Y),
-    write('\n[  Your task  ]\n'),
+    write('▀█▀ ▄▀█ █▀ █▄▀   █▄▄ █▀█ ▄▀█ █▀█ █▀▄\n'),
+    write('░█░ █▀█ ▄█ █░█   █▄█ █▄█ █▀█ █▀▄ █▄▀\n'),nl,
+    write('Here are the tasks that you need to do.\n'),nl
     format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]).
 
 printQuest :- 
@@ -91,20 +93,38 @@ finishQuest('Milestone') :-
     quest(X,Y,Z),
     newX is X - 1,
     retract(quest(X,Y,Z)),
-    asserta(quest(newX,Y,Z)),!.
+    asserta(quest(newX,Y,Z)),
+    questCompleted, !.
 
 finishQuest('Maintenance') :-
     quest(X,Y,Z),
     newY is Y - 1,
     retract(quest(X,Y,Z)),
-    asserta(quest(X,newY,Z)),!.
+    asserta(quest(X,newY,Z)),
+    questCompleted, !.
 
 finishQuest('Data Breach') :-
     quest(X,Y,Z),
     newZ is Z - 1,
     retract(quest(X,Y,Z)),
-    asserta(quest(X,Y,newZ)),!.
+    asserta(quest(X,Y,newZ)),
+    questCompleted, !.
 
+questCompleted :-
+    quest(0,0,0),
+    nl,
+    write('█▄█ █▀█ █░█   █░█ ▄▀█ █░█ █▀▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄\n'),   
+    write('░█░ █▄█ █▄█   █▀█ █▀█ ▀▄▀ ██▄   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀\n'),
+    write('               █▄█ █▀█ █░█ █▀█   ▀█▀ ▄▀█ █▀ █▄▀ █▀\n'),
+    write('               ░█░ █▄█ █▄█ █▀▄   ░█░ █▀█ ▄█ █░█ ▄█\n'),  
+    nl,
+    write('     █▄█ █▀█ █░█ █▀█   █▄▄ █▀█ █▀ █▀   █ █▀   █░█ █▀▀ █▀█ █▄█\n'),
+    write('     ░█░ █▄█ █▄█ █▀▄   █▄█ █▄█ ▄█ ▄█   █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░\n'), 
+    write('        █ █▀   █░█ █▀▀ █▀█ █▄█   █▀█ █░░ █▀▀ ▄▀█ █▀ █▀▀ █▀▄\n'),
+    write('        █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░   █▀▀ █▄▄ ██▄ █▀█ ▄█ ██▄ █▄▀\n'),!.
+
+questCompleted :- !.
+ 
 /* test di GNU */
 /*
 initPlayer(1).
