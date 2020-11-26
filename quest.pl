@@ -110,7 +110,7 @@ finishQuest('Data Breach') :-
     asserta(quest(X,Y,newZ)),
     questCompleted, !.
 
-finishQuest(_) :- write('ok'), !.
+finishQuest(_) :- !.
 questCompleted :-
     quest(0,0,0),
     nl,/*
