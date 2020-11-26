@@ -410,18 +410,21 @@ initEnemy(X) :- X \= 3, X \= 6, X \= 9, !.
 
 randomEnemy :-
     playerPos(X,Y),
-    X <= 4, Y <= 10,
-    initEnemy(3), !.
+    random(1,4,Move),
+    X =< 4, Y =< 10,
+    initEnemy(Move), !.
 
 randomEnemy :-
     playerPos(X,Y),
-    X > 4, X <= 7, Y <= 10,
-    initEnemy(6), !.
+    random(5,8,Move),
+    X > 4, X =< 7, Y =< 10,
+    initEnemy(Move), !.
 
 randomEnemy :-
     playerPos(X,Y),
-    X > 7, X <= 10, Y <= 10,
-    initEnemy(9), !.
+    random(7,10,Move),
+    X > 7, X =< 10, Y =< 10,
+    initEnemy(Move), !.
 
 initBoss(yes) :-
     nl,

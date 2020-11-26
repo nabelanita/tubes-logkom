@@ -77,7 +77,7 @@ printQuest :-
     quest(W,X,Y),
     write('▀█▀ ▄▀█ █▀ █▄▀   █▄▄ █▀█ ▄▀█ █▀█ █▀▄\n'),
     write('░█░ █▀█ ▄█ █░█   █▄█ █▄█ █▀█ █▀▄ █▄▀\n'),nl,
-    write('Here are the tasks that you need to do.\n'),nl
+    write('Here are the tasks that you need to do.\n'),nl,
     format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]).
 
 printQuest :- 
@@ -110,20 +110,21 @@ finishQuest('Data Breach') :-
     asserta(quest(X,Y,newZ)),
     questCompleted, !.
 
+finishQuest(_) :- write('ok'), !.
 questCompleted :-
     quest(0,0,0),
     nl,
-    write('█▄█ █▀█ █░█   █░█ ▄▀█ █░█ █▀▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄\n'),   
+    write('█▄█ █▀█ █░█   █░█ ▄▀█ █░█ █▀▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄\n'),
     write('░█░ █▄█ █▄█   █▀█ █▀█ ▀▄▀ ██▄   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀\n'),
     write('               █▄█ █▀█ █░█ █▀█   ▀█▀ ▄▀█ █▀ █▄▀ █▀\n'),
-    write('               ░█░ █▄█ █▄█ █▀▄   ░█░ █▀█ ▄█ █░█ ▄█\n'),  
+    write('               ░█░ █▄█ █▄█ █▀▄   ░█░ █▀█ ▄█ █░█ ▄█\n'),
     nl,
     write('     █▄█ █▀█ █░█ █▀█   █▄▄ █▀█ █▀ █▀   █ █▀   █░█ █▀▀ █▀█ █▄█\n'),
-    write('     ░█░ █▄█ █▄█ █▀▄   █▄█ █▄█ ▄█ ▄█   █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░\n'), 
+    write('     ░█░ █▄█ █▄█ █▀▄   █▄█ █▄█ ▄█ ▄█   █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░\n'),
     write('        █ █▀   █░█ █▀▀ █▀█ █▄█   █▀█ █░░ █▀▀ ▄▀█ █▀ █▀▀ █▀▄\n'),
     write('        █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░   █▀▀ █▄▄ ██▄ █▀█ ▄█ ██▄ █▄▀\n'),!.
 
-questCompleted :- !.
+questCompleted :- write('ss'),!.
  
 /* test di GNU */
 /*
