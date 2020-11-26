@@ -39,7 +39,7 @@ initPlayer(X) :-
 
 checkLevelUp :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
-    Exp =:= Lvl * 10, !,
+    Exp >= Lvl * 10, !,
     levelUp,!.
 
 checkLevelUp :- !.

@@ -12,8 +12,16 @@
 /* initEnemy */
 enemyStatus :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    write('Enemy Status:\n'),
-    format('Type: ~w\nLevel: ~d\nHealth: ~d\nAttack: ~d\nDefense: ~d\n', [Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy]),  !.
+    nl,
+    write('            █▀▀ █▄░█ █▀▀ █▀▄▀█ █▄█\n'),
+    write('            ██▄ █░▀█ ██▄ █░▀░█ ░█░\n'),
+    nl, format('  TYPE  -  ~w\n', [Type]),
+    format('  LVL. ~d', [LevelEnemy]),
+    write('  HP: '),
+    Y is HPEnemy // 5,
+    forall(between(0,Y,B),(write('▒'))), 
+    format(' ~d\n', [HPEnemy]),
+    format('          ATK. ~d\n          DEF. ~d\n', [AttackEnemy, DefenseEnemy]), !.
 
 attackMenu :-
     enemyStatus,
