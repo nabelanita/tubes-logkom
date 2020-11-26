@@ -43,15 +43,8 @@ checkLevelUp(0) :-
 
 checkLevelUp(1) :-
     player(_, Lvl, Exp, _, _, _, _, _, _),
-<<<<<<< HEAD
     Exp =:= Lvl * 10,
     levelUp, !.
-=======
-    Exp >= Lvl * 10, !,
-    levelUp,!.
-
-checkLevelUp :- !.
->>>>>>> aa340f9fc4272bb1225c2ae1763ff4f04d5c391b
 
 levelUp :-
     write('You\'ve leveled up!\n'),   
