@@ -411,6 +411,18 @@ randomLevel(LvlPlayer, LevelEnemy) :-
     B is LvlPlayer + 2,
     random(A, B, LevelEnemy), !.
 
+battleCommandList :-
+    nl,
+    write('   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
+    write('   %                  B A T T L E  C O M M A N D S                 %\n'),
+    write('   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
+    write('   %   code           : to write code for your program             %\n'),
+    write('   %   stackoverflow  : to ask for help in stack overflow          %\n'),
+    write('   %   vacation       : to ask for a vacation to your boss and     %\n'),
+    write('   %                    give your current task to your co-worker   %\n'),
+    write('   %                                                               %\n'),
+    write('   %   You can also use potion in the middle of battle.            %\n'),
+    write('   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n').
 /* enemy(JenisEnemy, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy)*/
 initEnemy(3) :-
     newTask,
@@ -427,7 +439,7 @@ initEnemy(3) :-
     asserta(chancetorun(1)),
     retract(inBattle(0)),
     asserta(inBattle(1)),
-    enemyStatus, !.
+    enemyStatus, battleCommandList, !.
 
 initEnemy(6) :-
     newTask, 
@@ -444,7 +456,7 @@ initEnemy(6) :-
     asserta(chancetorun(1)),
     retract(inBattle(0)),
     asserta(inBattle(1)),
-    enemyStatus, !.
+    enemyStatus, battleCommandList, !.
 
 initEnemy(9) :-
     newTask,
@@ -461,7 +473,7 @@ initEnemy(9) :-
     asserta(chancetorun(1)),
     retract(inBattle(0)),
     asserta(inBattle(1)), 
-    enemyStatus, !.
+    enemyStatus, battleCommandList, !.
 
 initEnemy(X) :- X \= 3, X \= 6, X \= 9, !.
 
