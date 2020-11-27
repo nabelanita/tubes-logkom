@@ -19,7 +19,7 @@ countLength([Head|Tail], Ans) :-
     countLength(Tail, Ans1), Ans is Ans1 + 1, !.
 
 addItem(X) :-
-    playerInventory(ListItem), countLength(ListItem, Length), Length =:= 100, write('Inventory penuh.'), !.
+    playerInventory(ListItem), countLength(ListItem, Length), Length =:= 100, write('Inventory is full.'), !.
 
 addItem(X) :-
     playerInventory(ListItem),
@@ -61,8 +61,18 @@ writeInventory(0, [Head|Tail]) :-
     format('~w\n', [Head]), writeInventory(0, Tail), !.
 
 inventory :-
+    opened(_),
+    started(_)
     playerInventory(ListInventory), nl,
     write('█ █▄░█ █░█ █▀▀ █▄░█ ▀█▀ █▀█ █▀█ █▄█\n'),
     write('█ █░▀█ ▀▄▀ ██▄ █░▀█ ░█░ █▄█ █▀▄ ░█░\n'), nl,
     writeInventory(1, ListInventory), !.
 
+inventory :- 
+    opened(_),
+    write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'),!.
+
+inventory :-
+    write('You haven\'t opened the game! \n'),
+    write('Type \'openGame\' to open the game. \n'), !.

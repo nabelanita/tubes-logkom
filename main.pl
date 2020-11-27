@@ -38,8 +38,9 @@ retractstuff :-
     retractall(bossPos(_,_)),
     retractall(enemy(_,_,_,_,_,_,_)),
     retractall(boss(_,_,_,_,_)),
-    retractall(player(_,_,_,_,_,_,_,_,_)), !.
-    retractall(quest(_,_,_)).
+    retractall(player(_,_,_,_,_,_,_,_,_)),
+    retractall(playerPos(_,_)),
+    retractall(quest(_,_,_)),!.
 
 openGame :-
     opened(_),
