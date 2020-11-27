@@ -19,7 +19,7 @@ queststart :-
     isQZero,
     player(_, Lvl, _, _, _, _, _, _, _),
     questLevel(Lvl),
-    printQuest,!.
+    task,!.
 
 queststart :-
     \+ isQZero,
@@ -63,14 +63,17 @@ questLevel(LvlPlayer) :-
     random(A,B,X), addMaint(X),
     random(A,B,Y), addData(Y).
 
-printQuest :-
+task :-
     opened(_),
     started(_),
     isQZero,
+    nl,
+    write('▀█▀ ▄▀█ █▀ █▄▀   █▄▄ █▀█ ▄▀█ █▀█ █▀▄\n'),
+    write('░█░ █▀█ ▄█ █░█   █▄█ █▄█ █▀█ █▀▄ █▄▀\n'),nl,
     write('You don\'t have any task to solve!\n'),!.
 
 /* Menampilkan progress quest yang sedang berjalan*/
-printQuest :-
+task :-
     opened(_),
     started(_),
     \+ isQZero,
@@ -80,12 +83,12 @@ printQuest :-
     write('Here are the tasks that you need to do.\n'),nl,
     format('Milestone  : ~d\nMaintenance: ~d\nData Breach: ~d\n', [W,X,Y]), !.
 
-printQuest :- 
+task :- 
     opened(_),
 	write('You haven\'t started the game! \n'),
 	write('Type \'start\' to start the game. \n'), !.
 
-printQuest :-
+task :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n'), !.
 

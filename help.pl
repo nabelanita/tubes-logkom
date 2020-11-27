@@ -58,6 +58,7 @@ helpMenu(2):-
     nl,
     write('   map    : view map\n'),
     write('   status : view current status\n'),
+    write('   task   : view running tasks\n'),
     write('   w      : move north\n'),
     write('   s      : move south\n'),
     write('   d      : move east\n'),
