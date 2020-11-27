@@ -86,6 +86,32 @@ enemyStatus :-
     format(' ~d\n', [HPEnemy]),
     format('          ATK. ~d\n          DEF. ~d\n', [AttackEnemy, DefenseEnemy]), !.
 
+%belom game over
+
+ checkPlayerDefeated(1) :-
+    player(_, _, _, _, _, _, HP, _, _),
+    HP > 0, nl,
+    write('   █▀▀ █▀█ █▄░█ ▀█▀ █ █▄░█ █░█ █▀▀   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀\n'),
+    write('   █▄▄ █▄█ █░▀█ ░█░ █ █░▀█ █▄█ ██▄   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n'), !.
+
+ checkPlayerDefeated(0) :-
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    HP =< 0,
+    NewHearts is Hearts - 1,
+    NewHearts > 0, 
+    write('   █▄█ █▀█ █░█   █▀▄ █ █▀▄ █▄░█ ▀ ▀█▀   █▀▀ █ █▄░█ █ █▀ █░█ █▀▀ █▀▄\n'),
+    write('   ░█░ █▄█ █▄█   █▄▀ █ █▄▀ █░▀█ ░ ░█░   █▀░ █ █░▀█ █ ▄█ █▀█ ██▄ █▄▀ \n\n'),
+
+    write('   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀   █▀█ █▄░█   ▀█▀ █ █▀▄▀█ █▀▀\n'),
+    write('   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█   █▄█ █░▀█   ░█░ █ █░▀░█ ██▄\n\n'),
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    retract(inBattle(1)), asserta(inBattle(0)), 
+    retract(specialAttackCount(_)),
+    retract(enemySpecialAttack(_)), 
+    remainingHearts(NewHearts),
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
+    retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
+
 remainingHearts(2):-
     write('                   ██ ██       ██ ██       ██   █\n'),
     write('                  █▒▒█▒▒█     █▒▒█▒▒█     █▒▒█ █▒█\n'),
@@ -113,19 +139,13 @@ remainingHearts(0):-
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
     write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
-%belom game over
-
- checkPlayerDefeated(1) :-
-    player(_, _, _, _, _, _, HP, _, _),
-    HP > 0, nl,
-    write('   █▀▀ █▀█ █▄░█ ▀█▀ █ █▄░█ █░█ █▀▀   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀\n'),
-    write('   █▄▄ █▄█ █░▀█ ░█░ █ █░▀█ █▄█ ██▄   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n'), !.
-
- checkPlayerDefeated(0) :-
+%game over
+%keknya nanti bikin fungsi game over aja buat ngeretract smua database
+checkPlayerDefeated(0) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     HP =< 0,
     NewHearts is Hearts - 1,
-    NewHearts > 0, 
+    NewHearts =< 0, 
     write('   █▄█ █▀█ █░█   █▀▄ █ █▀▄ █▄░█ ▀ ▀█▀   █▀▀ █ █▄░█ █ █▀ █░█ █▀▀ █▀▄\n'),
     write('   ░█░ █▄█ █▄█   █▄▀ █ █▄▀ █░▀█ ░ ░█░   █▀░ █ █░▀█ █ ▄█ █▀█ ██▄ █▄▀ \n\n'),
 
@@ -135,27 +155,7 @@ remainingHearts(0):-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    remainingHearts(NewHearts),
-    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
-    retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
-
-%game over
-%keknya nanti bikin fungsi game over aja buat ngeretract smua database
-checkPlayerDefeated(0) :-
-    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    HP =< 0,
-    NewHearts is Hearts - 1,
-    NewHearts =< 0, 
-    write('   █▄█ █▀█ █░█   █▀▄ █ █▀▄ █▄░█ ▀ ▀█▀   █▀▀ █ █▄░█ █ █▀ █░█ \n'),
-    write('   ░█░ █▄█ █▄█   █▄▀ █ █▄▀ █░▀█ ░ ░█░   █▀░ █ █░▀█ █ ▄█ █▀█ \n\n'),
-
-    write('   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀   █▀█ █▄░█   ▀█▀ █ █▀▄▀█ █▀▀\n'),
-    write('   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█   █▄█ █░▀█   ░█░ █ █░▀░█ ██▄\n\n'),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    retract(inBattle(1)), asserta(inBattle(0)), 
-    retract(specialAttackCount(_)),
-    retract(enemySpecialAttack(_)), 
-    remainingHearts(NewHearts),nl,nl,nl,nl,
+    remainingHearts(0),nl,
     write('██╗░░░██╗░█████╗░██╗░░░██╗██╗██████╗░███████╗  ███████╗██╗██████╗░███████╗██████╗░░░░'),nl,
     write('╚██╗░██╔╝██╔══██╗██║░░░██║╚█║██╔══██╗██╔════╝  ██╔════╝██║██╔══██╗██╔════╝██╔══██╗░░░'),nl,
     write('░╚████╔╝░██║░░██║██║░░░██║░╚╝██████╔╝█████╗░░  █████╗░░██║██████╔╝█████╗░░██║░░██║░░░'),nl,

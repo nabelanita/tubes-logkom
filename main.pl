@@ -78,7 +78,7 @@ start :-
     write('Enter choice: '),
     read(Job), nl,
     retractall(boss(_,_,_,_,_)),
-    asserta(boss('Work Stolen', 10, 10, 10, 10)),
+    asserta(boss('Work Stolen', 10, 200, 75, 40)),
     asserta(quest(0,0,0)),
     asserta(inShop(0)),
     welcomePlayer(Job),
@@ -126,7 +126,7 @@ logo:-
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
     write('%   map    : shows the map                      %\n'),
     write('%   status : shows your current status          %\n'),
-    write('%   task   : shows your current tasks             %\n'),
+    write('%   task   : shows your current tasks           %\n'),
     write('%   w      : move to the north                  %\n'),
     write('%   s      : move to the south                  %\n'),
     write('%   d      : move to the east                   %\n'),
@@ -143,11 +143,11 @@ inventory :-
 /*Fungsi rekursif, Basis ketika Tail = 0*/
 
 quit :- 
-    nl,
+    nl,nl
     write('░██████╗███████╗███████╗  ██╗░░░██╗░█████╗░██╗░░░██╗  ░██████╗░█████╗░░█████╗░███╗░░██╗██╗'),nl,
     write('██╔════╝██╔════╝██╔════╝  ╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔════╝██╔══██╗██╔══██╗████╗░██║██║'),nl,
     write('╚█████╗░█████╗░░█████╗░░  ░╚████╔╝░██║░░██║██║░░░██║  ╚█████╗░██║░░██║██║░░██║██╔██╗██║██║'),nl,
     write('░╚═══██╗██╔══╝░░██╔══╝░░  ░░╚██╔╝░░██║░░██║██║░░░██║  ░╚═══██╗██║░░██║██║░░██║██║╚████║╚═╝'),nl,
     write('██████╔╝███████╗███████╗  ░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝╚█████╔╝╚█████╔╝██║░╚███║██╗'),nl,
-    write('╚═════╝░╚══════╝╚══════╝  ░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝'),nl,
+    write('╚═════╝░╚══════╝╚══════╝  ░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝'),nl,nl,nl,
     halt. /* ini buat keluar dari gprolog */ 
