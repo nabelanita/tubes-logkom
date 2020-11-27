@@ -177,10 +177,10 @@ usePotion(NamaPotion) :-
     cariPotion(NamaPotion),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     potion(_,NamaPotion,HPpotion),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    write('Your potion has been activated successfully.'),nl,
     NewHP is HP + HPpotion,
     NewHP >= MaxHP,
+    write('Your potion has been activated successfully.'),nl,
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, Hearts, Gold)),
     delete(NamaPotion),!.
 
@@ -188,10 +188,10 @@ usePotion(NamaPotion) :-
     cariPotion(NamaPotion),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     potion(_,NamaPotion,HPpotion),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
-    write('Your potion has been activated successfully.'),nl,
     NewHP is HP + HPpotion,
     NewHP < MaxHP,
+    write('Your potion has been activated successfully.'),nl,
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, NewHP, Hearts, Gold)),
     delete(NamaPotion),!.
 

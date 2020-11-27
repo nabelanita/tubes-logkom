@@ -62,7 +62,7 @@ writeInventory(0, [Head|Tail]) :-
 
 inventory :-
     opened(_),
-    started(_)
+    started(_),
     playerInventory(ListInventory), nl,
     write('█ █▄░█ █░█ █▀▀ █▄░█ ▀█▀ █▀█ █▀█ █▄█\n'),
     write('█ █░▀█ ▀▄▀ ██▄ █░▀█ ░█░ █▄█ █▀▄ ░█░\n'), nl,
