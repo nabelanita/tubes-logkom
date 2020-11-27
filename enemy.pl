@@ -286,21 +286,6 @@ initEnemy(15) :-
     retract(inBattle(0)),
     asserta(inBattle(1)), !.
 
-randomEnemy :-
-    playerPos(X,Y),
-    X <= 4, Y <= 10,
-    initEnemy(5), !.
-
-randomEnemy :-
-    playerPos(X,Y),
-    X > 4, X <= 7, Y <= 10,
-    initEnemy(10), !.
-
-randomEnemy :-
-    playerPos(X,Y),
-    X > 7, X <= 10, Y <= 10,
-    initEnemy(15), !.
-
 
 /*pas attack, kalo HP enemynya udah 0, berarti bisa dikalahkan.
 kalo udah kalah, quest - 1, update tuple quest*/

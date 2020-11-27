@@ -112,7 +112,7 @@ enemyStatus :-
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
 
-remainingHearts(2):
+remainingHearts(2):-
     write('                   ██ ██       ██ ██       ██   █\n'),
     write('                  █▒▒█▒▒█     █▒▒█▒▒█     █▒▒█ █▒█\n'),
     write('                  █▒▒▒▒▒█     █▒▒▒▒▒█     █▒▒█ █▒█\n'),
@@ -121,7 +121,7 @@ remainingHearts(2):
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
     write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
-remainingHearts(1):
+remainingHearts(1):-
     write('                   ██ ██       ██   █       ██   █\n'),
     write('                  █▒▒█▒▒█     █▒▒█ █▒█     █▒▒█ █▒█\n'),
     write('                  █▒▒▒▒▒█     █▒▒█ █▒█     █▒▒█ █▒█\n'),
@@ -130,7 +130,7 @@ remainingHearts(1):
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
     write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
-remainingHearts(0):
+remainingHearts(0):-
     write('                   ██   █        ██   █       ██   █\n'),
     write('                  █▒▒█ █▒█      █▒▒█ █▒█     █▒▒█ █▒█\n'),
     write('                  █▒▒█ █▒█      █▒▒█ █▒█     █▒▒█ █▒█\n'),
