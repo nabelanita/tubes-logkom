@@ -88,13 +88,13 @@ enemyStatus :-
 
 %belom game over
 
- checkPlayerDefeated(1) :-
+ checkPlayerDefeated :-
     player(_, _, _, _, _, _, HP, _, _),
     HP > 0, nl,
     write('   █▀▀ █▀█ █▄░█ ▀█▀ █ █▄░█ █░█ █▀▀   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀\n'),
     write('   █▄▄ █▄█ █░▀█ ░█░ █ █░▀█ █▄█ ██▄   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n'), !.
 
- checkPlayerDefeated(0) :-
+ checkPlayerDefeated :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     HP =< 0,
     NewHearts is Hearts - 1,
@@ -110,7 +110,7 @@ enemyStatus :-
     retract(enemySpecialAttack(_)), 
     remainingHearts(NewHearts),
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
-    retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
+    retract(enemy(_, _, _, _, _, _, _)),!.
 
 remainingHearts(2):-
     write('                   ██ ██       ██ ██       ██   █\n'),
@@ -141,7 +141,7 @@ remainingHearts(0):-
 
 %game over
 %keknya nanti bikin fungsi game over aja buat ngeretract smua database
-checkPlayerDefeated(0) :-
+checkPlayerDefeated :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     HP =< 0,
     NewHearts is Hearts - 1,
@@ -151,7 +151,7 @@ checkPlayerDefeated(0) :-
 
     write('   █▄█ █▀█ █░█ █▀█   █░█░█ █▀█ █▀█ █▄▀   █▀█ █▄░█   ▀█▀ █ █▀▄▀█ █▀▀\n'),
     write('   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█   █▄█ █░▀█   ░█░ █ █░▀░█ ██▄\n\n'),
-    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    retract(player(_, _, _, _, _, _, _, _, _)),
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
@@ -179,6 +179,8 @@ playerDamaged(Damage, Damage) :-
 
     write('   █▄█ █▀█ █░█ █▀█   █▀ ▀█▀ ▄▀█ █▀▄▀█ █ █▄░█ ▄▀█   █▀▄ █▀▀ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄\n'),
     write('   ░█░ █▄█ █▄█ █▀▄   ▄█ ░█░ █▀█ █░▀░█ █ █░▀█ █▀█   █▄▀ ██▄ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀\n\n\n'), 
+
+    write('OK NIH\n'),
 
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     NewHP is HP - Damage,
@@ -213,7 +215,7 @@ enemyMove(1) :-
     write('   █▀█   █░▀░█ █ █░▀█ █▄█ █▀▄   █▄█ █▄█ █▄█ ▄\n\n\n'),
     playerDamaged(Damage, ActualDamage),
     checkEnemySpecialAttack,
-    checkPlayerDefeated(X), !.
+    checkPlayerDefeated, !.
 
 /* special attack */
 enemyMove(2) :-
@@ -229,7 +231,7 @@ enemyMove(2) :-
     write('    ░█░ █▄█   █▀▄ ██▄ █▄▀ █▄█   ░█░ █▄█ █▄█ █▀▄   ▀▄▀▄▀ █▄█ █▀▄ █░█\n\n\n'),
     playerDamaged(Damage, ActualDamage),
     retract(enemySpecialAttack(_)),
-    asserta(enemySpecialAttack(2)), checkPlayerDefeated(X),!.
+    asserta(enemySpecialAttack(2)), checkPlayerDefeated,!.
 
  checkEnemyDefeated(1) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),

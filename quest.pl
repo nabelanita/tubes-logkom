@@ -86,8 +86,8 @@ task :-
 
 task :- 
     opened(_),
-	write('You haven\'t started the game! \n'),
-	write('Type \'start\' to start the game. \n'), !.
+    write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n'),!.
 
 task :-
     write('You haven\'t opened the game! \n'),
@@ -110,7 +110,7 @@ questCompleted :-
 questCompleted :- !.
 
 finishQuest(_) :-
-    isQZero,!.
+    isQZero,fail.
 
 finishQuest('Milestone') :-
     quest(0,_,_),!.
