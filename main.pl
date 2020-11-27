@@ -9,10 +9,12 @@
 :- include('shop.pl').
 :- include('save.pl').
 
+:- dynamic(playerPos/2).
+:- dynamic(player/9).
 :- dynamic(opened/1).
 :- dynamic(started/1).
 :- dynamic(inBattle/1).
-:- dynamic(enemy/5). 
+:- dynamic(enemy/7). 
 :- dynamic(enemySpecialAttack/1). 
 :- dynamic(specialAttackCount/1). 
 :- dynamic(meetEnemy/1).
@@ -34,8 +36,9 @@ retractstuff :-
     retractall(gateUpper(_,_)),
     retractall(gateLower(_,_)),
     retractall(bossPos(_,_)),
-    retractall(enemy(_,_,_,_,_)),
-    retractall(boss(_,_,_,_,_)), !.
+    retractall(enemy(_,_,_,_,_,_,_)),
+    retractall(boss(_,_,_,_,_)),
+    retractall(player(_,_,_,_,_,_,_,_,_)), !.
 
 openGame :-
     opened(_),

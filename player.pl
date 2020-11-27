@@ -1,6 +1,4 @@
 /* Dynamic variables */
-:- dynamic(playerPos/2).
-:- dynamic(player/9).
 
 
 welcomePlayer(1) :-
