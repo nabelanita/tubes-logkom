@@ -3,6 +3,9 @@
 :- include('inventory.pl').
 :- include('save.pl'). */
 
+/* dyamic */
+:- dynamic(inShop/1).
+
 /* Inisialisasi */
 /*player(Role, Level, Exp, Attack, Defense, HP, MaxHP, Hearts, Gold)*/
 %player(1, 1, 0, 15, 10, 65, 65, 3, 300). /* nanti pas digabungin jangan lupa dihapus */
@@ -68,6 +71,7 @@ shop :-
 
 shop :-
     opened(_),
+    inShop(1),
     nl,
     write('░██████╗██╗░░██╗░█████╗░██████╗░'),nl,
     write('██╔════╝██║░░██║██╔══██╗██╔══██╗'),nl,
@@ -80,16 +84,18 @@ shop :-
     read(X),nl,
     shopMenu(X),!.
 
+
 shop :-
-    shopPos(X,Y),
-    \+ playerPos(X,Y),
-	write('You are not in the shop! \n'),
-	write('You can\'t access this command outside shop.\n'), !.
+    inShop(0),
+    write('What are you doing? Get back to work!\n'),!.
 
 shop :-
     opened(_),
 	write('You haven\'t started the game! \n'),
 	write('Type \'start\' to start the game. \n'), !.
+shop :-
+	write('You haven\'t opened the game! \n'),
+	write('Type \'open\' to start the game. \n'), !.
 
 /* Kondisi jika uang cukup */
 shopMenu(1) :-
@@ -127,6 +133,10 @@ shopMenu(2) :-
 
 shopMenu(3) :- exitShop, !.
 
+shopMenu(_) :- 
+    write('What\'s that? We don\'t sell that here!\n'),
+    shop,!.
+
 randomEq :- 
     random(1,16,HasilGacha),
     equipment(HasilGacha,_,NamaEq,_,_),
@@ -154,7 +164,12 @@ subGold(Price) :-
 
 transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n'),!.
 
-exitShop :- write('Thanks for coming.\n'), map, !. /* nanti harusnya kembali ke menu awal/map gitu*/
+exitShop :- 
+    !,
+    retract(inShop(1)),
+    asserta(inShop(0)),
+    write('Thanks for coming.\n'), 
+    map, !. /* nanti harusnya kembali ke menu awal/map gitu*/
 
 /* Mencari apakah potion dan equipment ada di inventory */
 potion :-

@@ -355,7 +355,11 @@ left :-
 
 
 /* Enter shop */
-enterShop(yes) :- shop, !.
+enterShop(yes) :- 
+    inShop(0),
+    retract(inShop(0)),
+    asserta(inShop(1)),
+    shop, !.
 enterShop(_) :- !.
 
 /* Enter quest */

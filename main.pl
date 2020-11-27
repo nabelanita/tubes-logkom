@@ -78,6 +78,7 @@ start :-
     retractall(boss(_,_,_,_,_)),
     asserta(boss('Work Stolen', 10, 10, 10, 10)),
     asserta(quest(0,0,0)),
+    asserta(inShop(0)),
     welcomePlayer(Job),
     initInventory, !.
 start :-
