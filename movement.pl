@@ -89,7 +89,7 @@ up :-
     gateUpper(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 + 1,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateUpper(A), !.
 up :- 
@@ -98,7 +98,7 @@ up :-
     gateLower(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 + 1,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateLower(A), !.
 up :- 
@@ -111,8 +111,9 @@ up :-
     read(A),
     initBoss(A), !.
 up :-
-    inBattle(1),
-    write('You cannot move during a battle!'), !.
+    inBattle(1),nl,
+    write('    █░█░█ █░█ █▀▀ █▀█ █▀▀   ▄▀█ █▀█ █▀▀   █▄█ █▀█ █░█   █▀▀ █▀█ █ █▄░█ █▀▀ ▀█\n'),
+    write('    ▀▄▀▄▀ █▀█ ██▄ █▀▄ ██▄   █▀█ █▀▄ ██▄   ░█░ █▄█ █▄█   █▄█ █▄█ █ █░▀█ █▄█ ░▄\n'),!.
 
 up :-
     inBattle(0),
@@ -164,7 +165,7 @@ down :-
     gateUpper(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 - 1,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateUpper(A), !.
 down :- 
@@ -173,7 +174,7 @@ down :-
     gateLower(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 - 1,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateLower(A), !.
 
@@ -188,8 +189,9 @@ down :-
     initBoss(A), !.
 
 down :-
-    inBattle(1),
-    write('You cannot move during a battle!'), !.
+    inBattle(1),nl,
+    write('    █░█░█ █░█ █▀▀ █▀█ █▀▀   ▄▀█ █▀█ █▀▀   █▄█ █▀█ █░█   █▀▀ █▀█ █ █▄░█ █▀▀ ▀█\n'),
+    write('    ▀▄▀▄▀ █▀█ ██▄ █▀▄ ██▄   █▀█ █▀▄ ██▄   ░█░ █▄█ █▄█   █▄█ █▄█ █ █░▀█ █▄█ ░▄\n'),!.
 
 down :-
     inBattle(0),
@@ -241,7 +243,7 @@ right :-
     gateUpper(X2,Y2), 
     X1 is X2 - 1, 
     Y1 is Y2,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateUpper(A), !.
 right :- 
@@ -250,7 +252,7 @@ right :-
     gateLower(X2,Y2), 
     X1 is X2 - 1, 
     Y1 is Y2,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateLower(A), !.
 right :- 
@@ -263,8 +265,9 @@ right :-
     read(A),
     initBoss(A), !.
 right :-
-    inBattle(1),
-    write('You cannot move during a battle!'), !.
+    inBattle(1),nl,
+    write('    █░█░█ █░█ █▀▀ █▀█ █▀▀   ▄▀█ █▀█ █▀▀   █▄█ █▀█ █░█   █▀▀ █▀█ █ █▄░█ █▀▀ ▀█\n'),
+    write('    ▀▄▀▄▀ █▀█ ██▄ █▀▄ ██▄   █▀█ █▀▄ ██▄   ░█░ █▄█ █▄█   █▄█ █▄█ █ █░▀█ █▄█ ░▄\n'),!.
 
 right :-
     inBattle(0),
@@ -317,7 +320,7 @@ left :-
     gateUpper(X2,Y2), 
     X1 is X2 + 1, 
     Y1 is Y2,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateUpper(A), !.
 left :- 
@@ -326,7 +329,7 @@ left :-
     gateLower(X2,Y2), 
     X1 is X2 + 1, 
     Y1 is Y2,
-    write('It\'s the gate. Do you want to teleport? (yes/no)\n'),
+    gateCLI,
     read(A),
     enterGateLower(A), !.
 
@@ -340,8 +343,9 @@ left :-
     read(A),
     initBoss(A), !.
 left :-
-    inBattle(1),
-    write('You cannot move during a battle!'), !.
+    inBattle(1),nl,
+    write('    █░█░█ █░█ █▀▀ █▀█ █▀▀   ▄▀█ █▀█ █▀▀   █▄█ █▀█ █░█   █▀▀ █▀█ █ █▄░█ █▀▀ ▀█\n'),
+    write('    ▀▄▀▄▀ █▀█ ██▄ █▀▄ ██▄   █▀█ █▀▄ ██▄   ░█░ █▄█ █▄█   █▄█ █▄█ █ █░▀█ █▄█ ░▄\n'),!.
 
 left :-
     inBattle(0),
@@ -373,7 +377,13 @@ enterGateUpper(yes) :-
     X2 is X1,
     Y2 is Y1 - 1,
     asserta(playerPos(X2,Y2)),
-    write('You have been teleported!\n'),!.
+    write('                                            ▐\n'),
+    write('                                            ▐ \n'),
+    write('                                      ┼     █░\n'),
+    write('                                         ▀▀███▄▄░\n'),
+    write('▀█▀ █▀▀ █░░ █▀▀ █▀█ █▀█ █▀█ ▀█▀ █▀▀ █▀▄ █   █\n'),
+    write('░█░ ██▄ █▄▄ ██▄ █▀▀ █▄█ █▀▄ ░█░ ██▄ █▄▀ ▄   ▌ ┼\n'),
+    write('                                            ▌\n'),nl,!.
 enterGateUpper(_) :- !.
 
 enterGateLower(yes) :-
@@ -382,5 +392,32 @@ enterGateLower(yes) :-
     X2 is X1,
     Y2 is Y1 + 1,
     asserta(playerPos(X2,Y2)), nl,
-    write('You have been teleported!\n'),!.
+    write('                                            ▐\n'),
+    write('                                            ▐ \n'),
+    write('                                      ┼     █░\n'),
+    write('                                         ▀▀███▄▄░\n'),
+    write('▀█▀ █▀▀ █░░ █▀▀ █▀█ █▀█ █▀█ ▀█▀ █▀▀ █▀▄ █   █\n'),
+    write('░█░ ██▄ █▄▄ ██▄ █▀▀ █▄█ █▀▄ ░█░ ██▄ █▄▀ ▄   ▌ ┼\n'),
+    write('                                            ▌\n'),nl,!.
 enterGateLower(_) :- !.
+
+gateCLI :-
+    nl,
+    write('  ░██████╗░░█████╗░████████╗███████╗\n'),
+    write('  ██╔════╝░██╔══██╗╚══██╔══╝██╔════╝\n'),
+    write('  ██║░░██╗░███████║░░░██║░░░█████╗░░\n'),
+    write('  ██║░░╚██╗██╔══██║░░░██║░░░██╔══╝░░\n'),
+    write('  ╚██████╔╝██║░░██║░░░██║░░░███████╗\n'),
+    write('  ░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚══════╝\n'),nl,
+    write('             ▒▒▒▒▒▒▒▒\n'),
+    write('            ▒████████▒\n'),
+    write('           ▒██████████▒\n'),
+    write('          ▒████████████▒\n'),
+    write('          ▒████████████▒\n'),
+    write('         ▒▒████████████▒▒\n'),
+    write('         ▒▒████████████▒▒\n'),
+    write('         ▒▒████████████▒▒\n'),
+    write('         ▒▒████▒▒▒▒████▒▒░\n'),
+    write('        ▒▒▒███▒▒▒▒▒▒███▒▒▒\n'),
+    write('        ▒▒▒██▒▒▒▒▒▒▒▒██░▒▒\n'),nl,
+    write('It\'s the gate. Do you want to teleport? (yes/no)\n').

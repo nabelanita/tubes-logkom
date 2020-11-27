@@ -86,8 +86,9 @@ shop :-
 
 
 shop :-
-    inShop(0),
-    write('What are you doing? Get back to work!\n'),!.
+    inShop(0),nl,
+    write('█▀▀ █▀▀ ▀█▀   █▄▄ ▄▀█ █▀▀ █▄▀   ▀█▀ █▀█   █░█░█ █▀█ █▀█ █▄▀ █'),nl,
+    write('█▄█ ██▄ ░█░   █▄█ █▀█ █▄▄ █░█   ░█░ █▄█   ▀▄▀▄▀ █▄█ █▀▄ █░█ ▄'),nl,!.
 
 shop :-
     opened(_),
