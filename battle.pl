@@ -138,6 +138,7 @@ remainingHearts(0):-
  checkPlayerDefeated(0) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     HP =< 0,
+    retract(chancetorun(_)),
     NewHearts is Hearts - 1,
     NewHearts > 0, 
     write('   █▄█ █▀█ █░█   █▀▄ █ █▀▄ █▄░█ ▀ ▀█▀   █▀▀ █ █▄░█ █ █▀ █░█ █▀▀ █▀▄\n'),
@@ -158,6 +159,7 @@ remainingHearts(0):-
 checkPlayerDefeated(0) :-
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     HP =< 0,
+    retract(chancetorun(_)),
     NewHearts is Hearts - 1,
     NewHearts =< 0, 
     write('   █▄█ █▀█ █░█   █▀▄ █ █▀▄ █▄░█ ▀ ▀█▀   █▀▀ █ █▄░█ █ █▀ █░█ \n'),
@@ -252,7 +254,8 @@ enemyMove(2) :-
 
  checkEnemyDefeated(0) :-
     enemy('Work Stolen', LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
-    HPEnemy =< 0, 
+    HPEnemy =< 0,
+    retract(chancetorun(_)), 
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
     write('█▄█ █▀█ █░█ ▀ █░█ █▀▀   █▀▄ █▀▀ █▀▀ █▀▀ ▄▀█ ▀█▀ █▀▀ █▀▄   ▀█▀ █░█ █▀▀   █▄▄ █▀█ █▀ █▀\n'),
     write('░█░ █▄█ █▄█ ░ ▀▄▀ ██▄   █▄▀ ██▄ █▀░ ██▄ █▀█ ░█░ ██▄ █▄▀   ░█░ █▀█ ██▄   █▄█ █▄█ ▄█ ▄█\n\n'), 
@@ -261,6 +264,7 @@ enemyMove(2) :-
  checkEnemyDefeated(0) :-
     enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus),
     HPEnemy =< 0,
+    retract(chancetorun(_)),
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
@@ -370,7 +374,8 @@ stackoverflow :-
 vacation :-
     chancetorun(0),nl,
     write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
-    write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'),  !.
+    write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'),
+    enemyMove(1), !.
 
 vacation :-
     chancetorun(1),
@@ -410,7 +415,8 @@ runSucceed(2) :-
     write('   █░█ █▀▄ █▀█ █▄░█ ▀ ▀█▀   █▄▄ █▀▀   █░░ ▄▀█ ▀█ █▄█ █ █░█\n'),
     write('   ░░░ █▄▀ █▄█ █░▀█ ░ ░█░   █▄█ ██▄   █▄▄ █▀█ █▄ ░█░ ▄ ░░░\n\n\n'), 
     retract(chancetorun(_)), 
-    asserta(chancetorun(0)),!.
+    asserta(chancetorun(0)),
+    enemyMove(1),!.
 
 randomLevel(LvlPlayer, LevelEnemy) :-
     LvlPlayer =:= 1,

@@ -9,24 +9,24 @@
 
 /* equipment(idEq,jenisEq,namaEq,attack,defense) */
 /* WEAPON */
-equipment(1,weapon, keyboard, 50, 0).
-equipment(2,weapon, code_editor, 75, 0).
-equipment(3,weapon, laptop, 100, 0).
-equipment(4,weapon, pc, 150, 0).
-equipment(5,weapon, super_computer, 200, 0).
+equipment(1,weapon, keyboard, 10, 0).
+equipment(2,weapon, code_editor, 15, 0).
+equipment(3,weapon, laptop, 25, 0).
+equipment(4,weapon, pc, 25, 0).
+equipment(5,weapon, super_computer, 30, 0).
 /* ARMOR */
 equipment(6,armor,headphones,0,25).
-equipment(7,armor,wifi,0, 50).
-equipment(8,armor,database,0, 75).
-equipment(9,armor,server,0,125).
-equipment(10,armor,ai,0,175).
+equipment(7,armor,wifi,0, 10).
+equipment(8,armor,database,0, 15).
+equipment(9,armor,server,0,25).
+equipment(10,armor,ai,0,20).
 /* ACCESSORY */
-equipment(11,accessory,figma, 50, 25).
-equipment(12,accessory, framework, 75, 50).
-equipment(13,accessory,simulator, 50, 25).
-equipment(14,accessory,phone, 75, 50).
-equipment(15,accessory,voice_recog, 50, 25).
-equipment(16,accessory,robot, 75, 50).
+equipment(11,accessory,figma, 10, 25).
+equipment(12,accessory, framework, 15, 10).
+equipment(13,accessory,simulator, 10, 25).
+equipment(14,accessory,phone, 15, 10).
+equipment(15,accessory,voice_recog, 10, 25).
+equipment(16,accessory,robot, 15, 10).
 
 /* Accessory target job */
 accWebdev(figma).
@@ -238,3 +238,4 @@ useEq(NamaEq) :-
 
 % ['shop.pl'].
 % initInventory.
+    

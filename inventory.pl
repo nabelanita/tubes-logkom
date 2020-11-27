@@ -10,8 +10,14 @@ concatenate(FList, SList, RList) :-
     concatenate(Tail, SList, PrevList),
     splitList(RList, Head, PrevList), !.
 
-initInventory :-
-    asserta(playerInventory([])),!.
+initInventory(1) :-
+    asserta(playerInventory([coffee,coffee,coffee,coffee,coffee,figma])),!.
+
+initInventory(2) :-
+    asserta(playerInventory([coffee,coffee,coffee,coffee,coffee,simulator])),!.
+
+initInventory(3) :-
+    asserta(playerInventory([coffee,coffee,coffee,coffee,coffee,robot])),!.
 
 countLength([], 0) :- !.
 
@@ -59,6 +65,32 @@ writeInventory(1, [Head|Tail]) :-
 
 writeInventory(0, [Head|Tail]) :-
     format('~w\n', [Head]), writeInventory(0, Tail), !.
+
+cekSampah(Item) :-
+    cariEq(Item),
+    delete(Item),!.
+
+cekSampah(Item) :-
+    \+ cariEq(Item),
+    write('You don\'t have '),
+    write(Item),
+    write(' in your inventory.'),nl,!.   
+
+trash :-
+    write('             █████\n'),
+    write('         █████████████\n'),
+    write('         ██░░░░░░░░░██\n'),
+    write('          █░░░░░░░░░█\n'),
+    write('          █░█░░█░░█░█\n'),
+    write('          █░█░░█░░█░█\n'),
+    write('          █░░░░░░░░░█\n'),
+    write('           █████████\n\n'),
+    write('▀█▀ █▀█ ▄▀█ █▀ █░█   █▀▀ ▄▀█ █▄░█\n'),
+    write('░█░ █▀▄ █▀█ ▄█ █▀█   █▄▄ █▀█ █░▀█\n\n'), 
+
+    write('What do you want to discard?\n'),
+    read(X),
+    cekSampah(X),!.
 
 inventory :-
     opened(_),

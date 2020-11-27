@@ -85,7 +85,7 @@ start :-
     asserta(quest(0,0,0)),
     asserta(inShop(0)),
     welcomePlayer(Job),
-    initInventory, !.
+    initInventory(Job), !.
 start :-
     opened(_),
     started(_),

@@ -104,8 +104,15 @@ questCompleted :-
     write('     █▄█ █▀█ █░█ █▀█   █▄▄ █▀█ █▀ █▀   █ █▀   █░█ █▀▀ █▀█ █▄█\n'),
     write('     ░█░ █▄█ █▄█ █▀▄   █▄█ █▄█ ▄█ ▄█   █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░\n\n'),
     write('        █ █▀   █░█ █▀▀ █▀█ █▄█   █▀█ █░░ █▀▀ ▄▀█ █▀ █▀▀ █▀▄\n'),
-    write('        █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░   █▀▀ █▄▄ ██▄ █▀█ ▄█ ██▄ █▄▀\n'),
-    !.
+    write('        █ ▄█   ▀▄▀ ██▄ █▀▄ ░█░   █▀▀ █▄▄ ██▄ █▀█ ▄█ ██▄ █▄▀\n\n'),
+    player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    NGold is Gold + 50*Level,
+    NExp is 10*Level,
+    write('You got some rewards!\n'),
+    format('Exp : + ~d\nCurrent Gold: ~d\n', [NExp,NGold]),
+    retract(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    asserta(player(Role, Level, Exp, Attack, Defense, MaxHP, HP, Hearts, NGold)),
+    addExp(NExp),!.
 
 questCompleted :- !.
 
