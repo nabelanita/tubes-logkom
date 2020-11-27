@@ -1,7 +1,3 @@
-/* Includes 
-:- include('player.pl').
-:- include('inventory.pl').
-:- include('save.pl'). */
 
 /* dyamic */
 :- dynamic(inShop/1).
@@ -54,16 +50,6 @@ potion(10,corndog,20,10).
 
 /* Menu shop */
 
-/* Sekarang cuma bisa akses kalau lagi di S aja */
-/*
-shop :-
-    playerPos(X1,Y1), 
-    \+shopPos(X2,Y2), 
-    X1 is X2-1, 
-    Y1 is Y2,
-	write('You are not in the shop! \n'),
-	write('You can\'t access this command outside shop.\n'), !. */
-
 shop :-
     \+opened(_),
 	write('You haven\'t started the game! \n'),
@@ -79,7 +65,7 @@ shop :-
     write('░╚═══██╗██╔══██║██║░░██║██╔═══╝░'),nl,
     write('██████╔╝██║░░██║╚█████╔╝██║░░░░░'),nl,
     write('╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░'),nl,
-    write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (1000 Gold)\n3. Exit\n'),
+    write('What do you want to buy?\n1. Health Potion (100 Gold)\n2. Gacha (300 Gold)\n3. Exit\n'),
     write('Your choice: '),
     read(X),nl,
     shopMenu(X),!.
@@ -118,7 +104,7 @@ shopMenu(1) :-
 
 /* Kondisi jika uang cukup */
 shopMenu(2) :-
-    subGold(1000),
+    subGold(300),
     player(_, _, _, _, _, _, _, _, Money),
     write('Transaction successful!'),nl,
     write('Your money: '),
@@ -128,7 +114,7 @@ shopMenu(2) :-
 
 /* Kondisi jika uang gacukup */
 shopMenu(2) :-
-    \+ subGold(1000),
+    \+ subGold(300),
     transactionFailed,
     shop,!.
 

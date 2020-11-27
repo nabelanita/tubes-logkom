@@ -108,7 +108,7 @@ enemyStatus :-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    remainingHearts(NewHearts)
+    remainingHearts(NewHearts),
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
 
