@@ -80,7 +80,7 @@ up :-
     questPos(X2,Y2),
     X1 is X2, 
     Y1 is Y2 + 1,
-    write('Do you want to check tasks? (yes/no)\n'),
+    write('Do you want to take tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 up :- 
@@ -156,7 +156,7 @@ down :-
     questPos(X2,Y2), 
     X1 is X2, 
     Y1 is Y2 - 1,
-    write('Do you want to check tasks? (yes/no)\n'),
+    write('Do you want to take tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 down :- 
@@ -234,7 +234,7 @@ right :-
     questPos(X2,Y2), 
     X1 is X2 - 1, 
     Y1 is Y2,
-    write('Do you want to check tasks? (yes/no)\n'),
+    write('Do you want to take tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 right :- 
@@ -311,7 +311,7 @@ left :-
     questPos(X2,Y2), 
     X1 is X2 + 1, 
     Y1 is Y2,
-    write('Do you want to check tasks? (yes/no)\n'),
+    write('Do you want to take tasks? (yes/no)\n'),
     read(A),
     enterQuest(A), !.
 left :- 

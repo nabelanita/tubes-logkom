@@ -108,9 +108,36 @@ enemyStatus :-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    format('Current hearts: ~d\n', [NewHearts]),
+    remainingHearts(NewHearts)
     asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, NewHearts, Gold)),
     retract(enemy(Type, LevelEnemy, HPEnemy, AttackEnemy, DefenseEnemy, GoldBonus, ExpBonus)),!.
+
+remainingHearts(2):
+    write('                   ██ ██       ██ ██       ██   █\n'),
+    write('                  █▒▒█▒▒█     █▒▒█▒▒█     █▒▒█ █▒█\n'),
+    write('                  █▒▒▒▒▒█     █▒▒▒▒▒█     █▒▒█ █▒█\n'),
+    write('                   █▒▒▒█       █▒▒▒█       █▒█ █▒█\n'),
+    write('                    ███         ███         █ ███\n'),nl,
+    write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
+
+remainingHearts(1):
+    write('                   ██ ██       ██   █       ██   █\n'),
+    write('                  █▒▒█▒▒█     █▒▒█ █▒█     █▒▒█ █▒█\n'),
+    write('                  █▒▒▒▒▒█     █▒▒█ █▒█     █▒▒█ █▒█\n'),
+    write('                   █▒▒▒█       █▒█ █▒█      █▒█ █▒█\n'),
+    write('                    ███         █ ███        █ ███\n'),nl,
+    write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
+
+remainingHearts(1):
+    write('                   ██   █        ██   █       ██   █\n'),
+    write('                  █▒▒█ █▒█      █▒▒█ █▒█     █▒▒█ █▒█\n'),
+    write('                  █▒▒█ █▒█      █▒▒█ █▒█     █▒▒█ █▒█\n'),
+    write('                   █▒█ █▒█       █▒█ █▒█      █▒█ █▒█\n'),
+    write('                    █ ███         █ ███        █ ███\n'),nl,
+    write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
 
 %game over
 %keknya nanti bikin fungsi game over aja buat ngeretract smua database
@@ -128,8 +155,13 @@ checkPlayerDefeated(0) :-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    format('Current hearts: ~d\n', [NewHearts]),
-    write('You got fired!\n'),
+    remainingHearts(0),nl,,
+    write('██╗░░░██╗░█████╗░██╗░░░██╗██╗██████╗░███████╗  ███████╗██╗██████╗░███████╗██████╗░░░░'),nl,
+    write('╚██╗░██╔╝██╔══██╗██║░░░██║╚█║██╔══██╗██╔════╝  ██╔════╝██║██╔══██╗██╔════╝██╔══██╗░░░'),nl,
+    write('░╚████╔╝░██║░░██║██║░░░██║░╚╝██████╔╝█████╗░░  █████╗░░██║██████╔╝█████╗░░██║░░██║░░░'),nl,
+    write('░░╚██╔╝░░██║░░██║██║░░░██║░░░██╔══██╗██╔══╝░░  ██╔══╝░░██║██╔══██╗██╔══╝░░██║░░██║░░░'),nl,
+    write('░░░██║░░░╚█████╔╝╚██████╔╝░░░██║░░██║███████╗  ██║░░░░░██║██║░░██║███████╗██████╔╝██╗'),nl,
+    write('░░░╚═╝░░░░╚════╝░░╚═════╝░░░░╚═╝░░╚═╝╚══════╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░╚═╝'),nl,nl,
     retractstuff,
     read(X),
     openGame, !.

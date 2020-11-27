@@ -22,8 +22,9 @@ queststart :-
     task,!.
 
 queststart :-
-    \+ isQZero,
-    write('You still have tasks to be done!\n'),!.
+    \+ isQZero,nl,
+    write('█▀▀ █ █▄░█ █ █▀ █░█   █▄█ █▀█ █░█ █▀█   ▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █ █▀█ █▀ ▀█▀ █'),nl,
+    write('█▀░ █ █░▀█ █ ▄█ █▀█   ░█░ █▄█ █▄█ █▀▄   ░█░ █▀█ ▄█ █░█ ▄█   █▀░ █ █▀▄ ▄█ ░█░ ▄'),nl,!.
 
 addMile(W) :-
     quest(Wawal,X,Y),
@@ -77,7 +78,7 @@ task :-
     opened(_),
     started(_),
     \+ isQZero,
-    quest(W,X,Y),
+    quest(W,X,Y),nl,
     write('▀█▀ ▄▀█ █▀ █▄▀   █▄▄ █▀█ ▄▀█ █▀█ █▀▄\n'),
     write('░█░ █▀█ ▄█ █░█   █▄█ █▄█ █▀█ █▀▄ █▄▀\n'),nl,
     write('Here are the tasks that you need to do.\n'),nl,
