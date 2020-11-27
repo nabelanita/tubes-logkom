@@ -119,7 +119,7 @@ remainingHearts(2):
     write('                   █▒▒▒█       █▒▒▒█       █▒█ █▒█\n'),
     write('                    ███         ███         █ ███\n'),nl,
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
-    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
 remainingHearts(1):
     write('                   ██ ██       ██   █       ██   █\n'),
@@ -128,7 +128,7 @@ remainingHearts(1):
     write('                   █▒▒▒█       █▒█ █▒█      █▒█ █▒█\n'),
     write('                    ███         █ ███        █ ███\n'),nl,
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
-    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
 remainingHearts(0):
     write('                   ██   █        ██   █       ██   █\n'),
@@ -137,7 +137,7 @@ remainingHearts(0):
     write('                   █▒█ █▒█       █▒█ █▒█      █▒█ █▒█\n'),
     write('                    █ ███         █ ███        █ ███\n'),nl,
     write('             █░░ █▀█ █▀ ▀█▀   ▄▀█   █░█ █▀▀ ▄▀█ █▀█ ▀█▀   ▀ ▄▀\n'),
-    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄'),!.
+    write('             █▄▄ █▄█ ▄█ ░█░   █▀█   █▀█ ██▄ █▀█ █▀▄ ░█░   ▄ ▀▄\n'),!.
 
 %game over
 %keknya nanti bikin fungsi game over aja buat ngeretract smua database
@@ -155,7 +155,7 @@ checkPlayerDefeated(0) :-
     retract(inBattle(1)), asserta(inBattle(0)), 
     retract(specialAttackCount(_)),
     retract(enemySpecialAttack(_)), 
-    remainingHearts(0),nl,,
+    remainingHearts(0),nl,
     write('██╗░░░██╗░█████╗░██╗░░░██╗██╗██████╗░███████╗  ███████╗██╗██████╗░███████╗██████╗░░░░'),nl,
     write('╚██╗░██╔╝██╔══██╗██║░░░██║╚█║██╔══██╗██╔════╝  ██╔════╝██║██╔══██╗██╔════╝██╔══██╗░░░'),nl,
     write('░╚████╔╝░██║░░██║██║░░░██║░╚╝██████╔╝█████╗░░  █████╗░░██║██████╔╝█████╗░░██║░░██║░░░'),nl,
