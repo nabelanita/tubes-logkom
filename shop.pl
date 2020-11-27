@@ -154,9 +154,9 @@ transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n
 exitShop :- 
     !,
     retract(inShop(1)),
-    asserta(inShop(0)),
-    write('Thanks for coming.\n'), 
-    map, !. /* nanti harusnya kembali ke menu awal/map gitu*/
+    asserta(inShop(0)),nl,
+    write('█▀▀ █▀█ █▀▄▀█ █▀▀   ▄▀█ █▀▀ ▄▀█ █ █▄░█ █\n'),
+    write('█▄▄ █▄█ █░▀░█ ██▄   █▀█ █▄█ █▀█ █ █░▀█ ▄\n'),nl,nl,!. /* nanti harusnya kembali ke menu awal/map gitu*/
 
 /* Mencari apakah potion dan equipment ada di inventory */
 potion :-

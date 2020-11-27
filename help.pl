@@ -56,6 +56,8 @@ helpMenu(2):-
     write('█▀▀ █▀█ █▀▄▀█ █▀▄▀█ ▄▀█ █▄░█ █▀▄ █▀\n'),
     write('█▄▄ █▄█ █░▀░█ █░▀░█ █▀█ █░▀█ █▄▀ ▄█\n'),
     nl,
+    write('   save   : save your game\n'),
+    write('   load   : load previously saved game\n'),
     write('   map    : view map\n'),
     write('   status : view current status\n'),
     write('   task   : view running tasks\n'),

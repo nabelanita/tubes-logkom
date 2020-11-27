@@ -48,8 +48,9 @@ goalState :-
     write('             ▐░                                                                                         ▐░\n'),
     write('             ▐░                                                                                         ▐░\n'),
     write('             ▐░                                                                                         ▐░\n'),
-    retractstuff,
-    read(X),
+    retractstuff,nl,nl,nl,nl,
+    write('Press any key to continue. '),
+    read(X),nl,nl,nl,nl,
     backToMenu(X), !.
 
 backToMenu(_) :- openGame, !.
@@ -175,8 +176,9 @@ checkPlayerDefeated(0) :-
     write('░░╚██╔╝░░██║░░██║██║░░░██║░░░██╔══██╗██╔══╝░░  ██╔══╝░░██║██╔══██╗██╔══╝░░██║░░██║░░░'),nl,
     write('░░░██║░░░╚█████╔╝╚██████╔╝░░░██║░░██║███████╗  ██║░░░░░██║██║░░██║███████╗██████╔╝██╗'),nl,
     write('░░░╚═╝░░░░╚════╝░░╚═════╝░░░░╚═╝░░╚═╝╚══════╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░╚═╝'),nl,nl,
-    retractstuff,
-    read(X),
+    retractstuff,nl,nl,nl,nl,
+    write('Press any key to continue. '),
+    read(X),nl,nl,nl,nl,
     openGame, !.
 
 playerDamaged(Damage, 0) :- Damage < 1, 

@@ -64,6 +64,7 @@ openGame :-
     write('  %               S T A R T  M E N U              %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
     write('  %   start  : start your adventure!              %\n'),
+    write('  %   load   : load previously saved game         %\n'),
     write('  %   help   : open help menu                     %\n'),
     write('  %   quit   : quit game                          %\n'),
     write('  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'),
@@ -135,6 +136,7 @@ logo:-
     write('   %   d         : move to the east                %\n'),
     write('   %   a         : move to the west                %\n'),
     write('   %   help      : open help menu                  %\n'),
+    write('   %   save      : save your game                  %\n'),
     write('   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n').
 
 /* INVENTORY */
