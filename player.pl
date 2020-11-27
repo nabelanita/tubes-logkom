@@ -203,7 +203,7 @@ status :-
     printExp(X),
     format(' ~d/~d\n', [Exp, Lvl*10]),
     write('          Stamina: '),
-     Y is round((HP / (MaxHP))*20),
+    Y is round((HP / (MaxHP))*20),
     forall(between(0,Y,B),(write('▒'))), 
     format(' ~d/~d\n', [HP, MaxHP]),
     format('          ATK. ~d\n          DEF. ~d\n', [Attack, Defense]),
@@ -214,12 +214,11 @@ status :-
 status :-
     opened(_),
     write('You haven\'t started the game! \n'),
-    write('Type \'start\' to open the game. \n').
+	write('Type \'start\' to start the game. \n'),!.
 
 status :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n').
-
 
 /* Rule buat:
 Nanti si player bisa menggunakan equipment/potion yang udah dia beli.
