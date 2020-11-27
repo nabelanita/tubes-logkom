@@ -36,17 +36,17 @@ accMobDev(phone).
 accML(voice_recog).
 accML(robot).
 
-/* potion(idPotion,namaPotion,attack,defense). potion bisa nambah status attack dan defense pemain */
-potion(1,kalguksu,75,25).
-potion(2,koreanbbq, 100,50).
-potion(3,kimchi,50,25).
-potion(4,coffee,10,20).
-potion(5,samyang,10,25).
-potion(6,bibimbap,20,20).
-potion(7,gimbap,25,50).
-potion(8,galbi,50,25).
-potion(9,japchae,25,50).
-potion(10,corndog,20,10).
+/* potion(idPotion,namaPotion,HP). potion bisa nambah status attack dan defense pemain */
+potion(1,kalguksu,75).
+potion(2,koreanbbq,100).
+potion(3,kimchi,50).
+potion(4,coffee,10).
+potion(5,samyang,10).
+potion(6,bibimbap,20).
+potion(7,gimbap,25).
+potion(8,galbi,50).
+potion(9,japchae,25).
+potion(10,corndog,20).
 
 /* Menu shop */
 
@@ -127,13 +127,13 @@ shopMenu(_) :-
 randomEq :- 
     random(1,16,HasilGacha),
     equipment(HasilGacha,_,NamaEq,_,_),
-    write('You get:\n'),nl,
-    write(NamaEq),
+    write('You get:'),
+    write(NamaEq),nl,
     addItem(NamaEq),!. /* nambahin hasil gacha equipment ke inventory */
     
 
 buyPotion(IdPotion) :-
-    potion(IdPotion,NamaPotion,_,_),
+    potion(IdPotion,NamaPotion,_),
     write('You buy: '),
     write(NamaPotion),nl,
     addItem(NamaPotion),!. /* nambahin pembelian potion ke inventory */
@@ -176,12 +176,23 @@ cariEq(NamaEq) :-
 usePotion(NamaPotion) :-
     cariPotion(NamaPotion),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
-    potion(_,NamaPotion,AttackPotion,DefensePotion),
+    potion(_,NamaPotion,HPpotion),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
     write('Your potion has been activated successfully.'),nl,
-    NewAttack is Attack + AttackPotion,
-    NewDefense is Defense + DefensePotion,
-    asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
+    NewHP is HP + HPpotion,
+    NewHP >= MaxHP,
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, MaxHP, Hearts, Gold)),
+    delete(NamaPotion),!.
+
+usePotion(NamaPotion) :-
+    cariPotion(NamaPotion),
+    player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
+    potion(_,NamaPotion,HPpotion),
+    retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
+    write('Your potion has been activated successfully.'),nl,
+    NewHP is HP + HPpotion,
+    NewHP < MaxHP,
+    asserta(player(Role, Lvl, Exp, Attack, Defense, MaxHP, NewHP, Hearts, Gold)),
     delete(NamaPotion),!.
 
 /* Hee mager bikin menunya lagi 

@@ -54,6 +54,8 @@ goalState :-
 
 backToMenu(_) :- openGame, !.
 
+
+
 enemyType('Work Stolen') :-
     write('          █░█░█ █▀█ █▀█ █▄▀   █▀ ▀█▀ █▀█ █░░ █▀▀ █▄░█\n'),
     write('          ▀▄▀▄▀ █▄█ █▀▄ █░█   ▄█ ░█░ █▄█ █▄▄ ██▄ █░▀█\n'), !.
