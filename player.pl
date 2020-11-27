@@ -214,13 +214,15 @@ status :-
 
 
 status :-
-    opened(_),
-    write('You haven\'t started the game! \n'),
-    write('Type \'start\' to open the game. \n').
+    opened(_),!,false,startMsg.
 
 status :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n').
+
+startMsg :-
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n').
 
 
 /* Rule buat:

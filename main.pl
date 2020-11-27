@@ -148,3 +148,7 @@ quit :-
     write('██████╔╝███████╗███████╗  ░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝╚█████╔╝╚█████╔╝██║░╚███║██╗'),nl,
     write('╚═════╝░╚══════╝╚══════╝  ░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝'),nl,
     halt. /* ini buat keluar dari gprolog */ 
+
+startMsg :-
+	write('You haven\'t started the game! \n'),
+	write('Type \'start\' to start the game. \n').
