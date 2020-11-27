@@ -157,6 +157,12 @@ transactionFailed :- write('Transaction failed.\nYou don\'t have enough money.\n
 exitShop :- write('Thanks for coming.\n'), map, !. /* nanti harusnya kembali ke menu awal/map gitu*/
 
 /* Mencari apakah potion dan equipment ada di inventory */
+potion :-
+    nl,
+    write('What potion do you want to use? '), nl,
+    read(X),
+    usePotion(X), !.
+
 cariPotion(NamaPotion) :-
     playerInventory(ListItem),
     member(NamaPotion,ListItem),!.
@@ -193,7 +199,15 @@ usePotion(NamaPotion) :-
     write(' in your inventory. Try to use another potion.'),nl,!.
 
 /* use Eq gatau sih perlu atau engga */
+equip :-
+    nl,
+    write('What equipment do you want to activate? '),nl,
+    read(X),
+    useEq(X), nl,
+    !.
+
 useEq(NamaEq) :-
+    cariEq(NamaEq),
     player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold),
     equipment(_,_,_,AttackEq,DefenseEq),
     retract(player(Role, Lvl, Exp, Attack, Defense, MaxHP, HP, Hearts, Gold)),
@@ -203,8 +217,8 @@ useEq(NamaEq) :-
     asserta(player(Role, Lvl, Exp, NewAttack, NewDefense, MaxHP, HP, Hearts, Gold)),
     delete(NamaEq),!.
 /* Kalo ternyata gaada di inventory */
-usePotion(NamaEq) :-
-    \+ cariPotion(NamaEq),
+useEq(NamaEq) :-
+    \+ cariEq(NamaEq),
     write('You don\'t have '),
     write(NamaEq),
     write(' in your inventory. Try to use another equipment.'),nl,!.
